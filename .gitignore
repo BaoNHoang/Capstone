@@ -25,7 +25,6 @@ Thumbs.db
 # Pytest cache
 .pytest_cache/
 
-
 # Build and distribution
 build/
 dist/
