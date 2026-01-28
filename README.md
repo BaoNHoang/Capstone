@@ -27,6 +27,7 @@ npm install
 npm run dev
 To close -> Ctrl C -> Y
 
+```
 User Input
    ↓
 Frontend Form
@@ -49,7 +50,6 @@ Frontend Result Display
 [Predictor] [Dashboard]
       ↓
 [Results Page]
-
-
+```
 
 Stock photos from www.pexels.com
