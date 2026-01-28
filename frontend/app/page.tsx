@@ -80,7 +80,7 @@ export default function StartPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: .65 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 2 }}
+          transition={{ duration: 3 }}
         />
       </AnimatePresence>
 
