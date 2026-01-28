@@ -22,15 +22,20 @@ interface Dot {
 
 function FloatingDots({ count = 35 }: { count?: number }) {
   const colors = ['bg-blue-300', 'bg-purple-300'];
-  const [dots] = useState<Dot[]>(() =>
-    Array.from({ length: count }, () => ({
+  const [dots, setDots] = useState<Dot[] | null>(null);
+
+  useEffect(() => {
+    const generated = Array.from({ length: count }, () => ({
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
-      animationDuration: `${2 + Math.random() * 4}s`, 
-      animationDelay: `${Math.random() * 4}s`, 
+      animationDuration: `${2 + Math.random() * 4}s`,
+      animationDelay: `${Math.random() * 4}s`,
       color: colors[Math.floor(Math.random() * colors.length)],
-    }))
-  );
+    }));
+    setDots(generated);
+  }, [count]);
+
+  if (!dots) return null; // Don't render on server
 
   return (
     <>
@@ -59,7 +64,7 @@ export default function StartPage() {
 
     let interval = setInterval(() => {
       setIndex(Math.floor(Math.random() * BACKGROUNDS.length));
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
