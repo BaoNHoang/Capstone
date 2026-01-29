@@ -1,29 +1,24 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
-export default function HomePage() {
-    const router = useRouter();
+export default function LoginPage() {
 
     return (
-        <main className="mx-auto max-w-4xl p-10">
-            <h1 className="mb-8 text-3xl font-bold text-black">Home</h1>
-
-            <div className="grid gap-6 md:grid-cols-2">
-                <button
-                    onClick={() => router.push('/predictor')}
-                    className="rounded-xl, bg-white p-6 shadow hover:shadow-lg, font-bold, text-black"
-                >
-                    Disease Predictor
+        <main className="flex min-h-screen items-center justify-center p-4">
+            <form className="w-full max-w-sm rounded-2xl bg-white p-8 shadow">
+                <h1 className="text-2xl font-extrabold text-gray-900">Login</h1>
+                <label className="mt-6 block text-sm font-bold text-gray-800">Email</label>
+                <input
+                    className="mt-2 w-full text-center rounded-lg border p-2"
+                />
+                <label className="mt-4 block text-sm font-bold text-gray-800">Password</label>
+                <input
+                    className="mt-2 w-full rounded-lg border p-2"
+                    type="password"
+                />
+                <button className="mt-6 w-full rounded-xl bg-blue-500 py-3 font-bold text-white hover:bg-blue-700">
+                    Sign in
                 </button>
-
-                <button
-                    onClick={() => router.push('/dashboard')}
-                    className="rounded-xl bg-white p-6 shadow hover:shadow-lg, font-bold, text-black"
-                >
-                    Dashboard
-                </button>
-            </div>
+            </form>
         </main>
     );
 }
