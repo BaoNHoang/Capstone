@@ -23,7 +23,6 @@ interface Dot {
 function FloatingDots() {
   const colors = ['bg-blue-300', 'bg-purple-300'];
   const [dots, setDots] = useState<Dot[] | null>(null);
-
   useEffect(() => {
     const generated = Array.from({ length: 35 }, () => ({
       left: `${Math.random() * 100}%`,
@@ -34,10 +33,8 @@ function FloatingDots() {
     }));
     setDots(generated);
   }, []);
-
   if (!dots)
     return null;
-
   return (
     <>
       {dots.map((dot, i) => (
@@ -60,19 +57,14 @@ function FloatingDots() {
 
 export default function StartPage() {
   const [index, setIndex] = useState(0);
-
   useEffect(() => {
-
     let interval = setInterval(() => {
       setIndex(Math.floor(Math.random() * BACKGROUNDS.length));
     }, 4000);
-
     return () => clearInterval(interval);
   }, []);
-
   return (
     <div className="relative min-h-screen overflow-hidden">
-
       <AnimatePresence>
         <motion.div
           key={index}
@@ -84,15 +76,11 @@ export default function StartPage() {
           transition={{ duration: 3 }}
         />
       </AnimatePresence>
-
       <div className="absolute inset-0 bg-black/25" />
-
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <FloatingDots />
       </div>
-
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4">
-
         <motion.h1
           className="mb-4 text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 md:text-9xl"
           initial={{ opacity: 0, y: -30 }}
@@ -101,7 +89,6 @@ export default function StartPage() {
         >
           MedPredict
         </motion.h1>
-
         <motion.p
           className="mb-8 max-w-2xl text-center text-xl font-extrabold text-white md:text-2xl"
           initial={{ opacity: 0 }}
@@ -110,7 +97,6 @@ export default function StartPage() {
         >
           Turning Data Into Better Health Decisions
         </motion.p>
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -128,7 +114,6 @@ export default function StartPage() {
             </motion.button>
           </Link>
         </motion.div>
-
       </div>
     </div>
   );
