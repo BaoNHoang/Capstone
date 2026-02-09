@@ -42,13 +42,13 @@ export default function HomePage() {
                         </h1>
                         <p className="mt-5 text-lg font-semibold text-gray-700 md:text-xl">
                             Analyzes common data to
-                            estimate risk for diseases starting with <span className="font-extrabold">atherosclerosis</span>.
+                            estimate risk for diseases starting with <span className="font-extrabold text-2xl">atherosclerosis</span>.
                         </p>
                     </div>
                 </div>
             </section>
             <section id="features" className="mx-auto max-w-6xl px-6 py-16">
-                <h2 className="text-3xl font-extrabold text-gray-900">What MedPredict does</h2>
+                <h2 className="text-3xl font-extrabold text-gray-900">What <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600"> MedPredict </span> does</h2>
                 <p className="mt-2 max-w-2xl text-gray-600">
                     Designed to be scalable across diseases while starting with atherosclerosis risk prediction.
                 </p>
@@ -101,6 +101,43 @@ export default function HomePage() {
                     </div>
                 </div>
             </section>
+            <footer className="bg-gray-900 text-gray-300">
+                <div className="mx-auto max-w-6xl px-6 py-16">
+                    <div className="grid gap-8 md:grid-cols-4">
+                        <div>
+                            <div className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-4">MedPredict</div>
+                            <p className="text-sm">Turning Data Into Better Health Decisions</p>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-white mb-4">Product</h3>
+                            <ul className="space-y-2 text-sm">
+                                <li><a href="#features" className="hover:text-white">Features</a></li>
+                                <li><a href="#how" className="hover:text-white">How it Works</a></li>
+                                <li><a href="#" className="hover:text-white">Pricing</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-white mb-4">Company</h3>
+                            <ul className="space-y-2 text-sm">
+                                <li><a href="#" className="hover:text-white">About</a></li>
+                                <li><a href="#" className="hover:text-white">Blog</a></li>
+                                <li><a href="#" className="hover:text-white">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-white mb-4">Follow Us</h3>
+                            <div className="flex gap-4">
+                                <a href="#" className="hover:text-blue-400">Twitter</a>
+                                <a href="#" className="hover:text-blue-400">LinkedIn</a>
+                                <a href="#" className="hover:text-blue-400">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-8 border-t border-gray-700 pt-8 text-center text-sm">
+                        <p>&copy; 2026 MedPredict. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
             <LoginModal
                 open={loginOpen}
                 onClose={() => setLoginOpen(false)}
