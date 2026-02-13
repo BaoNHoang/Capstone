@@ -58,6 +58,26 @@ function FloatingDots() {
   );
 }
 
+function Reveal({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: 'easeOut', delay: 0 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function LandingPage() {
   const [authed, setAuthed] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
@@ -188,111 +208,114 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="platform" className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <div className="grid gap-10 md:grid-cols-2 md:items-start">
-            <div>
-              <h2 className="text-4xl font-extrabold text-gray-900">
-                <p className="text-4xl font-extrabold text-gray-900">One platform</p>
-                <p className="text-4xl font-extrabold text-gray-900">Clear results</p>
-              </h2>
-              <p className="mt-4 text-gray-600 font-semibold">
-                <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600"> MedPredict </span> turns your everyday health numbers into a risk summary so you can
-                understand what they may mean and take smarter next steps. As we grow, the same experience
-                will support more conditions without changing how you use the app.
-              </p>
-              <div className="mt-8 grid gap-4">
-                <div className="rounded-2xl border border-gray-200 bg-white p-6">
-                  <div className="mt-2 text-lg font-extrabold text-gray-900">
-                    Pick how you want your results calculated.
+      <Reveal>
+        <section id="platform" className="bg-gray-50">
+          <div className="mx-auto max-w-6xl px-6 py-16">
+            <div className="grid gap-10 md:grid-cols-2 md:items-start">
+              <div>
+                <h2 className="text-4xl font-extrabold text-gray-900">
+                  <p className="text-4xl font-extrabold text-gray-900">One platform</p>
+                  <p className="text-4xl font-extrabold text-gray-900">Clear results</p>
+                </h2>
+                <p className="mt-4 text-gray-600 font-semibold">
+                  <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600"> MedPredict </span> turns your everyday health numbers into a risk summary so you can
+                  understand what they may mean and take smarter next steps. As we grow, the same experience
+                  will support more conditions without changing how you use the app.
+                </p>
+                <div className="mt-8 grid gap-4">
+                  <div className="rounded-2xl border border-gray-200 bg-white p-6">
+                    <div className="mt-2 text-lg font-extrabold text-gray-900">
+                      Pick how you want your results calculated.
+                    </div>
+                    <p className="mt-2 text-sm font-semibold text-gray-600">
+                      Choose from multiple prediction options all in one dropdown.
+                    </p>
                   </div>
-                  <p className="mt-2 text-sm font-semibold text-gray-600">
-                    Choose from multiple prediction options all in one dropdown.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-gray-200 bg-white p-6">
-                  <div className="mt-2 text-lg font-extrabold text-gray-900">
-                    A clear risk stage with a confidence score.
+                  <div className="rounded-2xl border border-gray-200 bg-white p-6">
+                    <div className="mt-2 text-lg font-extrabold text-gray-900">
+                      A clear risk stage with a confidence score.
+                    </div>
+                    <p className="mt-2 text-sm font-semibold text-gray-600">
+                      Every prediction is deliveredso it’s easy to understand and compare.
+                    </p>
                   </div>
-                  <p className="mt-2 text-sm font-semibold text-gray-600">
-                    Every prediction is deliveredso it’s easy to understand and compare.
-                  </p>
                 </div>
               </div>
-            </div>
-            <div className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
-              <div className="text-sm font-extrabold text-gray-900">What you get</div>
-              <div className="mt-5 grid gap-4">
-                <div className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
-                  <div>
-                    <div className="font-extrabold text-gray-900">Guided data entry</div>
-                    <div className="text-sm font-semibold text-gray-600">
-                      Built around common numbers people already have—blood pressure, cholesterol, BMI, glucose, and more.
+              <div className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
+                <div className="text-sm font-extrabold text-gray-900">What you get</div>
+                <div className="mt-5 grid gap-4">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
+                    <div>
+                      <div className="font-extrabold text-gray-900">Guided data entry</div>
+                      <div className="text-sm font-semibold text-gray-600">
+                        Built around common numbers people already have—blood pressure, cholesterol, BMI, glucose, and more.
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
-                  <div>
-                    <div className="font-extrabold text-gray-900">Fast, reliable predictions</div>
-                    <div className="text-sm font-semibold text-gray-600">
-                      Designed to return results quickly and consistently—whether you’re using a baseline model or deep learning.
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
+                    <div>
+                      <div className="font-extrabold text-gray-900">Fast, reliable predictions</div>
+                      <div className="text-sm font-semibold text-gray-600">
+                        Designed to return results quickly and consistently—whether you’re using a baseline model or deep learning.
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
-                  <div>
-                    <div className="font-extrabold text-gray-900">Your history in one place</div>
-                    <div className="text-sm font-semibold text-gray-600">
-                      Save past inputs and predictions to track trends over time in your dashboard.
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
+                    <div>
+                      <div className="font-extrabold text-gray-900">Your history in one place</div>
+                      <div className="text-sm font-semibold text-gray-600">
+                        Save past inputs and predictions to track trends over time in your dashboard.
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
-                  <div>
-                    <div className="font-extrabold text-gray-900">Built to expand</div>
-                    <div className="text-sm font-semibold text-gray-600">
-                      Starting with atherosclerosis, with a foundation that supports adding more conditions as the platform grows.
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
+                    <div>
+                      <div className="font-extrabold text-gray-900">Built to expand</div>
+                      <div className="text-sm font-semibold text-gray-600">
+                        Starting with atherosclerosis, with a foundation that supports adding more conditions as the platform grows.
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section id="how" className="bg-gray-50">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <h2 className="text-3xl font-extrabold text-gray-900">How it works</h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <div className="rounded-2xl bg-white p-6 shadow">
-              <div className="text-sm font-bold text-blue-400">Step 1</div>
-              <div className="mt-2 text-lg font-extrabold text-gray-700">Login for privacy</div>
-              <p className="mt-2 text-sm text-gray-600">
-                Your health inputs and prediction history are protected by your account.
-              </p>
-            </div>
-            <div className="rounded-2xl bg-white p-6 shadow">
-              <div className="text-sm font-bold text-blue-400">Step 2</div>
-              <div className="mt-2 text-lg font-extrabold text-gray-700">Enter your metrics</div>
-              <p className="mt-2 text-sm text-gray-600">
-                Blood pressure, cholesterol, BMI, glucose, and other factors.
-              </p>
-            </div>
-            <div className="rounded-2xl bg-white p-6 shadow flex flex-col h-full">
-              <div className="text-sm font-bold text-blue-400">Step 3</div>
-              <div className="mt-2 text-lg font-extrabold text-gray-700">Get results</div>
-              <p className="mt-2 text-sm text-gray-600">
-                View risk stage, probability, and recommended next actions.
-              </p>
+        </section>
+      </Reveal>
+      <Reveal>
+        <section id="how" className="bg-gray-50">
+          <div className="mx-auto max-w-6xl px-6 py-16">
+            <h2 className="text-3xl font-extrabold text-gray-900">How it works</h2>
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              <div className="rounded-2xl bg-white p-6 shadow">
+                <div className="text-sm font-bold text-blue-400">Step 1</div>
+                <div className="mt-2 text-lg font-extrabold text-gray-700">Login for privacy</div>
+                <p className="mt-2 text-sm text-gray-600">
+                  Your health inputs and prediction history are protected by your account.
+                </p>
+              </div>
+              <div className="rounded-2xl bg-white p-6 shadow">
+                <div className="text-sm font-bold text-blue-400">Step 2</div>
+                <div className="mt-2 text-lg font-extrabold text-gray-700">Enter your metrics</div>
+                <p className="mt-2 text-sm text-gray-600">
+                  Blood pressure, cholesterol, BMI, glucose, and other factors.
+                </p>
+              </div>
+              <div className="rounded-2xl bg-white p-6 shadow flex flex-col h-full">
+                <div className="text-sm font-bold text-blue-400">Step 3</div>
+                <div className="mt-2 text-lg font-extrabold text-gray-700">Get results</div>
+                <p className="mt-2 text-sm text-gray-600">
+                  View risk stage, probability, and recommended next actions.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Reveal>
 
       <footer className="bg-gray-900 text-gray-300">
         <div className="mx-auto max-w-6xl px-6 py-16">
