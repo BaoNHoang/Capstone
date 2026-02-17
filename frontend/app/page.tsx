@@ -4,21 +4,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import LoginModal from '@/components/LoginModal';
+import { img } from 'framer-motion/client';
+
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const bp = (p: string) => `${BASE}${p}`;
 
 const BACKGROUNDS = [
-  '/backgrounds/bg1.jpg',
-  '/backgrounds/bg2.jpg',
-  '/backgrounds/bg3.jpg',
-  '/backgrounds/bg4.jpg',
-  '/backgrounds/bg5.jpg',
+  bp('/backgrounds/bg1.jpg'),
+  bp('/backgrounds/bg2.jpg'),
+  bp('/backgrounds/bg3.jpg'),
+  bp('/backgrounds/bg4.jpg'),
+  bp('/backgrounds/bg5.jpg'),
 ];
 
 const CAROUSEL_TILES = [
-  { title: 'About', subtitle: 'Learn more about MedPredict', href: '/about', img: '/backgrounds/bg2.jpg' },
-  { title: 'Products', subtitle: 'Shop our medical tools', href: '#', img: '/backgrounds/bg3.jpg' },
-  { title: 'Technology', subtitle: 'Our advanced AI models', href: '#', img: '/backgrounds/bg4.jpg' },
-  { title: 'Careers', subtitle: 'Join our team', href: '#', img: '/backgrounds/bg5.jpg' },
-  { title: 'Privacy', subtitle: 'Your information is our priority', href: '#', img: '/backgrounds/bg1.jpg' },
+  { title: 'About', subtitle: 'Learn more about MedPredict', href: '/about', img: bp('/backgrounds/bg2.jpg') },
+  { title: 'Products', subtitle: 'Shop our medical tools', href: '#', img: bp('/backgrounds/bg3.jpg') },
+  { title: 'Technology', subtitle: 'Our advanced AI models', href: '#', img: bp('/backgrounds/bg4.jpg') },
+  { title: 'Careers', subtitle: 'Join our team', href: '#', img: bp('/backgrounds/bg5.jpg') },
+  { title: 'Privacy', subtitle: 'Your information is our priority', href: '#', img: bp('/backgrounds/bg1.jpg') },
 ];
 
 interface Dot {
