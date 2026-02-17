@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import LoginModal from '@/components/LoginModal';
-import { img } from 'framer-motion/client';
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const bp = (p: string) => `${BASE}${p}`;
@@ -105,6 +104,7 @@ function HorizontalCarousel4Up() {
         }}
         aria-label="Explore carousel">
         <div className="flex gap-3 py-3" style={{ width: 'max-content' }}>
+          <Reveal>
           {CAROUSEL_TILES.map((t, i) => (
             <a
               key={`${t.title}-${i}`}
@@ -125,6 +125,7 @@ function HorizontalCarousel4Up() {
               </div>
             </a>
           ))}
+          </Reveal>
         </div>
       </div>
     </div>
