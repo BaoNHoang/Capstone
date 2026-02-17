@@ -13,6 +13,14 @@ const BACKGROUNDS = [
   '/backgrounds/bg5.jpg',
 ];
 
+const CAROUSEL_TILES = [
+  { title: 'Disease Predictor', subtitle: 'Run a prediction', href: '#', img: '/backgrounds/bg2.jpg' },
+  { title: 'Dashboard', subtitle: 'View your history', href: '#', img: '/backgrounds/bg3.jpg' },
+  { title: 'Models', subtitle: 'Compare approaches', href: '#', img: '/backgrounds/bg4.jpg' },
+  { title: 'Privacy', subtitle: 'Account security', href: '#', img: '/backgrounds/bg5.jpg' },
+  { title: 'Atherosclerosis', subtitle: 'Learn what it means', href: '#', img: '/backgrounds/bg1.jpg' },
+];
+
 interface Dot {
   left: string;
   top: string;
@@ -75,6 +83,52 @@ function Reveal({
     >
       {children}
     </motion.div>
+  );
+}
+
+function HorizontalCarousel4Up() {
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+
+  return (
+    <div className="relative">
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-white to-white/0 z-2" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-2 bg-gradient-to-l from-white to-white/0 z-2" />
+
+      <div
+        ref={scrollerRef}
+        className="no-scrollbar overflow-x-auto scroll-smooth"
+        style={{
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+        }}
+        aria-label="Explore carousel"
+      >
+        <div className="flex gap-3 py-3" style={{ width: 'max-content' }}>
+          {CAROUSEL_TILES.map((t, i) => (
+            <a
+              key={`${t.title}-${i}`}
+              href={t.href}
+              className="group relative shrink-0 overflow-hidden rounded-3xl border-1 border-gray-900 bg-white shadow-sm"
+              style={{
+                width: 'min(1000px, calc((100vw - 10px) / 4))',
+              }}
+            >
+              <div
+                className="h-[340px] w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                style={{ backgroundImage: `url(${t.img})` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/25 to-black/85" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="text-xl font-extrabold text-white">{t.title}</div>
+                <div className="mt-1 text-sm font-semibold text-white/85">
+                  {t.subtitle}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -208,9 +262,22 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <section id="explore" className="bg-white">
+        <div className="mx-auto max-w-8xl px-6 py-3">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between">
+            <div>
+            </div>
+            <div className="text-sm font-bold text-gray-500">Scroll →</div>
+          </div>
+          <div>
+            <HorizontalCarousel4Up />
+          </div>
+        </div>
+      </section>
+
       <Reveal>
-        <section id="platform" className="bg-gray-50">
-          <div className="mx-auto max-w-6xl px-6 py-16">
+        <section id="platform" className="bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-16">
             <div className="grid gap-10 md:grid-cols-2 md:items-start">
               <div>
                 <h2 className="text-4xl font-extrabold text-gray-900">
@@ -236,7 +303,7 @@ export default function LandingPage() {
                       A clear risk stage with a confidence score.
                     </div>
                     <p className="mt-2 text-sm font-semibold text-gray-600">
-                      Every prediction is deliveredso it’s easy to understand and compare.
+                      Every prediction is delivered so it’s easy to understand and compare.
                     </p>
                   </div>
                 </div>
@@ -245,38 +312,38 @@ export default function LandingPage() {
                 <div className="text-sm font-extrabold text-gray-900">What you get</div>
                 <div className="mt-5 grid gap-4">
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
+                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
                     <div>
                       <div className="font-extrabold text-gray-900">Guided data entry</div>
                       <div className="text-sm font-semibold text-gray-600">
-                        Built around common numbers people already have—blood pressure, cholesterol, BMI, glucose, and more.
+                        Built around common numbers people already have to make it easy to get predictions without needing extra tests or devices.
                       </div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
+                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
                     <div>
                       <div className="font-extrabold text-gray-900">Fast, reliable predictions</div>
                       <div className="text-sm font-semibold text-gray-600">
-                        Designed to return results quickly and consistently—whether you’re using a baseline model or deep learning.
+                        Designed to return results quickly and consistently so you can get the information you need when it matters most.
                       </div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
+                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
                     <div>
                       <div className="font-extrabold text-gray-900">Your history in one place</div>
                       <div className="text-sm font-semibold text-gray-600">
-                        Save past inputs and predictions to track trends over time in your dashboard.
+                        Save past inputs and predictions to track trends over time in your dashboard and support more informed health decisions.
                       </div>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-500" />
+                    <div className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
                     <div>
                       <div className="font-extrabold text-gray-900">Built to expand</div>
                       <div className="text-sm font-semibold text-gray-600">
-                        Starting with atherosclerosis, with a foundation that supports adding more conditions as the platform grows.
+                        Starting with a foundation that supports adding more conditions as the platform grows without changing how you use it.
                       </div>
                     </div>
                   </div>
@@ -286,28 +353,29 @@ export default function LandingPage() {
           </div>
         </section>
       </Reveal>
+
       <Reveal>
-        <section id="how" className="bg-gray-50">
-          <div className="mx-auto max-w-6xl px-6 py-16">
+        <section id="how" className="bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-4">
             <h2 className="text-3xl font-extrabold text-gray-900">How it works</h2>
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="mt-6 grid gap-6 md:grid-cols-3">
               <div className="rounded-2xl bg-white p-6 shadow">
                 <div className="text-sm font-bold text-blue-400">Step 1</div>
-                <div className="mt-2 text-lg font-extrabold text-gray-700">Login for privacy</div>
+                <div className="mt-2 text-lg font-extrabold text-gray-900">Login for privacy</div>
                 <p className="mt-2 text-sm text-gray-600">
                   Your health inputs and prediction history are protected by your account.
                 </p>
               </div>
               <div className="rounded-2xl bg-white p-6 shadow">
                 <div className="text-sm font-bold text-blue-400">Step 2</div>
-                <div className="mt-2 text-lg font-extrabold text-gray-700">Enter your metrics</div>
+                <div className="mt-2 text-lg font-extrabold text-gray-900">Enter your metrics</div>
                 <p className="mt-2 text-sm text-gray-600">
                   Blood pressure, cholesterol, BMI, glucose, and other factors.
                 </p>
               </div>
               <div className="rounded-2xl bg-white p-6 shadow flex flex-col h-full">
                 <div className="text-sm font-bold text-blue-400">Step 3</div>
-                <div className="mt-2 text-lg font-extrabold text-gray-700">Get results</div>
+                <div className="mt-2 text-lg font-extrabold text-gray-900">Get results</div>
                 <p className="mt-2 text-sm text-gray-600">
                   View risk stage, probability, and recommended next actions.
                 </p>
@@ -318,10 +386,10 @@ export default function LandingPage() {
       </Reveal>
 
       <footer className="bg-gray-900 text-gray-300">
-        <div className="mx-auto max-w-6xl px-6 py-16">
+        <div className="mx-auto max-w-6xl px-6 py-10">
           <div className="grid gap-8 md:grid-cols-4">
             <div>
-              <div className=" text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-4">MedPredict</div>
+              <div className=" text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-2">MedPredict</div>
               <p className="text-sm">Turning Data Into Better Health Decisions</p>
             </div>
             <div>
@@ -349,7 +417,7 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-          <div className="mt-8 border-t border-gray-700 pt-8 text-center text-sm">
+          <div className="mt-5 border-t border-gray-700 pt-5 text-center text-sm">
             <p>&copy; 2026 MedPredict. All rights reserved.</p>
           </div>
         </div>
