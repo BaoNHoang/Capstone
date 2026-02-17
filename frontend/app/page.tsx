@@ -14,11 +14,11 @@ const BACKGROUNDS = [
 ];
 
 const CAROUSEL_TILES = [
-  { title: 'Disease Predictor', subtitle: 'Run a prediction', href: '#', img: '/backgrounds/bg2.jpg' },
-  { title: 'Dashboard', subtitle: 'View your history', href: '#', img: '/backgrounds/bg3.jpg' },
-  { title: 'Models', subtitle: 'Compare approaches', href: '#', img: '/backgrounds/bg4.jpg' },
-  { title: 'Privacy', subtitle: 'Account security', href: '#', img: '/backgrounds/bg5.jpg' },
-  { title: 'Atherosclerosis', subtitle: 'Learn what it means', href: '#', img: '/backgrounds/bg1.jpg' },
+  { title: 'About', subtitle: 'Learn more about MedPredict', href: '/about', img: '/backgrounds/bg2.jpg' },
+  { title: 'Products', subtitle: 'Shop our medical tools', href: '#', img: '/backgrounds/bg3.jpg' },
+  { title: 'Technology', subtitle: 'Our advanced AI models', href: '#', img: '/backgrounds/bg4.jpg' },
+  { title: 'Careers', subtitle: 'Join our team', href: '#', img: '/backgrounds/bg5.jpg' },
+  { title: 'Privacy', subtitle: 'Your information is our priority', href: '#', img: '/backgrounds/bg1.jpg' },
 ];
 
 interface Dot {
@@ -79,8 +79,7 @@ function Reveal({
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.8, ease: 'easeOut', delay: 0 }}
-    >
+      transition={{ duration: 0.8, ease: 'easeOut', delay: 0 }}>
       {children}
     </motion.div>
   );
@@ -93,7 +92,6 @@ function HorizontalCarousel4Up() {
     <div className="relative">
       <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-white to-white/0 z-2" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-2 bg-gradient-to-l from-white to-white/0 z-2" />
-
       <div
         ref={scrollerRef}
         className="no-scrollbar overflow-x-auto scroll-smooth"
@@ -101,8 +99,7 @@ function HorizontalCarousel4Up() {
           WebkitOverflowScrolling: 'touch',
           scrollbarWidth: 'none',
         }}
-        aria-label="Explore carousel"
-      >
+        aria-label="Explore carousel">
         <div className="flex gap-3 py-3" style={{ width: 'max-content' }}>
           {CAROUSEL_TILES.map((t, i) => (
             <a
@@ -111,12 +108,10 @@ function HorizontalCarousel4Up() {
               className="group relative shrink-0 overflow-hidden rounded-3xl border-1 border-gray-900 bg-white shadow-sm"
               style={{
                 width: 'min(1000px, calc((100vw - 10px) / 4))',
-              }}
-            >
+              }}>
               <div
                 className="h-[340px] w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url(${t.img})` }}
-              />
+                style={{ backgroundImage: `url(${t.img})` }}/>
               <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/25 to-black/85" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <div className="text-xl font-extrabold text-white">{t.title}</div>
@@ -155,7 +150,7 @@ export default function LandingPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex(Math.floor(Math.random() * BACKGROUNDS.length));
-    }, 4500);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -173,36 +168,27 @@ export default function LandingPage() {
             transition={{ duration: 2.2 }}
           />
         </AnimatePresence>
-
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/65" />
-
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <FloatingDots />
         </div>
-
         <header className="sticky top-0 z-20 border-b border-white/10 bg-black/25 backdrop-blur">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             <div className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
               MedPredict
             </div>
-
             <nav className="hidden items-center gap-6 md:flex">
-              <a href="#features" className="text-sm font-semibold text-white/80 hover:text-white">
-                Features
+              <a href="/about" className="text-sm font-semibold text-white/80 hover:text-white">
+                About
               </a>
               <a href="#how" className="text-sm font-semibold text-white/80 hover:text-white">
                 How it works
               </a>
-              <a href="/about" className="text-sm font-semibold text-white/80 hover:text-white">
-                About
-              </a>
             </nav>
-
             <div className="flex items-center gap-3">
               <button
                 className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/15"
-                onClick={() => setLoginOpen(true)}
-              >
+                onClick={() => setLoginOpen(true)}>
                 Log in
               </button>
             </div>
@@ -220,8 +206,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: -14, filter: 'blur(6px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, y: 10, filter: 'blur(6px)' }}
-                transition={{ duration: 0.8 }}
-              >
+                transition={{ duration: 0.8 }}>
                 {headlineStep === 0 ? (
                   <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">
                     Turning Data Into Better Health Decisions
@@ -238,8 +223,7 @@ export default function LandingPage() {
             className="mt-5 max-w-2xl text-lg font-semibold text-white/85 md:text-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.25, duration: 0.8 }}
-          >
+            transition={{ delay: 0.25, duration: 0.8 }}>
             Analyzes common data to estimate risk for diseases starting with <span className="font-extrabold text-2xl">atherosclerosis</span>
           </motion.p>
 
@@ -253,8 +237,7 @@ export default function LandingPage() {
                 className='block text-center'
                 initial={{ opacity: 0, y: -18 }}
                 animate={{ y: [0, 5, 0], opacity: 1 }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
+                transition={{ duration: 2, repeat: Infinity }}>
                 🡇
               </motion.span>
             </motion.p>
@@ -267,7 +250,7 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between">
             <div>
             </div>
-            <div className="text-sm font-bold text-gray-500">Scroll →</div>
+            <div className="text-sm font-bold text-gray-500">→</div>
           </div>
           <div>
             <HorizontalCarousel4Up />
@@ -280,11 +263,11 @@ export default function LandingPage() {
           <div className="mx-auto max-w-7xl px-6 py-16">
             <div className="grid gap-10 md:grid-cols-2 md:items-start">
               <div>
-                <h2 className="text-4xl font-extrabold text-gray-900">
-                  <p className="text-4xl font-extrabold text-gray-900">One platform</p>
-                  <p className="text-4xl font-extrabold text-gray-900">Clear results</p>
+                <h2 className="text-6xl font-extrabold text-gray-900">
+                  <p>One platform</p>
+                  <p>Clear results</p>
                 </h2>
-                <p className="mt-4 text-gray-600 font-semibold">
+                <p className="mt-4 text-lg text-gray-600 font-semibold">
                   <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600"> MedPredict </span> turns your everyday health numbers into a risk summary so you can
                   understand what they may mean and take smarter next steps. As we grow, the same experience
                   will support more conditions without changing how you use the app.
@@ -355,9 +338,143 @@ export default function LandingPage() {
       </Reveal>
 
       <Reveal>
-        <section id="how" className="bg-white">
+        <section id="partners" className="bg-white">
           <div className="mx-auto max-w-7xl px-6 py-4">
-            <h2 className="text-3xl font-extrabold text-gray-900">How it works</h2>
+            <div className="max-w-7xl">
+              <h2 className="mt-1 text-m font-extrabold tracking-tight text-gray-900 md:text-5xl">
+                Built alongside teams
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">
+                  who care about outcomes
+                </span>
+              </h2>
+              <p className="mt-6 text-lg font-semibold leading-relaxed text-gray-600">
+                MedPredict is designed with input from fictional research groups, community health programs,
+                and privacy-first infrastructure teams. These collaborations help us test the product
+                experience from data entry to risk explanations so that the results stay accurate, clear, and useful.
+              </p>
+            </div>
+            <div className="mt-6 grid gap-10 md:grid-cols-2">
+              <div className="border-l-4 border-blue-200 pl-6">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
+                  Clinical + Research Partner
+                </div>
+                <h3 className="mt-3 text-2xl font-extrabold text-gray-900">
+                  Tidewater Cardio Collaborative
+                </h3>
+                <p className="mt-3 text-base font-semibold text-gray-600">
+                  A fictional network of clinicians and researchers that helps us refine how we translate
+                  metrics into understandable risk stages. Their feedback focuses on clarity, consistency,
+                  and avoiding medical jargon where it doesn’t help.
+                </p>
+                <div className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
+                  <li>Helps review risk stage labeling and explanation tone</li>
+                  <li>Validates “what to do next” language for readability</li>
+                  <li>Advises on the most common inputs people already have access to</li>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a
+                    href="/partners/tidewater-cardio-collaborative"
+                    className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
+                    View partner page →
+                  </a>
+                </div>
+              </div>
+              <div className="border-l-4 border-purple-400 pl-6">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
+                  Community Program Partner
+                </div>
+                <h3 className="mt-3 text-2xl font-extrabold text-gray-900">
+                  BrightBridge Wellness Coalition
+                </h3>
+                <p className="mt-3 text-base font-semibold text-gray-600">
+                  A fictional community health partner that helps us keep MedPredict approachable. They guide
+                  how we present steps, offer context, and keep the experience encouraging, especially for
+                  people using health apps for the first time.
+                </p>
+                <div className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
+                  <li>Tests the guided data-entry flow for simplicity</li>
+                  <li>Improves “next steps” recommendations to be practical</li>
+                  <li>Helps design language that feels supportive, not scary</li>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a
+                    href="/partners/brightbridge-wellness"
+                    className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
+                    View partner page →
+                  </a>
+                </div>
+              </div>
+              <div className="border-l-4 border-gray-900 pl-6">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
+                  Privacy + Infrastructure Partner
+                </div>
+                <h3 className="mt-3 text-2xl font-extrabold text-gray-900">Northstar Secure Cloud</h3>
+                <p className="mt-3 text-base font-semibold text-gray-600">
+                  A fictional infrastructure partner supporting secure authentication and reliable
+                  performance. Their guidance informs how we think about encryption, access controls, and
+                  keeping yours and ours sensitive information protected.
+                </p>
+                <div className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
+                  <li>Advises on authentication and account security patterns</li>
+                  <li>Helps define safe defaults for data storage and access</li>
+                  <li>Reviews system reliability and performance under load</li>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a
+                    href="/partners/northstar-secure-cloud"
+                    className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
+                    View partner page →
+                  </a>
+                </div>
+              </div>
+              <div className="border-l-4 border-blue-600 pl-6">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
+                  Data + Evaluation Partner
+                </div>
+                <h3 className="mt-3 text-2xl font-extrabold text-gray-900">Crescent Metrics Lab</h3>
+                <p className="mt-3 text-base font-semibold text-gray-600">
+                  A fictional evaluation lab that helps us check model behavior and user outputs.
+                  Established in 1984, they have decades of experience evaluating medical models and algorithms to ensure they meet high standards for reliability and clarity.
+                </p>
+                <div className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
+                  <li>Reviews prediction stability across common input ranges</li>
+                  <li>Helps design confidence and uncertainty explanations</li>
+                  <li>Flags confusing edge cases that need product fixes</li>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a
+                    href="/partners/crescent-metrics-lab"
+                    className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
+                    View partner page →
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="mt-14 border-t border-gray-200 pt-8">
+              <p className="max-w-4xl text-sm font-semibold leading-relaxed text-gray-600">
+                Note: The organizations above are fictional and shown as an example layout for a partners section.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="/partners"
+                  className="rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95">
+                  Explore all partners →
+                </a>
+                <a
+                  href="/partners/apply"
+                  className="rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
+                  Partner with us →
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </Reveal>
+
+      <Reveal>
+        <section id="how" className="bg-white">
+          <div className="mx-auto max-w-7xl px-6 py-16">
+            <h2 className="text-5xl font-extrabold text-gray-900">How it works</h2>
             <div className="mt-6 grid gap-6 md:grid-cols-3">
               <div className="rounded-2xl bg-white p-6 shadow">
                 <div className="text-sm font-bold text-blue-400">Step 1</div>
