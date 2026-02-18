@@ -24,51 +24,6 @@ const CAROUSEL_TILES = [
   { title: 'Privacy', subtitle: 'Your information is our priority', href: '#', img: bp('/backgrounds/bg1.jpg') },
 ];
 
-interface Dot {
-  left: string;
-  top: string;
-  animationDuration: string;
-  animationDelay: string;
-  color: string;
-}
-
-function FloatingDots() {
-  const colors = ['bg-blue-300', 'bg-purple-300'];
-  const [dots, setDots] = useState<Dot[] | null>(null);
-
-  useEffect(() => {
-    const generated = Array.from({ length: 35 }, () => ({
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      animationDuration: `${8 + Math.random() * 10}s`,
-      animationDelay: `${Math.random() * 4}s`,
-      color: colors[Math.floor(Math.random() * colors.length)],
-    }));
-    setDots(generated);
-  }, []);
-
-  if (!dots) return null;
-
-  return (
-    <>
-      {dots.map((dot, i) => (
-        <div
-          key={i}
-          className={`absolute h-2 w-2 rounded-full ${dot.color} animate-float`}
-          style={{
-            left: dot.left,
-            top: dot.top,
-            opacity: 0.35,
-            animationDuration: dot.animationDuration,
-            animationDelay: dot.animationDelay,
-          }}
-          aria-hidden="true"
-        />
-      ))}
-    </>
-  );
-}
-
 function Reveal({
   children,
   className = '',
@@ -103,7 +58,6 @@ function HorizontalCarousel4Up() {
           scrollbarWidth: 'none',
         }}
         aria-label="Explore carousel">
-        <Reveal>
           <div className="flex gap-3 py-3" style={{ width: 'max-content' }}>
             {CAROUSEL_TILES.map((t, i) => (
               <a
@@ -114,11 +68,13 @@ function HorizontalCarousel4Up() {
                   width: 'min(1000px, calc((100vw - 10px) / 4))',
                 }}>
                 <div
-                  className="h-[340px] w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                  className="h-[200px] w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   style={{ backgroundImage: `url(${t.img})` }} />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/25 to-black/85" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/35 to-black/85" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div className="text-xl font-extrabold text-white">{t.title}</div>
+                  <div className="text-xl font-extrabold text-white">
+                    {t.title}
+                  </div>
                   <div className="mt-1 text-sm font-semibold text-white/85">
                     {t.subtitle}
                   </div>
@@ -126,7 +82,6 @@ function HorizontalCarousel4Up() {
               </a>
             ))}
           </div>
-        </Reveal>
       </div>
     </div>
   );
@@ -159,6 +114,15 @@ export default function LandingPage() {
     return () => clearInterval(interval);
   }, []);
 
+useEffect(() => {
+  const all = [...BACKGROUNDS, ...CAROUSEL_TILES.map(t => t.img)];
+  all.forEach((src) => {
+    const img = new Image();
+    img.decoding = "async";
+    img.src = src;
+  });
+}, []);
+
   return (
     <main className="relative min-h-screen overflow-x-hidden">
       <section className="relative min-h-screen overflow-hidden">
@@ -170,14 +134,13 @@ export default function LandingPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.7 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 2.2 }}
+            transition={{ duration: 2.5, ease: 'easeInOut' }}
           />
         </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/65" />
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <FloatingDots />
         </div>
-        <header className="sticky top-0 z-20 border-b border-white/10 bg-black/25 backdrop-blur">
+        <header className="sticky top-0 z-20 border-b border-white/10 bg-black/30">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             <div className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
               MedPredict
@@ -208,9 +171,9 @@ export default function LandingPage() {
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={headlineStep}
-                initial={{ opacity: 0, y: -14, filter: 'blur(6px)' }}
+                initial={{ opacity: 0, y: -14, filter: 'blur(2px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: 10, filter: 'blur(6px)' }}
+                exit={{ opacity: 0, y: 10, filter: 'blur(2px)' }}
                 transition={{ duration: 0.8 }}>
                 {headlineStep === 0 ? (
                   <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">
