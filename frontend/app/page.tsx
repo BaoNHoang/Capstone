@@ -104,7 +104,7 @@ function HorizontalCarousel4Up() {
         }}
         aria-label="Explore carousel">
         <Reveal>
-        <div className="flex gap-3 py-3" style={{ width: 'max-content' }}>
+          <div className="flex gap-3 py-3" style={{ width: 'max-content' }}>
             {CAROUSEL_TILES.map((t, i) => (
               <a
                 key={`${t.title}-${i}`}
@@ -125,7 +125,7 @@ function HorizontalCarousel4Up() {
                 </div>
               </a>
             ))}
-        </div>
+          </div>
         </Reveal>
       </div>
     </div>
@@ -242,7 +242,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: -18 }}
                 animate={{ y: [0, 5, 0], opacity: 1 }}
                 transition={{ duration: 2, repeat: Infinity }}>
-                🡇
+                ⌄
               </motion.span>
             </motion.p>
           </div>
@@ -379,7 +379,7 @@ export default function LandingPage() {
                   <a
                     href="/partners/tidewater-cardio-collaborative"
                     className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
-                    View partner page →
+                    View partner page
                   </a>
                 </div>
               </div>
@@ -404,7 +404,7 @@ export default function LandingPage() {
                   <a
                     href="/partners/brightbridge-wellness"
                     className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
-                    View partner page →
+                    View partner page
                   </a>
                 </div>
               </div>
@@ -427,7 +427,7 @@ export default function LandingPage() {
                   <a
                     href="/partners/northstar-secure-cloud"
                     className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
-                    View partner page →
+                    View partner page
                   </a>
                 </div>
               </div>
@@ -449,25 +449,18 @@ export default function LandingPage() {
                   <a
                     href="/partners/crescent-metrics-lab"
                     className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
-                    View partner page →
+                    View partner page
                   </a>
                 </div>
               </div>
             </div>
             <div className="mt-14 border-t border-gray-200 pt-8">
-              <p className="max-w-4xl text-sm font-semibold leading-relaxed text-gray-600">
-                Note: The organizations above are fictional and shown as an example layout for a partners section.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
+
+              <div className="mt-1 flex flex-wrap gap-3">
                 <a
                   href="/partners"
                   className="rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95">
-                  Explore all partners →
-                </a>
-                <a
-                  href="/partners/apply"
-                  className="rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
-                  Partner with us →
+                  Explore all partners
                 </a>
               </div>
             </div>
