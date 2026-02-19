@@ -17,7 +17,7 @@ const BACKGROUNDS = [
 ];
 
 const CAROUSEL_TILES = [
-  { title: 'About', subtitle: 'Learn more about MedPredict', href: '/about', img: bp('/backgrounds/bg2.jpg') },
+  { title: 'About', subtitle: 'Learn more about MedPredict', href: './about', img: bp('/backgrounds/bg2.jpg') },
   { title: 'Products', subtitle: 'Shop our medical tools', href: '#', img: bp('/backgrounds/bg3.jpg') },
   { title: 'Technology', subtitle: 'Our advanced AI models', href: '#', img: bp('/backgrounds/bg4.jpg') },
   { title: 'Careers', subtitle: 'Join our team', href: '#', img: bp('/backgrounds/bg5.jpg') },
@@ -45,6 +45,33 @@ function Reveal({
 
 function HorizontalCarousel4Up() {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const [mouseMode, setMouseMode] = useState(false);
+  const mouseModeTimeout = useRef<number | null>(null);
+  const pingMouseMode = () => {
+    setMouseMode(true);
+    if (mouseModeTimeout.current) window.clearTimeout(mouseModeTimeout.current);
+    mouseModeTimeout.current = window.setTimeout(() => setMouseMode(false), 2500);
+  };
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      pingMouseMode();
+      const mostlyHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      if (mostlyHorizontal) return;
+      const canScrollX = el.scrollWidth > el.clientWidth;
+      if (!canScrollX) return;
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    };
+    const onMouseMove = () => pingMouseMode();
+    el.addEventListener("wheel", onWheel, { passive: false });
+    el.addEventListener("mousemove", onMouseMove);
+    return () => {
+      el.removeEventListener("wheel", onWheel as any);
+      el.removeEventListener("mousemove", onMouseMove);
+    };
+  }, []);
 
   return (
     <div className="relative">
@@ -52,33 +79,31 @@ function HorizontalCarousel4Up() {
       <div className="pointer-events-none absolute inset-y-0 right-0 w-2 bg-gradient-to-l from-white to-white/0 z-2" />
       <div
         ref={scrollerRef}
-        className="no-scrollbar overflow-x-auto scroll-smooth"
+        className={[
+          "overflow-x-auto scroll-smooth",
+          mouseMode ? "mouse-scrollbar" : "no-scrollbar",
+        ].join(" ")}
         style={{
-          WebkitOverflowScrolling: 'touch',
-          scrollbarWidth: 'none',
+          WebkitOverflowScrolling: "touch",
+          scrollbarWidth: mouseMode ? "auto" : "none",
+          overscrollBehavior: "contain",
         }}
         aria-label="Explore carousel">
         <Reveal>
-          <div className="flex gap-3 py-3" style={{ width: 'max-content' }}>
+          <div className="flex gap-3 py-3" style={{ width: "max-content" }}>
             {CAROUSEL_TILES.map((t, i) => (
               <a
                 key={`${t.title}-${i}`}
                 href={t.href}
                 className="group relative shrink-0 overflow-hidden rounded-3xl border-1 border-gray-900 bg-white shadow-sm"
-                style={{
-                  width: 'min(1000px, calc((100vw - 10px) / 4))',
-                }}>
+                style={{ width: "min(1000px, calc((100vw - 10px) / 4))" }}>
                 <div
                   className="h-[200px] w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${t.img})` }} />
+                  style={{ backgroundImage: `url(${t.img})` }}/>
                 <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/35 to-black/85" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div className="text-xl font-extrabold text-white">
-                    {t.title}
-                  </div>
-                  <div className="mt-1 text-sm font-semibold text-white/85">
-                    {t.subtitle}
-                  </div>
+                  <div className="text-xl font-extrabold text-white">{t.title}</div>
+                  <div className="mt-1 text-sm font-semibold text-white/85">{t.subtitle}</div>
                 </div>
               </a>
             ))}
@@ -88,6 +113,7 @@ function HorizontalCarousel4Up() {
     </div>
   );
 }
+
 
 export default function LandingPage() {
   const [authed, setAuthed] = useState(false);
@@ -144,16 +170,29 @@ export default function LandingPage() {
         </div>
         <header className="sticky top-0 z-20 border-b border-white/10 bg-black/30">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <div className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
+            <Link
+              href="/" className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
               MedPredict
-            </div>
-            <nav className="hidden items-center gap-6 md:flex">
-              <a href="/about" className="text-sm font-semibold text-white/80 hover:text-white">
+            </Link>
+            <nav className="hidden items-center gap-10 md:flex">
+              <Link href="/" className="text-1xl font-semibold text-white/80 hover:text-white">
+                Home
+              </Link>
+              <Link href="/about" className="text-1xl font-semibold text-white/80 hover:text-white">
                 About
-              </a>
-              <a href="#how" className="text-sm font-semibold text-white/80 hover:text-white">
-                How it works
-              </a>
+              </Link>
+              <Link href="#" className="text-1xl font-semibold text-white/80 hover:text-white">
+                Products
+              </Link>
+              <Link href="#" className="text-1xl font-semibold text-white/80 hover:text-white">
+                Technology
+              </Link>
+              <Link href="#" className="text-1xl font-semibold text-white/80 hover:text-white">
+                Careers
+              </Link>
+              <Link href="#" className="text-1xl font-semibold text-white/80 hover:text-white">
+                Privacy
+              </Link>
             </nav>
             <div className="flex items-center gap-3">
               <button
@@ -173,10 +212,10 @@ export default function LandingPage() {
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={headlineStep}
-                initial={{ opacity: 0, y: -14, filter: 'blur(2px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: 10, filter: 'blur(2px)' }}
-                transition={{ duration: 0.8 }}>
+                initial={{ opacity: 0, y: -14, }}
+                animate={{ opacity: 1, y: 0, }}
+                exit={{ opacity: 0, y: 10, }}
+                transition={{ duration: 0.7, ease: 'easeInOut' }}>
                 {headlineStep === 0 ? (
                   <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">
                     Turning Data Into Better Health Decisions
@@ -194,7 +233,7 @@ export default function LandingPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.25, duration: 0.8 }}>
-            Analyzes common data to estimate risk for diseases starting with <span className="font-extrabold text-2xl">atherosclerosis</span>
+            Analyzes common data to estimate risk for diseases
           </motion.p>
           <div className="absolute bottom-2 left-0 right-0 z-10 flex justify-center">
             <motion.p className="text-white/80 hover:text-white text-sm font-bold"
@@ -244,18 +283,18 @@ export default function LandingPage() {
                 <div className="mt-8 grid gap-4">
                   <div className="rounded-2xl border border-gray-200 bg-white p-6">
                     <div className="mt-2 text-lg font-extrabold text-gray-900">
-                      Pick how you want your results calculated.
+                      Pick how you want your results calculated
                     </div>
                     <p className="mt-2 text-sm font-semibold text-gray-600">
-                      Choose from multiple prediction options all in one dropdown.
+                      Choose from multiple prediction options all in one dropdown
                     </p>
                   </div>
                   <div className="rounded-2xl border border-gray-200 bg-white p-6">
                     <div className="mt-2 text-lg font-extrabold text-gray-900">
-                      A clear risk stage with a confidence score.
+                      A clear risk stage with a confidence score
                     </div>
                     <p className="mt-2 text-sm font-semibold text-gray-600">
-                      Every prediction is delivered so it’s easy to understand and compare.
+                      Every prediction is delivered so it’s easy to understand and compare
                     </p>
                   </div>
                 </div>
@@ -490,9 +529,9 @@ export default function LandingPage() {
             <div>
               <h3 className="font-bold text-white mb-4">Follow Us</h3>
               <div className="flex gap-4">
-                <a href="#" className="hover:text-blue-400">Twitter</a>
-                <a href="#" className="hover:text-blue-400">LinkedIn</a>
-                <a href="#" className="hover:text-blue-400">GitHub</a>
+                <a href="#" className="hover:text-blue-400">Instagram</a>
+                <a href="https://www.linkedin.com/in/bao-nguyen-hoang/" className="hover:text-blue-400">LinkedIn</a>
+                <a href="https://github.com/BaoNHoang/MedPredict://github.com/BaoNHoang/" className="hover:text-blue-400">GitHub</a>
               </div>
             </div>
           </div>

@@ -10,3 +10,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.mouse-scrollbar::-webkit-scrollbar { height: 0px; }
+.mouse-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255); border-radius: 999px; }
+.mouse-scrollbar::-webkit-scrollbar-track { background: transparent; }
