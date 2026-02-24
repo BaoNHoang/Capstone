@@ -173,8 +173,31 @@ def gen_one():
 
     row["risk_score"] = risk_score_val
     row["plaque_stage"] = plaque_stage_val
+    
+    if plaque_stage_val >= 3:
+        row["health_label"] = "high_risk"
+    elif plaque_stage_val == 2:
+        row["health_label"] = "moderate_risk"
+    else:
+        row["health_label"] = "low_risk"
 
     return row
 
+def synthesize_csv(n=1000, out_path="synthetic_athero.csv", seed=3):
+    random.seed(seed)
+
+    columns = [
+        "age_years","sex","height_cm","weight_kg","smoking_status","activity_level",
+        "family_history_heart_disease","hypertension","diabetes","on_statin","on_bp_meds",
+        "clinical_ascvd_history","heart_attack_history","stroke_tia_history","peripheral_artery_disease_history",
+        "recent_cardio_event_12mo","multi_plaque_dev","blood_pressure_mmHg","ldl_mg_dL",
+        "risk_score","plaque_stage","health_label",
+    ]
+    with open(out_path, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=columns)
+        writer.writeheader()
+        for _ in range(n):
+            writer.writerow(gen_one())
+
 if __name__ == "__main__":
-    pass
+    synthesize_csv(n=10000)
