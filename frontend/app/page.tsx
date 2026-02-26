@@ -1,5 +1,5 @@
 'use client';
-
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
@@ -120,7 +120,7 @@ export default function LandingPage() {
 
   const [index, setIndex] = useState(0);
   const [headlineStep, setHeadlineStep] = useState<0 | 1>(0);
-
+  const router = useRouter();
   const startedRef = useRef(false);
 
   useEffect(() => {
@@ -174,8 +174,8 @@ export default function LandingPage() {
               MedPredict
             </Link>
             <nav className="hidden items-center gap-25 md:flex">
-              <Link href="/" className="text-1xl font-semibold text-white/80 hover:text-white">
-                Home
+              <Link href="/dashboard" className="text-1xl font-semibold text-white/80 hover:text-white">
+                Dashboard
               </Link>
               <Link href="/about" className="text-1xl font-semibold text-white/80 hover:text-white">
                 About
@@ -506,7 +506,11 @@ export default function LandingPage() {
       <LoginModal
         open={loginOpen}
         onClose={() => setLoginOpen(false)}
-        onSuccess={() => setAuthed(true)}
+        onSuccess={() => {
+          setAuthed(true);
+          setLoginOpen(false);
+          router.push('/dashboard');
+        }}
       />
     </main>
   );
