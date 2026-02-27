@@ -1,84 +1,61 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoginModal from '@/components/LoginModal';
-import SiteHeader from '@/components/SiteHeader';
-import SiteFooter from '@/components/SiteFooter';
+
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? 'http://localhost:8000';
-
-const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
-const bp = (p: string) => `${BASE}${p}`;
-
-const BACKGROUNDS = [
-  bp('/backgrounds/bg1.jpg'),
-  bp('/backgrounds/bg2.jpg'),
-  bp('/backgrounds/bg3.jpg'),
-  bp('/backgrounds/bg4.jpg'),
-  bp('/backgrounds/bg5.jpg'),
-];
 
 type ID = {
   id: number;
   username?: string;
 };
 
-function Reveal({
+function Card({
+  title,
+  subtitle,
   children,
-  className = '',
 }: {
+  title: string;
+  subtitle?: string;
   children: React.ReactNode;
-  className?: string;
 }) {
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 1.5, ease: 'easeOut', delay: 0 }}>
-      {children}
-    </motion.div>
+    <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">{title}</div>
+      {subtitle ? <div className="mt-2 text-sm font-semibold text-gray-600">{subtitle}</div> : null}
+      <div className="mt-5">{children}</div>
+    </div>
   );
 }
 
 export default function DashboardPage() {
   const router = useRouter();
   const [loginOpen, setLoginOpen] = useState(false);
-  const [index, setIndex] = useState(0);
   const [id, setID] = useState<ID | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const displayName = id?.username
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex(Math.floor(Math.random() * BACKGROUNDS.length));
-    }, 9000);
-    return () => clearInterval(interval);
-  }, []);
+  const displayName = useMemo(() => {
+    if (!id) return '';
+    return id.username?.trim() ? id.username : `User #${id.id}`;
+  }, [id]);
 
-  useEffect(() => {
-    BACKGROUNDS.forEach((src) => {
-      const img = new Image();
-      img.decoding = 'async';
-      img.src = src;
-    });
-  }, []);
-
-  async function refreshMe() {
+  async function process() {
     setLoading(true);
     try {
       const res = await fetch(`${API_BASE}/auth/me_cookie`, {
         method: 'GET',
         credentials: 'include',
       });
+
       if (!res.ok) {
         setID(null);
         return;
       }
+
       const data = (await res.json()) as ID;
       setID(data);
     } catch {
@@ -89,7 +66,7 @@ export default function DashboardPage() {
   }
 
   useEffect(() => {
-    refreshMe();
+    process();
   }, []);
 
   async function logout() {
@@ -106,86 +83,162 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
-      <section className="relative min-h-[10vh] max-h-[300px] overflow-hidden">
-        <AnimatePresence>
+    <main className="min-h-screen">
+      <header className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-850 to-slate-700" />
+        <div className="relative mx-auto max-w-7xl px-6 py-12">
           <motion.div
-            key={index}
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${BACKGROUNDS[index]})` }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.7 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.4, ease: 'easeInOut' }}/>
-        </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70" />
-        <SiteHeader
-          authed={!!id}
-          displayName={displayName}
-          onLoginClick={() => setLoginOpen(true)}
-          onLogoutClick={logout}/>
-        <div className="relative mx-auto flex min-h-[calc(30vh-72px)] max-w-6xl flex-col justify-center px-6 pb-2">
-          <div className="max-w-4xl">
-            <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">Dashboard</h1>
-          </div>
-          <p className="mt-4 max-w-2xl text-lg font-semibold text-white/85 md:text-xl">
-            Your saved activity, predictions, and account info.
-          </p>
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45 }}
+            className="flex flex-col gap-8">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between">
+              <div
+                className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                MedPredict
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/25"
+                  onClick={() => router.push('/')}>
+                  Home
+                </button>
+                <button
+                  className="rounded-2xl bg-white/80 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
+                  onClick={() => router.push('/')}>
+                  Predictor
+                </button>
+                {id ? (
+                  <button
+                    className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white hover:bg-red-800"
+                    onClick={logout}>
+                    Logout
+                  </button>
+                ) : (
+                  <button
+                    className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/15"
+                    onClick={() => setLoginOpen(true)}>
+                    Login
+                  </button>
+                )}
+              </div>
+            </div>
+            <div>
+              {loading ? (
+                <div className="h-5 w-56 animate-pulse rounded bg-white/15" />
+              ) : id ? (
+                <div className="text-lg font-extrabold text-white">
+                  <h1 className="text-4xl font-extrabold text-white md:text-5xl">
+                    Welcome back, <span className="text-white/90">{displayName}</span> </h1>
+                </div>
+              ) : (
+                <div className="text-lg font-extrabold text-white">
+                  You’re not signed in. Login to access your tools and saved results.
+                </div>
+              )}
+              <div className="mt-3 text-sm font-semibold text-white/75">
+                Note: This dashboard is for informational product features only and does not provide medical advice.
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </section>
+      </header>
 
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-16">
-          {loading ? (
-            <div className="text-sm font-semibold text-gray-600">Loading…</div>
-          ) : !id ? (
-            <Reveal>
-              <div className="max-w-2xl">
-                <h2 className="text-3xl font-extrabold text-gray-900">Login first</h2>
-                <p className="mt-3 text-lg font-semibold text-gray-600">
-                  You need to be signed in to access the dashboard.
-                </p>
+      <section className="mx-auto max-w-7xl px-6 py-10">
+        {loading ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                <div className="h-3 w-28 animate-pulse rounded bg-gray-100" />
+                <div className="mt-4 h-6 w-44 animate-pulse rounded bg-gray-100" />
+                <div className="mt-3 h-4 w-full animate-pulse rounded bg-gray-100" />
+                <div className="mt-2 h-4 w-5/6 animate-pulse rounded bg-gray-100" />
+                <div className="mt-6 h-10 w-32 animate-pulse rounded-xl bg-gray-100" />
+              </div>
+            ))}
+          </div>
+        ) : !id ? (
+          <div className="grid gap-6 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <Card title="Access required" subtitle="Sign in to use your medical tools and view history.">
+                <div className="space-y-3 text-sm font-semibold text-gray-700">
+                  <div>• Run predictions from your personal predictor page</div>
+                  <div>• Save and view prior runs (once you add storage later)</div>
+                  <div>• Keep your session private with account login</div>
+                </div>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <button
-                    className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-blue-700"
+                    className="rounded-2xl bg-slate-900 px-5 py-3 text-sm font-extrabold text-white hover:bg-slate-800"
                     onClick={() => setLoginOpen(true)}>
-                    Open login
+                    Go to Login
                   </button>
                   <button
-                    className="rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-extrabold text-gray-900 hover:bg-gray-50"
+                    className="rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-extrabold text-gray-900 hover:bg-gray-50"
                     onClick={() => router.push('/')}>
-                    Back to home
+                    Back to Home
+                  </button>
+                </div>
+              </Card>
+            </div>
+            <div className="lg:col-span-5">
+              <Card title="Predictor preview" subtitle="You can still view the predictor page UI.">
+                <p className="text-sm font-semibold text-gray-700">
+                  If your predictor page doesn’t require authentication yet, you can open it now.
+                </p>
+                <div className="mt-6">
+                  <button
+                    className="w-full rounded-2xl bg-blue-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-blue-700"
+                    onClick={() => router.push('/')}>
+                    Open Predictor
+                  </button>
+                </div>
+              </Card>
+            </div>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <Card title="Account" subtitle={displayName}>
+                <div>
+                  <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">User ID</div>
+                  <div className="mt-1 text-lg font-extrabold text-gray-900">{id.id}</div>
+                </div>
+            </Card>
+            <Card title="Medical tools">
+              <div className="space-y-3 text-sm font-semibold text-gray-700">
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                  <div className="text-sm font-extrabold text-gray-900">Atherosclerosis Risk Predictor</div>
+                  <div className="mt-1 text-xs font-semibold text-gray-600">
+                    Enter basic health inputs and receive a risk score + potential stage.
+                  </div>
+                  <button
+                    className="mt-3 rounded-xl bg-slate-900 px-4 py-2 text-xs font-extrabold text-white hover:bg-slate-800"
+                    onClick={() => router.push("/")}>
+                    Open tool
+                  </button>
+                </div>
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                  <div className="text-sm font-extrabold text-gray-900">Results History</div>
+                  <div className="mt-1 text-xs font-semibold text-gray-600">
+                    (Placeholder) Add DB storage later to save prior predictions.
+                  </div>
+                  <button
+                    className="mt-3 rounded-xl border border-gray-300 bg-white px-4 py-2 text-xs font-extrabold text-gray-900 hover:bg-gray-50"
+                    onClick={() => alert('Reminder to fill')}>
+                    View history
                   </button>
                 </div>
               </div>
-            </Reveal>
-          ) : (
-            <div className="grid gap-10 lg:grid-cols-12">
-              <div className="lg:col-span-4">
-                <div className="space-y-6">
-                  <div>
-                    <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">Account</div>
-                    <div className="mt-2 text-2xl font-extrabold text-gray-900">{displayName}</div>
-                  </div>
-                  <div>
-                    <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">Status</div>
-                    <div className="mt-2 text-2xl font-extrabold text-gray-900">Session active</div>
-                  </div>
-                </div>
-              </div>
-              </div>
-          )}
-        </div>
+            </Card>
+          </div>
+        )}
       </section>
-      <SiteFooter />
       <LoginModal
         open={loginOpen}
         onClose={() => setLoginOpen(false)}
         onSuccess={() => {
           setLoginOpen(false);
-          refreshMe();
-        }}
-      />
+          process();
+        }} />
     </main>
   );
 }

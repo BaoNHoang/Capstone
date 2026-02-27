@@ -115,7 +115,7 @@ export default function AboutPage() {
         <SiteHeader
           authed={!!id}
           onLoginClick={() => setLoginOpen(true)}
-          onLogoutClick={logout} />
+          onLogoutClick={logout}/>
         <div className="relative mx-auto flex min-h-[calc(30vh-72px)] max-w-6xl flex-col justify-center px-6 pb-2">
           <div className="max-w-4xl">
             <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">

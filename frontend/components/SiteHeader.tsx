@@ -23,9 +23,6 @@ export default function SiteHeader({
                     MedPredict
                 </Link>
                 <nav className="hidden items-center gap-25 md:flex">
-                    <Link href="/dashboard" className="text-1xl font-semibold text-white/80 hover:text-white">
-                        Dashboard
-                    </Link>
                     <Link href="/about" className="text-1xl font-semibold text-white/80 hover:text-white">
                         About
                     </Link>
