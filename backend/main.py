@@ -7,16 +7,17 @@ from jose import jwt, JWTError
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
+from fastapi import Cookie
 
-from sqlalchemy import create_engine, String, DateTime, Integer, select, UniqueConstraint
+from sqlalchemy import create_engine, String, Integer, select, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
 
 
 class Settings(BaseSettings):
     DATABASE_URL: str
-    JWT_SECRET: str = "dev-secret-change-me"
+    JWT_SECRET: str = "dev-key"
     JWT_ALG: str = "HS256"
-    ACCESS_TOKEN_MINUTES: int = 60 * 24  # 1 day
+    ACCESS_TOKEN_MINUTES: int = 60 
 
     class Config:
         env_file = ".env"
@@ -34,12 +35,10 @@ class Base(DeclarativeBase):
 class User(Base):
     __tablename__ = "users"
     __table_args__ = (UniqueConstraint("username", name="uq_users_username"),)
-
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     username: Mapped[str] = mapped_column(String(50), nullable=False)
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
-
+    
 def init_db():
     Base.metadata.create_all(engine)
 
@@ -47,7 +46,7 @@ def get_db():
     with Session(engine) as db:
         yield db
 
-pwd_ctx = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
+pwd_ctx = CryptContext(schemes=["pbkdf2_sha256"])
 
 def hash_password(pw: str) -> str:
     return pwd_ctx.hash(pw)
@@ -88,11 +87,6 @@ app.add_middleware(
 )
 
 
-@app.on_event("startup")
-def on_startup():
-    init_db()
-
-
 COOKIE_NAME = "access_token"
 
 
@@ -108,7 +102,6 @@ def signup(body: AuthBody, db: Session = Depends(get_db)):
     u = User(
         username=body.username,
         hashed_password=hash_password(body.password),
-        created_at=datetime.now(timezone.utc),
     )
     db.add(u)
     db.commit()
@@ -148,9 +141,6 @@ def logout(response: Response):
 def me(db: Session = Depends(get_db), access_token: Optional[str] = None):
 
     raise HTTPException(status_code=500, detail="Use /auth/me_cookie endpoint")
-
-
-from fastapi import Cookie
 
 
 @app.get("/auth/me_cookie")

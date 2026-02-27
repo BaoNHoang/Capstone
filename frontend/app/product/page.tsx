@@ -48,6 +48,7 @@ export default function ProductPage() {
     const [loginOpen, setLoginOpen] = useState(false);
     const [index, setIndex] = useState(0);
     const [id, setID] = useState<ID | null>(null);
+    const authed = !!id;
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -98,6 +99,9 @@ export default function ProductPage() {
         }
     }
 
+    function addToAccount() {
+    }
+
     return (
         <main className="relative min-h-screen overflow-x-hidden">
             <section className="relative min-h-[10vh] max-h-[300px] overflow-hidden">
@@ -113,12 +117,14 @@ export default function ProductPage() {
                 </AnimatePresence>
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70" />
                 <SiteHeader
-                    authed={!!id}
+                    authed={authed}
                     onLoginClick={() => setLoginOpen(true)}
                     onLogoutClick={logout} />
                 <div className="relative mx-auto flex min-h-[calc(30vh-72px)] max-w-6xl flex-col justify-center px-6 pb-2">
                     <div className="max-w-4xl">
-                        <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">Product</h1>
+                        <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">
+                            Product
+                        </h1>
                     </div>
                     <p className="mt-5 max-w-2xl text-lg font-semibold text-white/85 md:text-xl">
                         Learn more about our prediction tools, add-ons, and services.
@@ -130,15 +136,21 @@ export default function ProductPage() {
                 <div className="mx-auto max-w-7xl px-6 py-16">
                     <div className="max-w-3xl">
                         <h2 className="text-4xl font-extrabold text-gray-900">Catalog</h2>
-                        <p className="mt-3 text-lg font-semibold text-gray-600">Add modules and services as your needs grow.</p>
+                        <p className="mt-3 text-lg font-semibold text-gray-600">
+                            Add modules and services as your needs grow.
+                        </p>
                     </div>
                     <div className="mt-10 grid gap-6 md:grid-cols-3">
                         <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
                             <div className="flex items-start justify-between gap-3">
                                 <div className="flex items-center gap-3">
-                                    <div className="text-lg font-extrabold text-gray-900">Atherosclerosis Risk Predictor</div>
+                                    <div className="text-lg font-extrabold text-gray-900">
+                                        Atherosclerosis Risk Predictor
+                                    </div>
                                 </div>
-                                <div className="rounded-full bg-gray-900 px-3 py-1 text-xs font-extrabold text-white">Flagship</div>
+                                <div className="rounded-full bg-gray-900 px-3 py-1 text-xs font-extrabold text-white">
+                                    Flagship
+                                </div>
                             </div>
                             <ul className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
                                 <li className="flex items-start gap-3">
@@ -158,9 +170,13 @@ export default function ProductPage() {
                         <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
                             <div className="flex items-start justify-between gap-3">
                                 <div className="flex items-center gap-3">
-                                    <div className="text-lg font-extrabold text-gray-900">Metabolic Support Module</div>
+                                    <div className="text-lg font-extrabold text-gray-900">
+                                        Metabolic Support Module
+                                    </div>
                                 </div>
-                                <div className="rounded-full bg-gray-100 px-5 py-1 text-xs font-extrabold text-gray-700">Extension</div>
+                                <div className="rounded-full bg-gray-100 px-5 py-1 text-xs font-extrabold text-gray-700">
+                                    Extension
+                                </div>
                             </div>
                             <ul className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
                                 <li className="flex items-start gap-3">
@@ -180,9 +196,13 @@ export default function ProductPage() {
                         <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
                             <div className="flex items-start justify-between gap-3">
                                 <div className="flex items-center gap-3">
-                                    <div className="text-lg font-extrabold text-gray-900">Advanced Calendar Data Tracker</div>
+                                    <div className="text-lg font-extrabold text-gray-900">
+                                        Advanced Calendar Data Tracker
+                                    </div>
                                 </div>
-                                <div className="rounded-full bg-gray-100 px-3 py-1 text-xs font-extrabold text-gray-700">Extension</div>
+                                <div className="rounded-full bg-gray-100 px-3 py-1 text-xs font-extrabold text-gray-700">
+                                    Extension
+                                </div>
                             </div>
                             <ul className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
                                 <li className="flex items-start gap-3">
@@ -202,10 +222,13 @@ export default function ProductPage() {
                     </div>
                 </div>
             </section>
+
             <section className="bg-white">
                 <div className="mx-auto max-w-7xl px-6 py-4">
                     <div className="max-w-3xl">
-                        <h2 className="text-4xl font-extrabold text-gray-900">Trusted for clarity</h2>
+                        <h2 className="text-4xl font-extrabold text-gray-900">
+                            Trusted for clarity
+                        </h2>
                         <p className="mt-3 text-lg font-semibold text-gray-600">
                             A few words from early users.
                         </p>
@@ -226,14 +249,16 @@ export default function ProductPage() {
                             },
                             {
                                 quote:
-                                    'It\'s simple, fast, and readable on mobile and my laptop. Exactly what health tools should feel like.',
+                                    "It's simple, fast, and readable on mobile and my laptop. Exactly what health tools should feel like.",
                                 name: 'Morgan S.',
                                 title: 'Nursing Student',
                             },
                         ].map((t) => (
                             <div key={t.name} className="border bg-white p-6">
                                 <div className="text-3xl font-extrabold text-gray-300">“</div>
-                                <p className="mt-2 text-sm font-semibold leading-relaxed text-gray-700">{t.quote}</p>
+                                <p className="mt-2 text-sm font-semibold leading-relaxed text-gray-700">
+                                    {t.quote}
+                                </p>
                                 <div className="mt-6 border-t border-gray-400 pt-4">
                                     <div className="text-sm font-extrabold text-gray-900">{t.name}</div>
                                     <div className="text-xs font-bold text-gray-500">{t.title}</div>
@@ -249,9 +274,7 @@ export default function ProductPage() {
                     <div className="mx-auto max-w-7xl px-6 py-16">
                         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
                             <div className="max-w-3xl">
-                                <h2 className="text-4xl font-extrabold text-gray-900">
-                                    Pricing
-                                </h2>
+                                <h2 className="text-4xl font-extrabold text-gray-900">Pricing</h2>
                             </div>
                         </div>
                         <div className="mt-5 grid gap-6 md:grid-cols-3">
@@ -273,8 +296,8 @@ export default function ProductPage() {
                                 <div className="mt-8">
                                     <button
                                         className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-extrabold text-gray-900 hover:bg-gray-50"
-                                        onClick={() => setLoginOpen(true)}>
-                                        Get started
+                                        onClick={() => (authed ? router.push('/dashboard') : setLoginOpen(true))}>
+                                        {authed ? 'Continue to dashboard' : 'Get started'}
                                     </button>
                                 </div>
                             </div>
@@ -301,8 +324,8 @@ export default function ProductPage() {
                                 <div className="mt-8">
                                     <button
                                         className="w-full rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95"
-                                        onClick={() => setLoginOpen(true)}>
-                                        Upgrade to Pro
+                                        onClick={() => (authed ? addToAccount() : setLoginOpen(true))}>
+                                        {authed ? 'Add to account' : 'Upgrade to Pro'}
                                     </button>
                                 </div>
                             </div>
@@ -324,8 +347,8 @@ export default function ProductPage() {
                                 <div className="mt-8">
                                     <button
                                         className="w-full rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95"
-                                        onClick={() => setLoginOpen(true)}>
-                                        Upgrade to Teams
+                                        onClick={() => (authed ? addToAccount() : setLoginOpen(true))}>
+                                        {authed ? 'Add to account' : 'Upgrade to Teams'}
                                     </button>
                                 </div>
                             </div>
@@ -339,9 +362,10 @@ export default function ProductPage() {
                     <div className="mx-auto max-w-7xl px-6 py-4">
                         <div className="max-w-3xl">
                             <h2 className="text-4xl font-extrabold text-gray-900">FAQ</h2>
-                            <p className="mt-3 text-lg font-semibold text-gray-600">Quick answers to common questions.</p>
+                            <p className="mt-3 text-lg font-semibold text-gray-600">
+                                Quick answers to common questions.
+                            </p>
                         </div>
-
                         <div className="mt-10 grid gap-6 md:grid-cols-2">
                             {[
                                 {
@@ -363,14 +387,18 @@ export default function ProductPage() {
                             ].map((item) => (
                                 <div key={item.q} className="rounded-3xl border border-gray-200 bg-white p-6">
                                     <div className="text-lg font-extrabold text-gray-900">{item.q}</div>
-                                    <p className="mt-2 text-sm font-semibold leading-relaxed text-gray-600">{item.a}</p>
+                                    <p className="mt-2 text-sm font-semibold leading-relaxed text-gray-600">
+                                        {item.a}
+                                    </p>
                                 </div>
                             ))}
                         </div>
                         <div className="mt-10 rounded-3xl border border-gray-200 bg-gradient-to-r from-gray-50 to-white p-8">
                             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                                 <div>
-                                    <div className="text-2xl font-extrabold text-gray-900">Ready to see your results clearly?</div>
+                                    <div className="text-2xl font-extrabold text-gray-900">
+                                        Ready to see your results clearly?
+                                    </div>
                                     <div className="mt-2 text-sm font-semibold text-gray-600">
                                         Start with the demo flow, then upgrade when you want history and exports.
                                     </div>
@@ -385,7 +413,9 @@ export default function ProductPage() {
                     </div>
                 </Reveal>
             </section>
+
             <SiteFooter />
+
             <LoginModal
                 open={loginOpen}
                 onClose={() => setLoginOpen(false)}

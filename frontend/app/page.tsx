@@ -22,6 +22,7 @@ const BACKGROUNDS = [
 ];
 
 const CAROUSEL_TILES = [
+  { title: 'Dashboard', subtitle: 'Join our team', href: '/dashboard', img: bp('/backgrounds/bg1.jpg') },
   { title: 'About', subtitle: 'Learn more about MedPredict', href: '/about', img: bp('/backgrounds/bg2.jpg') },
   { title: 'Product', subtitle: 'Shop our medical tools', href: '/product', img: bp('/backgrounds/bg3.jpg') },
   { title: 'Technology', subtitle: 'Our advanced AI models', href: '/technology', img: bp('/backgrounds/bg4.jpg') },

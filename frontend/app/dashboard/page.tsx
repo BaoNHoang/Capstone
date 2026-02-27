@@ -165,7 +165,7 @@ export default function DashboardPage() {
                 <div className="space-y-6">
                   <div>
                     <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">Account</div>
-                    <div className="mt-2 text-2xl font-extrabold text-gray-900">{displayName || 'User'}</div>
+                    <div className="mt-2 text-2xl font-extrabold text-gray-900">{displayName}</div>
                   </div>
                   <div>
                     <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">Status</div>
