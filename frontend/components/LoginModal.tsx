@@ -11,7 +11,7 @@ export default function LoginModal({
 }: {
     open: boolean;
     onClose: () => void;
-    onSuccess: () => void;
+    onSuccess: (firstName: string) => void;
 }) {
     const [mode, setMode] = useState<'login' | 'signup'>('login');
     const [username, setUsername] = useState('');
@@ -59,9 +59,9 @@ export default function LoginModal({
                     : {
                           username,
                           password,
-                          first_name: firstName,
-                          last_name: lastName,
-                          date_of_birth: dateOfBirth,
+                          firstName,
+                          lastName,
+                          dateOfBirth,
                       };
             const res = await fetch(`${API_BASE}${path}`, {
                 method: 'POST',
@@ -77,7 +77,7 @@ export default function LoginModal({
                 throw new Error(data?.detail || 'Authentication failed');
             }
 
-            onSuccess();
+            onSuccess(data?.firstName || '');
             onClose();
         } catch (e: any) {
             setErr(e?.message || 'Something went wrong');

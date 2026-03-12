@@ -7,6 +7,7 @@ import LoginModal from '@/components/LoginModal';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import LogoutConfirmModal from '@/components/LogoutConfirmModal';
+import Welcome from '@/components/Welcome';
 
 const API_BASE = "/api";
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -23,6 +24,9 @@ const BACKGROUNDS = [
 type ID = {
     id: number;
     username?: string;
+    firstName?: string;
+    lastName?: string;
+    dateOfBirth?: string;
 };
 
 function Reveal({
@@ -49,7 +53,8 @@ export default function ProductPage() {
     const [index, setIndex] = useState(0);
     const [id, setID] = useState<ID | null>(null);
     const [logoutOpen, setLogoutOpen] = useState(false);
-    const authed = !!id;
+    const [welcomeOpen, setWelcomeOpen] = useState(false);
+    const [welcomeFirstName, setWelcomeFirstName] = useState('');
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -118,7 +123,7 @@ export default function ProductPage() {
                 </AnimatePresence>
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70" />
                 <SiteHeader
-                    authed={authed}
+                    authed={!!id}
                     onLoginClick={() => setLoginOpen(true)}
                     onLogoutClick={() => setLogoutOpen(true)} />
                 <div className="relative mx-auto flex min-h-[calc(30vh-72px)] max-w-6xl flex-col justify-center px-6 pb-2">
@@ -277,8 +282,8 @@ export default function ProductPage() {
                                 <div className="mt-8">
                                     <button
                                         className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-extrabold text-gray-900 hover:bg-gray-50"
-                                        onClick={() => (authed ? router.push('/dashboard') : setLoginOpen(true))}>
-                                        {authed ? 'Continue to dashboard' : 'Get started'}
+                                        onClick={() => (!!id ? router.push('/dashboard') : setLoginOpen(true))}>
+                                        {!!id ? 'Continue to dashboard' : 'Get started'}
                                     </button>
                                 </div>
                             </div>
@@ -305,8 +310,8 @@ export default function ProductPage() {
                                 <div className="mt-8">
                                     <button
                                         className="w-full rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95"
-                                        onClick={() => (authed ? addToAccount() : setLoginOpen(true))}>
-                                        {authed ? 'Add to account' : 'Upgrade to Pro'}
+                                        onClick={() => (!!id ? addToAccount() : setLoginOpen(true))}>
+                                        {!!id ? 'Add to account' : 'Upgrade to Pro'}
                                     </button>
                                 </div>
                             </div>
@@ -328,8 +333,8 @@ export default function ProductPage() {
                                 <div className="mt-8">
                                     <button
                                         className="w-full rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95"
-                                        onClick={() => (authed ? addToAccount() : setLoginOpen(true))}>
-                                        {authed ? 'Add to account' : 'Upgrade to Teams'}
+                                        onClick={() => (!!id ? addToAccount() : setLoginOpen(true))}>
+                                        {!!id ? 'Add to account' : 'Upgrade to Teams'}
                                     </button>
                                 </div>
                             </div>
@@ -385,9 +390,9 @@ export default function ProductPage() {
                                     </div>
                                 </div>
                                 <button
-                                    onClick={() => (authed ? router.push('/dashboard') : setLoginOpen(true))}
+                                    onClick={() => (!!id ? router.push('/dashboard') : setLoginOpen(true))}
                                     className="rounded-2xl bg-gray-900 px-6 py-3 text-sm font-extrabold text-white hover:bg-gray-800">
-                                    {authed ? 'Continue to dashboard' : 'Try it now'}
+                                    {!!id ? 'Continue to dashboard' : 'Try it now'}
                                 </button>
                             </div>
                         </div>
@@ -396,19 +401,23 @@ export default function ProductPage() {
             </section>
 
             <SiteFooter />
-
             <LoginModal
                 open={loginOpen}
                 onClose={() => setLoginOpen(false)}
-                onSuccess={() => {
+                onSuccess={(firstName) => {
                     setLoginOpen(false);
                     process();
+                    setWelcomeFirstName(firstName);
+                    setWelcomeOpen(true);
                 }} />
             <LogoutConfirmModal
                 open={logoutOpen}
                 onClose={() => setLogoutOpen(false)}
-                onConfirm={logout}
-            />
+                onConfirm={logout} />
+            <Welcome
+                open={welcomeOpen}
+                firstName={welcomeFirstName}
+                onClose={() => setWelcomeOpen(false)} />
         </main>
     );
 }

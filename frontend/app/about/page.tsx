@@ -6,6 +6,7 @@ import LoginModal from '@/components/LoginModal';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import LogoutConfirmModal from '@/components/LogoutConfirmModal';
+import Welcome from '@/components/Welcome';
 
 const API_BASE = "/api";
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -22,6 +23,9 @@ const BACKGROUNDS = [
 type ID = {
     id: number;
     username?: string;
+    firstName?: string;
+    lastName?: string;
+    dateOfBirth?: string;
 };
 
 function Reveal({
@@ -47,6 +51,8 @@ export default function AboutPage() {
     const [index, setIndex] = useState(0);
     const [id, setID] = useState<ID | null>(null);
     const [logoutOpen, setLogoutOpen] = useState(false);
+    const [welcomeOpen, setWelcomeOpen] = useState(false);
+    const [welcomeFirstName, setWelcomeFirstName] = useState('');
 
 
     useEffect(() => {
@@ -248,15 +254,20 @@ export default function AboutPage() {
             <LoginModal
                 open={loginOpen}
                 onClose={() => setLoginOpen(false)}
-                onSuccess={() => {
+                onSuccess={(firstName) => {
                     setLoginOpen(false);
                     process();
+                    setWelcomeFirstName(firstName);
+                    setWelcomeOpen(true);
                 }} />
             <LogoutConfirmModal
                 open={logoutOpen}
                 onClose={() => setLogoutOpen(false)}
-                onConfirm={logout}
-            />
+                onConfirm={logout} />
+            <Welcome
+                open={welcomeOpen}
+                firstName={welcomeFirstName}
+                onClose={() => setWelcomeOpen(false)} />
         </main>
     );
 }

@@ -7,6 +7,8 @@ import LoginModal from '@/components/LoginModal';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import LogoutConfirmModal from '@/components/LogoutConfirmModal';
+import Welcome from '@/components/Welcome';
+
 
 const API_BASE = "/api";
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -31,6 +33,9 @@ const CAROUSEL_TILES = [
 type ID = {
     id: number;
     username?: string;
+    firstName?: string;
+    lastName?: string;
+    dateOfBirth?: string;
 };
 
 function Reveal({
@@ -127,6 +132,8 @@ export default function LandingPage() {
     const [id, setID] = useState<ID | null>(null);
     const startedRef = useRef(false);
     const [logoutOpen, setLogoutOpen] = useState(false);
+    const [welcomeOpen, setWelcomeOpen] = useState(false);
+    const [welcomeFirstName, setWelcomeFirstName] = useState('');
 
     useEffect(() => {
         if (startedRef.current) return;
@@ -260,7 +267,7 @@ export default function LandingPage() {
             <section id="explore" className="bg-white">
                 <div className="mx-auto max-w-8xl px-6 py-3">
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between">
-                        <div/>
+                        <div />
                         <div className="text-sm font-bold text-gray-500">→</div>
                     </div>
                     <div>
@@ -474,15 +481,20 @@ export default function LandingPage() {
             <LoginModal
                 open={loginOpen}
                 onClose={() => setLoginOpen(false)}
-                onSuccess={() => {
+                onSuccess={(firstName) => {
                     setLoginOpen(false);
                     process();
+                    setWelcomeFirstName(firstName);
+                    setWelcomeOpen(true);
                 }} />
             <LogoutConfirmModal
                 open={logoutOpen}
                 onClose={() => setLogoutOpen(false)}
-                onConfirm={logout}
-            />
+                onConfirm={logout} />
+            <Welcome
+                open={welcomeOpen}
+                firstName={welcomeFirstName}
+                onClose={() => setWelcomeOpen(false)} />
         </main>
     );
 }

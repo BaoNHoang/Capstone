@@ -89,4 +89,4 @@ risk_model = XGBRegressor(
 risk_model.fit(X_train, y_train)
 risk_preds = risk_model.predict(X_test)
 
-print("risk_score MAE:", mean_absolute_error(y_test, risk_preds))
+print("risk_score off by", mean_absolute_error(y_test, risk_preds))

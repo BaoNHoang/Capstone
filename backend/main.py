@@ -10,10 +10,10 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
 
 class Settings(BaseSettings):
     DATABASE_URL: str
-    JWT_SECRET: str = "123abcbao"
-    JWT_ALG: str = "HS256"
+    JWT_SECRET: str 
+    JWT_ALG: str 
     ACCESS_TOKEN_MINUTES: int = 60
-    PASSWORD_PEPPER: str = "123abchoang"
+    PASSWORD_PEPPER: str 
     class Config:
         env_file = ".env"
 
@@ -28,10 +28,10 @@ class User(Base):
     __table_args__ = (UniqueConstraint("username", name="uq_users_username"),)
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     username: Mapped[str] = mapped_column(String(50), nullable=False)
-    hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
-    first_name: Mapped[str] = mapped_column(String(50), nullable=False)
-    last_name: Mapped[str] = mapped_column(String(50), nullable=False)
-    date_of_birth: Mapped[date] = mapped_column(Date, nullable=False)
+    hashedPassword: Mapped[str] = mapped_column(String(255), nullable=False)
+    firstName: Mapped[str] = mapped_column(String(50), nullable=False)
+    lastName: Mapped[str] = mapped_column(String(50), nullable=False)
+    dateOfBirth: Mapped[date] = mapped_column(Date, nullable=False)
 
 def get_db():
     with Session(engine) as db:
@@ -77,9 +77,9 @@ class LoginBody(BaseModel):
 class SignupBody(BaseModel):
     username: str
     password: str
-    first_name: str
-    last_name: str
-    date_of_birth: date
+    firstName: str
+    lastName: str
+    dateOfBirth: date
 
 app = FastAPI()
 
@@ -94,10 +94,10 @@ def signup(body: SignupBody, response: Response, db: Session = Depends(get_db)):
         raise HTTPException(status_code=409, detail="Username already exists")
     user = User(
         username=body.username.strip(),
-        hashed_password=hash_password(body.password),
-        first_name=body.first_name.strip(),
-        last_name=body.last_name.strip(),
-        date_of_birth=body.date_of_birth,
+        hashedPassword=hash_password(body.password),
+        firstName=body.firstName.strip(),
+        lastName=body.lastName.strip(),
+        dateOfBirth=body.dateOfBirth,
     )
     db.add(user)
     db.commit()
@@ -110,19 +110,25 @@ def signup(body: SignupBody, response: Response, db: Session = Depends(get_db)):
         "ok": True,
         "user_id": user.id,
         "username": user.username,
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "date_of_birth": str(user.date_of_birth),
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "dateOfBirth": str(user.dateOfBirth),
     }
 
 @app.post("/auth/login")
 def login(body: LoginBody, response: Response, db: Session = Depends(get_db)):
     user = db.scalar(select(User).where(User.username == body.username))
-    if not user or not verify_password(body.password, user.hashed_password):
+    if not user or not verify_password(body.password, user.hashedPassword):
         raise HTTPException(status_code=401, detail="Invalid username or password")
     token = create_access_token(user.id)
     set_auth_cookie(response, token)
-    return {"ok": True}
+    return {
+        "id": user.id,
+        "username": user.username,
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "dateOfBirth": str(user.dateOfBirth),
+    }
 
 @app.post("/auth/logout")
 def logout(response: Response):
@@ -145,7 +151,7 @@ def cookie(
     return {
         "id": user.id,
         "username": user.username,
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "date_of_birth": str(user.date_of_birth),
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "dateOfBirth": str(user.dateOfBirth),
     }

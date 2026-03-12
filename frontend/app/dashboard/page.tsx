@@ -5,12 +5,16 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoginModal from '@/components/LoginModal';
 import LogoutConfirmModal from '@/components/LogoutConfirmModal';
+import Welcome from '@/components/Welcome';
 
 const API_BASE = '/api';
 
 type ID = {
     id: number;
     username?: string;
+    firstName?: string;
+    lastName?: string;
+    dateOfBirth?: string;
 };
 
 function Card({
@@ -40,10 +44,16 @@ export default function DashboardPage() {
     const [loginOpen, setLoginOpen] = useState(false);
     const [logoutOpen, setLogoutOpen] = useState(false);
     const [id, setID] = useState<ID | null>(null);
+    const [welcomeOpen, setWelcomeOpen] = useState(false);
+    const [welcomeFirstName, setWelcomeFirstName] = useState('');
 
     const displayName = useMemo(() => {
         if (!id) return '';
-        return id.username?.trim() ? id.username : `User #${id.id}`;
+        return id.firstName?.trim()
+            ? id.firstName
+            : id.username?.trim()
+                ? id.username
+                : `User #${id.id}`;
     }, [id]);
 
     async function process() {
@@ -201,14 +211,20 @@ export default function DashboardPage() {
             <LoginModal
                 open={loginOpen}
                 onClose={() => setLoginOpen(false)}
-                onSuccess={() => {
+                onSuccess={(firstName) => {
                     setLoginOpen(false);
                     process();
-                }}/>
+                    setWelcomeFirstName(firstName);
+                    setWelcomeOpen(true);
+                }} />
             <LogoutConfirmModal
                 open={logoutOpen}
                 onClose={() => setLogoutOpen(false)}
-                onConfirm={logout}/>
+                onConfirm={logout} />
+            <Welcome
+                open={welcomeOpen}
+                firstName={welcomeFirstName}
+                onClose={() => setWelcomeOpen(false)} />
         </main>
     );
 }

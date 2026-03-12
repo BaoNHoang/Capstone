@@ -5,12 +5,16 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoginModal from '@/components/LoginModal';
 import LogoutConfirmModal from '@/components/LogoutConfirmModal';
+import Welcome from '@/components/Welcome';
 
 const API_BASE = '/api';
 
 type ID = {
     id: number;
     username?: string;
+    firstName?: string;
+    lastName?: string;
+    dateOfBirth?: string;
 };
 
 type PredictorForm = {
@@ -79,6 +83,8 @@ export default function DashboardPage() {
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [result, setResult] = useState<PredictionResult | null>(null);
+    const [welcomeOpen, setWelcomeOpen] = useState(false);
+    const [welcomeFirstName, setWelcomeFirstName] = useState('');
     const [form, setForm] = useState<PredictorForm>({
         age_years: '',
         sex: '',
@@ -441,14 +447,20 @@ export default function DashboardPage() {
             <LoginModal
                 open={loginOpen}
                 onClose={() => setLoginOpen(false)}
-                onSuccess={() => {
+                onSuccess={(firstName) => {
                     setLoginOpen(false);
                     process();
+                    setWelcomeFirstName(firstName);
+                    setWelcomeOpen(true);
                 }} />
             <LogoutConfirmModal
                 open={logoutOpen}
                 onClose={() => setLogoutOpen(false)}
                 onConfirm={logout} />
+            <Welcome
+                open={welcomeOpen}
+                firstName={welcomeFirstName}
+                onClose={() => setWelcomeOpen(false)} />
         </main>
     );
 }
