@@ -112,7 +112,7 @@ export default function DashboardPage() {
                                     Home
                                 </button>
                                 <button
-                                        className="rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
+                                    className="rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
                                     onClick={() => router.push('/predictor')}>
                                     Predictor
                                 </button>
@@ -190,19 +190,19 @@ export default function DashboardPage() {
                                         Open tool
                                     </button>
                                 </div>
-                                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                                {/* <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
                                     <div className="text-sm font-extrabold text-gray-900">
                                         Results History
                                     </div>
                                     <div className="mt-1 text-xs font-semibold text-gray-600">
-                                        View prediction history.
+                                        (Placeholder) Add DB storage later to save prior predictions.
                                     </div>
                                     <button
                                         className="mt-3 rounded-xl border border-gray-300 bg-white px-4 py-2 text-xs font-extrabold text-gray-900 hover:bg-gray-50"
-                                        onClick={() => router.push('/history')}>
+                                        onClick={() => alert('Reminder to fill')}>
                                         View history
                                     </button>
-                                </div>
+                                </div> */}
                             </div>
                         </Card>
                     </div>
