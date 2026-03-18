@@ -64,7 +64,7 @@ function getSeverityStyle(severity?: string) {
         return 'bg-red-100 text-red-800 ring-red-200';
     }
 
-    if (value === 'mild' || value === 'moderate') {
+    if (value === 'moderate') {
         return 'bg-yellow-50 text-yellow-700 ring-yellow-200';
     }
 
@@ -266,7 +266,7 @@ export default function HistoryPage() {
                                     </p>
                                 </div>
                             ) : (
-                                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                                <div className="grid gap-1 sm:grid-cols-2 xl:grid-cols-3">
                                     {history.map((item) => (
                                         <motion.div
                                             key={item.id}
@@ -279,7 +279,7 @@ export default function HistoryPage() {
                                                     <div className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
                                                         Saved
                                                     </div>
-                                                    <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                                    <div className="mt-1 text-sm font-extrabold text-slate-700">
                                                         {new Date(item.timeCreated).toLocaleString()}
                                                     </div>
                                                 </div>
@@ -296,54 +296,48 @@ export default function HistoryPage() {
                                                 </div>
                                             </div>
 
-                                            <div className="mt-4 grid grid-cols-2 gap-3">
-                                                <div className="rounded-xl bg-slate-50 p-3">
-                                                    <div className="text-[11px] font-bold uppercase text-slate-500">
+                                            <div className="mt-4 grid grid-cols-2">
+                                                <div className="rounded-xl p-1">
+                                                    <div className="text-[11px] font-bold uppercase text-slate-600">
                                                         Health
                                                     </div>
-                                                    <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                                    <div className="mt-1 text-sm font-extrabold text-slate-700">
                                                         {item.results.health_label ?? '--'}
                                                     </div>
                                                 </div>
 
-                                                <div className="rounded-xl bg-slate-50 p-3">
-                                                    <div className="text-[11px] font-bold uppercase text-slate-500">
+                                                <div className="rounded-xl p-1">
+                                                    <div className="text-[11px] font-bold uppercase text-slate-600">
                                                         Stage
                                                     </div>
-                                                    <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                                    <div className="mt-1 text-sm font-extrabold text-slate-700">
                                                         {item.results.stage_name ?? '--'}
                                                     </div>
                                                 </div>
 
-                                                <div className="rounded-xl bg-slate-50 p-3">
-                                                    <div className="text-[11px] font-bold uppercase text-slate-500">
+                                                <div className="rounded-xl p-1">
+                                                    <div className="text-[11px] font-bold uppercase text-slate-600">
                                                         Severity
                                                     </div>
-                                                    <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                                    <div className="mt-1 text-sm font-extrabold text-slate-700">
                                                         {item.results.severity ?? '--'}
                                                     </div>
                                                 </div>
 
-                                                <div className="rounded-xl bg-slate-50 p-3">
-                                                    <div className="text-[11px] font-bold uppercase text-slate-500">
+                                                <div className="rounded-xl p-1">
+                                                    <div className="text-[11px] font-bold uppercase text-slate-600">
                                                         Risk Score
                                                     </div>
-                                                    <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                                    <div className="mt-1 text-sm font-extrabold text-slate-700">
                                                         {item.results.risk_score ?? '--'}
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            {item.results.summary && (
-                                                <div className="mt-4 rounded-xl bg-slate-50 p-3 text-sm font-medium text-slate-700">
-                                                    {item.results.summary}
-                                                </div>
-                                            )}
-
                                             <div className="mt-4">
                                                 <button
                                                     type="button"
-                                                    className="w-full rounded-xl bg-slate-900 px-4 py-2 text-sm font-extrabold text-white transition hover:bg-slate-800"
+                                                    className="w-full rounded-xl bg-slate-800 py-2 text-sm font-extrabold text-white transition hover:bg-slate-700"
                                                     onClick={() => setOpenDetailsId(item.id)}>
                                                     View Details
                                                 </button>
@@ -364,7 +358,7 @@ export default function HistoryPage() {
                     <div
                         className="max-h-[85vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl md:p-6"
                         onClick={(e) => e.stopPropagation()}>
-                        <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
+                        <div className="flex items-start justify-between border-b border-slate-200 pb-4">
                             <div>
                                 <div className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">
                                     Prediction Details
@@ -376,170 +370,170 @@ export default function HistoryPage() {
 
                             <button
                                 type="button"
-                                className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-800"
+                                className="rounded-xl bg-slate-800 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-700"
                                 onClick={() => setOpenDetailsId(null)}>
                                 Close
                             </button>
                         </div>
 
-                        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">Age</div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                        <div className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">Age</div>
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {selectedItem.inputs.age_years}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">Sex</div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">Sex</div>
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {selectedItem.inputs.sex}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">Height</div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">Height</div>
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {selectedItem.inputs.height_cm} cm
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">Weight</div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">Weight</div>
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {selectedItem.inputs.weight_kg} kg
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">Smoking</div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">Smoking</div>
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {selectedItem.inputs.smoking_status}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">Activity</div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">Activity</div>
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {selectedItem.inputs.activity_level}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Family History
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.family_history_heart_disease)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Hypertension
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.hypertension)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Diabetes
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.diabetes)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     On Statin
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.on_statin)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     On BP Meds
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.on_bp_meds)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Clinical ASCVD History
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.clinical_ascvd_history)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Heart Attack History
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.heart_attack_history)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Stroke / TIA History
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.stroke_tia_history)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Peripheral Artery Disease
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(
                                         selectedItem.inputs.peripheral_artery_disease_history
                                     )}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Recent Cardio Event
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.recent_cardio_event_12mo)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Multi Plaque Development
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {formatBoolean(selectedItem.inputs.multi_plaque_dev)}
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     Blood Pressure
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {selectedItem.inputs.blood_pressure_mmHg} mmHg
                                 </div>
                             </div>
 
-                            <div className="rounded-2xl bg-slate-50 p-3">
-                                <div className="text-[11px] font-bold uppercase text-slate-500">
+                            <div className="rounded-2xl">
+                                <div className="text-[11px] font-bold uppercase text-slate-600">
                                     LDL
                                 </div>
-                                <div className="mt-1 text-sm font-extrabold text-slate-900">
+                                <div className="mt-1 text-sm font-extrabold text-slate-700">
                                     {selectedItem.inputs.ldl_mg_dL} mg/dL
                                 </div>
                             </div>
@@ -553,15 +547,11 @@ export default function HistoryPage() {
                 onClose={() => setLoginOpen(false)}
                 onSuccess={() => {
                     setLoginOpen(false);
-                    process();
-                }}
-            />
-
+                    process(); }}/>
             <LogoutConfirmModal
                 open={logoutOpen}
                 onClose={() => setLogoutOpen(false)}
-                onConfirm={logout}
-            />
+                onConfirm={logout}/>
         </main>
     );
 }

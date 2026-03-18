@@ -75,30 +75,26 @@ type PredictionResult = {
 
 function parseBool(value: string, label: string) {
     const v = value.trim().toLowerCase();
-
-    if (v === 'true') return true;
-    if (v === 'false') return false;
-
+    if (v === 'true') 
+        return true;
+    if (v === 'false') 
+        return false;
     throw new Error(`${label} must be selected`);
 }
 
 function parseNumber(value: string, label: string) {
     const trimmed = value.trim();
-
     if (trimmed === '') {
         throw new Error(`${label} is required`);
     }
 
     const n = Number(trimmed);
-
     if (!Number.isFinite(n)) {
         throw new Error(`${label} must be a valid number`);
     }
-
     if (n < 0) {
         throw new Error(`${label} cannot be negative`);
     }
-
     return n;
 }
 
@@ -385,7 +381,6 @@ export default function PredictorPage() {
                                 )}
                             </div>
                         </div>
-
                         <div>
                             {id ? (
                                 <div className="text-lg font-extrabold text-white">
@@ -434,167 +429,127 @@ export default function PredictorPage() {
                                     Fill in the fields below to generate a prediction from your trained model.
                                 </div>
                             </div>
-
                             <div className="grid gap-4 md:grid-cols-2">
                                 <Input
                                     label="Age (years)"
                                     type="number"
                                     value={form.age_years}
                                     placeholder="Example: 35"
-                                    onChange={(v) => updateField('age_years', v)}
-                                />
-
+                                    onChange={(v) => updateField('age_years', v)}/>
                                 <SelectInput
                                     label="Sex"
                                     value={form.sex}
                                     onChange={(v) => updateField('sex', v)}
                                     options={sexOptions}
-                                    placeholder="Select sex"
-                                />
-
+                                    placeholder="Select sex"/>
                                 <Input
                                     label="Height (cm)"
                                     type="number"
                                     value={form.height_cm}
                                     placeholder="Example: 175"
-                                    onChange={(v) => updateField('height_cm', v)}
-                                />
-
+                                    onChange={(v) => updateField('height_cm', v)}/>
                                 <Input
                                     label="Weight (kg)"
                                     type="number"
                                     value={form.weight_kg}
                                     placeholder="Example: 75"
-                                    onChange={(v) => updateField('weight_kg', v)}
-                                />
-
+                                    onChange={(v) => updateField('weight_kg', v)}/>
                                 <SelectInput
                                     label="Smoking Status"
                                     value={form.smoking_status}
                                     onChange={(v) => updateField('smoking_status', v)}
                                     options={smokingOptions}
-                                    placeholder="Select smoking status"
-                                />
-
+                                    placeholder="Select smoking status"/>
                                 <SelectInput
                                     label="Activity Level"
                                     value={form.activity_level}
                                     onChange={(v) => updateField('activity_level', v)}
                                     options={activityOptions}
-                                    placeholder="Select activity level"
-                                />
-
+                                    placeholder="Select activity level"/>
                                 <Input
                                     label="Blood Pressure"
                                     type="number"
                                     value={form.blood_pressure_mmHg}
                                     placeholder="Example: 128"
-                                    onChange={(v) => updateField('blood_pressure_mmHg', v)}
-                                />
-
+                                    onChange={(v) => updateField('blood_pressure_mmHg', v)}/>
                                 <Input
                                     label="LDL"
                                     type="number"
                                     value={form.ldl_mg_dL}
                                     placeholder="Example: 110"
-                                    onChange={(v) => updateField('ldl_mg_dL', v)}
-                                />
-
+                                    onChange={(v) => updateField('ldl_mg_dL', v)}/>
                                 <SelectInput
                                     label="Family history of heart disease"
                                     value={form.family_history_heart_disease}
                                     onChange={(v) => updateField('family_history_heart_disease', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no"/>
                                 <SelectInput
                                     label="Hypertension"
                                     value={form.hypertension}
                                     onChange={(v) => updateField('hypertension', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no"/>
                                 <SelectInput
                                     label="Diabetes"
                                     value={form.diabetes}
                                     onChange={(v) => updateField('diabetes', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no"/>
                                 <SelectInput
                                     label="On statin"
                                     value={form.on_statin}
                                     onChange={(v) => updateField('on_statin', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no"/>
                                 <SelectInput
                                     label="On blood pressure meds"
                                     value={form.on_bp_meds}
                                     onChange={(v) => updateField('on_bp_meds', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no"/>
                                 <SelectInput
                                     label="Clinical ASCVD history"
                                     value={form.clinical_ascvd_history}
                                     onChange={(v) => updateField('clinical_ascvd_history', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no"/>
                                 <SelectInput
                                     label="Heart attack history"
                                     value={form.heart_attack_history}
                                     onChange={(v) => updateField('heart_attack_history', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no"/>
                                 <SelectInput
                                     label="Stroke / TIA history"
                                     value={form.stroke_tia_history}
                                     onChange={(v) => updateField('stroke_tia_history', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no"/>
                                 <SelectInput
                                     label="Peripheral artery disease history"
                                     value={form.peripheral_artery_disease_history}
                                     onChange={(v) => updateField('peripheral_artery_disease_history', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no"/>
                                 <SelectInput
                                     label="Recent cardio event (12 months)"
                                     value={form.recent_cardio_event_12mo}
                                     onChange={(v) => updateField('recent_cardio_event_12mo', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
-
+                                    placeholder="Select yes or no" />
                                 <SelectInput
                                     label="Multi plaque disease"
                                     value={form.multi_plaque_dev}
                                     onChange={(v) => updateField('multi_plaque_dev', v)}
                                     options={yesNoOptions}
-                                    placeholder="Select yes or no"
-                                />
+                                    placeholder="Select yes or no"/>
                             </div>
-
                             {error && (
                                 <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
                                     {error}
                                 </div>
                             )}
-
                             <div className="mt-6">
                                 <button
                                     type="submit"
@@ -627,7 +582,6 @@ export default function PredictorPage() {
                                             {result.health_label ?? '--'}
                                         </div>
                                     </div>
-
                                     <div className="rounded-2xl bg-slate-50 p-5">
                                         <div className="text-sm font-bold text-gray-500">
                                             Predicted Stage
@@ -636,7 +590,6 @@ export default function PredictorPage() {
                                             {result.stage_name ?? `Stage ${result.plaque_stage ?? '--'}`}
                                         </div>
                                     </div>
-
                                     <div className="rounded-2xl bg-slate-50 p-5">
                                         <div className="text-sm font-bold text-gray-500">
                                             Severity
@@ -645,7 +598,6 @@ export default function PredictorPage() {
                                             {result.severity ?? '--'}
                                         </div>
                                     </div>
-
                                     <div className="rounded-2xl bg-slate-50 p-5">
                                         <div className="text-sm font-bold text-gray-500">
                                             Risk Score
@@ -654,13 +606,11 @@ export default function PredictorPage() {
                                             {result.risk_score ?? '--'}
                                         </div>
                                     </div>
-
                                     {result.summary && (
                                         <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm font-semibold text-blue-800">
                                             {result.summary}
                                         </div>
                                     )}
-
                                     {result.recommendations && result.recommendations.length > 0 && (
                                         <div className="rounded-2xl border border-gray-200 bg-white p-5">
                                             <div className="text-sm font-bold text-gray-500">
@@ -673,7 +623,6 @@ export default function PredictorPage() {
                                             </ul>
                                         </div>
                                     )}
-
                                     {result.warning && (
                                         <div className="rounded-2xl border border-yellow-200 bg-yellow-50 p-4 text-sm font-semibold text-yellow-800">
                                             {result.warning}
@@ -693,21 +642,15 @@ export default function PredictorPage() {
                     setLoginOpen(false);
                     process();
                     setWelcomeFirstName(firstName);
-                    setWelcomeOpen(true);
-                }}
-            />
-
+                    setWelcomeOpen(true);}}/>
             <LogoutConfirmModal
                 open={logoutOpen}
                 onClose={() => setLogoutOpen(false)}
-                onConfirm={logout}
-            />
-
+                onConfirm={logout}/>
             <Welcome
                 open={welcomeOpen}
                 firstName={welcomeFirstName}
-                onClose={() => setWelcomeOpen(false)}
-            />
+                onClose={() => setWelcomeOpen(false)}/>
         </main>
     );
 }

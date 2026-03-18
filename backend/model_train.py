@@ -33,8 +33,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 health_model = XGBClassifier(
-    n_estimators=400,
-    max_depth=4,
+    n_estimators=900,
+    max_depth=6,
     learning_rate=0.03,
     subsample=0.9,
     colsample_bytree=0.9,
@@ -60,7 +60,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 plaque_model = XGBRegressor(
     n_estimators=600,
-    max_depth=4,
+    max_depth=5,
     learning_rate=0.03,
     subsample=0.9,
     colsample_bytree=0.9,
@@ -86,8 +86,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 risk_model = XGBRegressor(
-    n_estimators=600,
-    max_depth=4,
+    n_estimators=900,
+    max_depth=8,
     learning_rate=0.03,
     subsample=0.9,
     colsample_bytree=0.9,

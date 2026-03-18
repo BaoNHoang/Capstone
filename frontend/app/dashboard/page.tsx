@@ -185,7 +185,7 @@ export default function DashboardPage() {
                                         stage.
                                     </div>
                                     <button
-                                        className="mt-3 rounded-xl bg-slate-900 px-4 py-2 text-xs font-extrabold text-white hover:bg-slate-800"
+                                        className="mt-3 rounded-xl bg-slate-800 px-4 py-2 text-xs font-extrabold text-white hover:bg-slate-700"
                                         onClick={() => router.push('/predictor')}>
                                         Open tool
                                     </button>
