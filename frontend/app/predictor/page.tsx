@@ -39,7 +39,31 @@ type PredictorForm = {
     ldl_mg_dL: string;
 };
 
+type PredictPayload = {
+    age_years: number;
+    sex: string;
+    height_cm: number;
+    weight_kg: number;
+    smoking_status: string;
+    activity_level: string;
+    family_history_heart_disease: boolean;
+    hypertension: boolean;
+    diabetes: boolean;
+    on_statin: boolean;
+    on_bp_meds: boolean;
+    clinical_ascvd_history: boolean;
+    heart_attack_history: boolean;
+    stroke_tia_history: boolean;
+    peripheral_artery_disease_history: boolean;
+    recent_cardio_event_12mo: boolean;
+    multi_plaque_dev: boolean;
+    blood_pressure_mmHg: number;
+    ldl_mg_dL: number;
+};
+
 type PredictionResult = {
+    history_id?: number;
+    health_label?: string;
     risk_score?: number;
     plaque_stage?: number;
     stage_name?: string;
@@ -49,8 +73,6 @@ type PredictionResult = {
     warning?: string;
 };
 
-<<<<<<< HEAD
-=======
 function parseBool(value: string, label: string) {
     const v = value.trim().toLowerCase();
     if (v === 'true') 
@@ -121,7 +143,6 @@ function buildPayload(form: PredictorForm): PredictPayload {
     };
 }
 
->>>>>>> 8f5ff3bd37380732e77706bbec9ad8eb7f33f29e
 function Input({
     label,
     value,
@@ -145,19 +166,12 @@ function Input({
                 value={value}
                 placeholder={placeholder || 'Enter value'}
                 onChange={(e) => onChange(e.target.value)}
-<<<<<<< HEAD
-                className="rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-blue-400" />
-=======
                 className="rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-blue-400"
             />
->>>>>>> 8f5ff3bd37380732e77706bbec9ad8eb7f33f29e
         </div>
     );
 }
 
-<<<<<<< HEAD
-export default function DashboardPage() {
-=======
 function SelectInput({
     label,
     value,
@@ -215,7 +229,6 @@ const activityOptions = [
 ];
 
 export default function PredictorPage() {
->>>>>>> 8f5ff3bd37380732e77706bbec9ad8eb7f33f29e
     const router = useRouter();
     const [loginOpen, setLoginOpen] = useState(false);
     const [logoutOpen, setLogoutOpen] = useState(false);
@@ -253,11 +266,13 @@ export default function PredictorPage() {
                 method: 'GET',
                 credentials: 'include',
             });
+
             if (!res.ok) {
                 setID(null);
                 setLoginOpen(true);
                 return;
             }
+
             const data = (await res.json()) as ID;
             setID(data);
         } catch {
@@ -277,6 +292,7 @@ export default function PredictorPage() {
             });
         } finally {
             setID(null);
+            setResult(null);
             setLogoutOpen(false);
             setLoginOpen(true);
         }
@@ -294,19 +310,25 @@ export default function PredictorPage() {
         setSubmitting(true);
         setError(null);
         setResult(null);
+
         try {
+            const payload = buildPayload(form);
+
             const res = await fetch(`${API_BASE}/predict`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(form),
+                body: JSON.stringify(payload),
             });
+
             const data = await res.json();
+
             if (!res.ok) {
                 throw new Error(data?.detail || 'Prediction failed');
             }
+
             setResult(data);
         } catch (err: unknown) {
             if (err instanceof Error) {
@@ -352,11 +374,7 @@ export default function PredictorPage() {
                                     </button>
                                 ) : (
                                     <button
-<<<<<<< HEAD
-                                        className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/15"
-=======
                                         className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/25"
->>>>>>> 8f5ff3bd37380732e77706bbec9ad8eb7f33f29e
                                         onClick={() => setLoginOpen(true)}>
                                         Login
                                     </button>
@@ -372,11 +390,11 @@ export default function PredictorPage() {
                                 </div>
                             ) : (
                                 <div className="text-lg font-extrabold text-white/80">
-                                    Please login to access your dashboard
+                                    Please login to access the predictor
                                 </div>
                             )}
                             <div className="mt-3 text-sm font-semibold text-white/75">
-                                Note: This dashboard is for informational product features only.
+                                Note: This predictor is for informational product features only.
                             </div>
                         </div>
                     </motion.div>
@@ -414,102 +432,6 @@ export default function PredictorPage() {
                             <div className="grid gap-4 md:grid-cols-2">
                                 <Input
                                     label="Age (years)"
-<<<<<<< HEAD
-                                    value={form.age_years}
-                                    placeholder="Example: 35"
-                                    onChange={(v) => updateField('age_years', v)} />
-                                <Input
-                                    label="Sex"
-                                    value={form.sex}
-                                    placeholder="Example: M or F"
-                                    onChange={(v) => updateField('sex', v)} />
-                                <Input
-                                    label="Height (cm)"
-                                    value={form.height_cm}
-                                    placeholder="Example: 175"
-                                    onChange={(v) => updateField('height_cm', v)} />
-                                <Input
-                                    label="Weight (kg)"
-                                    value={form.weight_kg}
-                                    placeholder="Example: 75"
-                                    onChange={(v) => updateField('weight_kg', v)} />
-                                <Input
-                                    label="Smoking Status"
-                                    value={form.smoking_status}
-                                    placeholder="Example: never"
-                                    onChange={(v) => updateField('smoking_status', v)} />
-                                <Input
-                                    label="Activity Level"
-                                    value={form.activity_level}
-                                    placeholder="Example: moderate"
-                                    onChange={(v) => updateField('activity_level', v)} />
-                                <Input
-                                    label="Blood Pressure"
-                                    value={form.blood_pressure_mmHg}
-                                    placeholder="Example: 128"
-                                    onChange={(v) => updateField('blood_pressure_mmHg', v)} />
-                                <Input
-                                    label="LDL"
-                                    value={form.ldl_mg_dL}
-                                    placeholder="Example: 110"
-                                    onChange={(v) => updateField('ldl_mg_dL', v)} />
-                                <Input
-                                    label="Family history of heart disease"
-                                    value={form.family_history_heart_disease}
-                                    placeholder="Example: true"
-                                    onChange={(v) => updateField('family_history_heart_disease', v)} />
-                                <Input
-                                    label="Hypertension"
-                                    value={form.hypertension}
-                                    placeholder="Example: true"
-                                    onChange={(v) => updateField('hypertension', v)} />
-                                <Input
-                                    label="Diabetes"
-                                    value={form.diabetes}
-                                    placeholder="Example: false"
-                                    onChange={(v) => updateField('diabetes', v)} />
-                                <Input
-                                    label="On statin"
-                                    value={form.on_statin}
-                                    placeholder="Example: true"
-                                    onChange={(v) => updateField('on_statin', v)} />
-                                <Input
-                                    label="On blood pressure meds"
-                                    value={form.on_bp_meds}
-                                    placeholder="Example: false"
-                                    onChange={(v) => updateField('on_bp_meds', v)} />
-                                <Input
-                                    label="Clinical ASCVD history"
-                                    value={form.clinical_ascvd_history}
-                                    placeholder="Example: false"
-                                    onChange={(v) => updateField('clinical_ascvd_history', v)} />
-                                <Input
-                                    label="Heart attack history"
-                                    value={form.heart_attack_history}
-                                    placeholder="Example: false"
-                                    onChange={(v) => updateField('heart_attack_history', v)} />
-                                <Input
-                                    label="Stroke / TIA history"
-                                    value={form.stroke_tia_history}
-                                    placeholder="Example: false"
-                                    onChange={(v) => updateField('stroke_tia_history', v)} />
-                                <Input
-                                    label="Peripheral artery disease history"
-                                    value={form.peripheral_artery_disease_history}
-                                    placeholder="Example: false"
-                                    onChange={(v) =>
-                                        updateField('peripheral_artery_disease_history', v)} />
-                                <Input
-                                    label="Recent cardio event (12 months)"
-                                    value={form.recent_cardio_event_12mo}
-                                    placeholder="Example: false"
-                                    onChange={(v) => updateField('recent_cardio_event_12mo', v)} />
-                                <Input
-                                    label="Multi plaque disease"
-                                    value={form.multi_plaque_dev}
-                                    placeholder="Example: false"
-                                    onChange={(v) => updateField('multi_plaque_dev', v)} />
-=======
                                     type="number"
                                     value={form.age_years}
                                     placeholder="Example: 35"
@@ -622,7 +544,6 @@ export default function PredictorPage() {
                                     onChange={(v) => updateField('multi_plaque_dev', v)}
                                     options={yesNoOptions}
                                     placeholder="Select yes or no"/>
->>>>>>> 8f5ff3bd37380732e77706bbec9ad8eb7f33f29e
                             </div>
                             {error && (
                                 <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
@@ -638,6 +559,7 @@ export default function PredictorPage() {
                                 </button>
                             </div>
                         </form>
+
                         <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
                             <div className="text-2xl font-extrabold text-gray-900">
                                 Prediction Result
@@ -645,6 +567,7 @@ export default function PredictorPage() {
                             <div className="mt-2 text-sm font-semibold text-gray-600">
                                 Your backend should return the model result here.
                             </div>
+
                             {!result ? (
                                 <div className="mt-6 rounded-2xl bg-slate-50 p-5 text-sm font-semibold text-gray-500">
                                     No prediction yet.
@@ -653,8 +576,6 @@ export default function PredictorPage() {
                                 <div className="mt-6 space-y-4">
                                     <div className="rounded-2xl bg-slate-50 p-5">
                                         <div className="text-sm font-bold text-gray-500">
-<<<<<<< HEAD
-=======
                                             Health Label
                                         </div>
                                         <div className="mt-1 text-2xl font-extrabold text-slate-900">
@@ -663,7 +584,6 @@ export default function PredictorPage() {
                                     </div>
                                     <div className="rounded-2xl bg-slate-50 p-5">
                                         <div className="text-sm font-bold text-gray-500">
->>>>>>> 8f5ff3bd37380732e77706bbec9ad8eb7f33f29e
                                             Predicted Stage
                                         </div>
                                         <div className="mt-1 text-2xl font-extrabold text-slate-900">
@@ -714,6 +634,7 @@ export default function PredictorPage() {
                     </div>
                 )}
             </section>
+
             <LoginModal
                 open={loginOpen}
                 onClose={() => setLoginOpen(false)}
@@ -721,18 +642,6 @@ export default function PredictorPage() {
                     setLoginOpen(false);
                     process();
                     setWelcomeFirstName(firstName);
-<<<<<<< HEAD
-                    setWelcomeOpen(true);
-                }} />
-            <LogoutConfirmModal
-                open={logoutOpen}
-                onClose={() => setLogoutOpen(false)}
-                onConfirm={logout} />
-            <Welcome
-                open={welcomeOpen}
-                firstName={welcomeFirstName}
-                onClose={() => setWelcomeOpen(false)} />
-=======
                     setWelcomeOpen(true);}}/>
             <LogoutConfirmModal
                 open={logoutOpen}
@@ -742,7 +651,6 @@ export default function PredictorPage() {
                 open={welcomeOpen}
                 firstName={welcomeFirstName}
                 onClose={() => setWelcomeOpen(false)}/>
->>>>>>> 8f5ff3bd37380732e77706bbec9ad8eb7f33f29e
         </main>
     );
 }
