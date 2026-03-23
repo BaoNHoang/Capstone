@@ -1,12 +1,9 @@
 from datetime import date
-
 from pydantic import BaseModel
-
 
 class LoginBody(BaseModel):
     username: str
     password: str
-
 
 class SignupBody(BaseModel):
     username: str
@@ -14,7 +11,6 @@ class SignupBody(BaseModel):
     firstName: str
     lastName: str
     dateOfBirth: date
-
 
 class PredictBody(BaseModel):
     age_years: float

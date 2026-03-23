@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from auth import get_current_user
 from db import get_db
-from backend.tables import PredictionHistory, User
+from tables import PredictionHistory, User
 from schemas import PredictBody
 
 router = APIRouter(tags=["prediction"])

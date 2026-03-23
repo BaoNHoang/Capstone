@@ -1,9 +1,7 @@
 from contextlib import asynccontextmanager
 from pathlib import Path
-
 import joblib
 from fastapi import FastAPI
-
 from db import engine
 from tables import Base
 from auth import router as auth_router
@@ -11,7 +9,6 @@ from prediction import router as prediction_router
 
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_DIR = BASE_DIR / "saved_models"
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

@@ -1,29 +1,36 @@
 from datetime import datetime, timedelta, timezone
 from typing import Optional
-
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-
 from config import settings
 from db import get_db
-from backend.tables import User
+from tables import User
 from schemas import LoginBody, SignupBody
+import secrets
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 pwd_ctx = CryptContext(schemes=["pbkdf2_sha256"])
 COOKIE_NAME = "access_token"
 
-def hash_password(password: str) -> str:
+def generate_user_id(db: Session):
+    for _ in range(50):
+        new_id = secrets.randbelow(900_000_000_000) + 100_000_000_000
+        existing = db.get(User, new_id)
+        if existing is None:
+            return new_id
+    raise HTTPException(status_code=500, detail="Could not generate unique user ID")
+
+def hash_password(password: str):
     return pwd_ctx.hash(password + settings.PASSWORD_PEPPER)
 
-def verify_password(password: str, hashed: str) -> bool:
+def verify_password(password: str, hashed: str):
     return pwd_ctx.verify(password + settings.PASSWORD_PEPPER, hashed)
 
-def create_access_token(user_id: int) -> str:
+def create_access_token(user_id: int):
     now = datetime.now(timezone.utc)
     exp = now + timedelta(minutes=settings.ACCESS_TOKEN_MINUTES)
     payload = {
@@ -33,7 +40,7 @@ def create_access_token(user_id: int) -> str:
     }
     return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALG)
 
-def read_access_token(token: str) -> Optional[int]:
+def read_access_token(token: str):
     try:
         payload = jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALG])
         sub = payload.get("sub")
@@ -81,6 +88,7 @@ def signup(body: SignupBody, response: Response, db: Session = Depends(get_db)):
         raise HTTPException(status_code=409, detail="Username already exists")
 
     user = User(
+        id=generate_user_id(db),
         username=username,
         hashedPassword=hash_password(body.password),
         firstName=body.firstName.strip(),
