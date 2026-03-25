@@ -27,3 +27,6 @@ Thumbs.db
 
 # Pytest cache
 .pytest_cache/
+backend/synthetic_athero.csv
+backend/saved_models/
+*.joblib

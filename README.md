@@ -1,6 +1,6 @@
 # MedPredict
 
-MedPredict is a full-stack AI-powered health prediction platform that uses machine learning and patient-entered data to generate risk predictions through a modern web interface.
+MedPredict is a full-stack AI-powered health prediction platform that uses machine learning and patient-entered data to generate risk predictions through a modern web interface. The platform is all containerized within docker
 
 ## Overview
 
@@ -9,7 +9,7 @@ The project is split into two main parts:
 - **Frontend**: Next.js application for user interaction and result display
 - **Backend**: FastAPI application for authentication, prediction logic, and data handling
 
-The backend also includes scripts for model training and synthetic dataset generation.
+The backend also includes scripts for model training and synthetic dataset generation. 
 
 ## Project Structure
 
