@@ -5,7 +5,6 @@ backend/saved_models/
 
 # env files
 .env
-test
 
 # Python cache
 __pycache__/
