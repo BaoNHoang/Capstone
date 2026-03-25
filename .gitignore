@@ -6,9 +6,6 @@ backend/saved_models/
 # env files
 .env
 
-# MISC ----
-commands
-
 # Python cache
 __pycache__/
 *.py[cod]
