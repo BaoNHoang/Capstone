@@ -6,8 +6,6 @@ services:
       POSTGRES_DB: medpredict
       POSTGRES_USER: medpredict
       POSTGRES_PASSWORD: medpredictpassword
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -40,7 +38,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "3000:3000"
+      - "80:3000"
     restart: unless-stopped
 
 volumes:
