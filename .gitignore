@@ -1,7 +1,5 @@
 # data files
 backend/synthetic_athero.csv
-backend/saved_models/
-*.joblib
 
 # env files
 .env
