@@ -111,11 +111,7 @@ def apply_saved_preprocess(df: pd.DataFrame, preprocess_config: dict) -> pd.Data
 
     return df
 
-def build_model_input(
-    body: PredictBody,
-    feature_columns: list[str],
-    preprocess_config: dict,
-) -> tuple[pd.DataFrame, dict]:
+def build_model_input(body: PredictBody, feature_columns: list[str], preprocess_config: dict,) -> tuple[pd.DataFrame, dict]:
     row = body.model_dump()
 
     df = pd.DataFrame([row])
@@ -181,12 +177,7 @@ def result_recommendations(cleaned_row: dict, plaque_stage: int, risk_score: flo
     return recs[:5]
 
 @router.post("/predict")
-def predict(
-    body: PredictBody,
-    request: Request,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
+def predict(body: PredictBody, request: Request, current_user: User = Depends(get_current_user), db: Session = Depends(get_db),):
     try:
         X, cleaned_row = build_model_input(
             body=body,
@@ -195,8 +186,7 @@ def predict(
         )
 
         health_pred_encoded = request.app.state.health_model.predict(X)[0]
-        health_label = request.app.state.health_encoder.inverse_transform(
-            [int(health_pred_encoded)])[0]
+        health_label = request.app.state.health_encoder.inverse_transform([int(health_pred_encoded)])[0]
 
         plaque_pred = request.app.state.plaque_model.predict(X)[0]
         predicted_plaque_stage = int(plaque_pred)
@@ -248,10 +238,7 @@ def predict(
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/predict/history")
-def predict_history(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
+def predict_history(current_user: User = Depends(get_current_user), db: Session = Depends(get_db),):
     rows = db.scalars(
         select(PredictionHistory)
         .where(PredictionHistory.userId == current_user.id)
