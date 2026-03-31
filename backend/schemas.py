@@ -1,5 +1,5 @@
 from datetime import date
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class LoginBody(BaseModel):
     username: str
@@ -32,3 +32,8 @@ class PredictBody(BaseModel):
     multi_plaque_dev: bool
     blood_pressure_mmHg: float
     ldl_mg_dL: float
+
+class ForgotPasswordBody(BaseModel):
+    username: str
+    dateOfBirth: date
+    newPassword: str = Field(min_length=6)

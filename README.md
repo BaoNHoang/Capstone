@@ -1,6 +1,6 @@
 # MedPredict
 
-MedPredict is a full-stack AI-powered health prediction platform that uses machine learning and patient-entered data to generate risk predictions through a modern web interface. The platform is all containerized within docker
+MedPredict is a full-stack AI-powered health prediction platform that uses machine learning and patient-entered data to generate risk predictions through a modern web interface. The platform is all containerized within docker and hosted on AWS
 
 ## Overview
 

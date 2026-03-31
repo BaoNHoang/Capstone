@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from config import settings
 from db import get_db
 from tables import User
-from schemas import LoginBody, SignupBody
+from schemas import LoginBody, SignupBody, ForgotPasswordBody
 import secrets
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -126,6 +126,25 @@ def login(body: LoginBody, response: Response, db: Session = Depends(get_db)):
         "lastName": user.lastName,
         "dateOfBirth": str(user.dateOfBirth),
     }
+
+@router.post("/forgot-password")
+def forgot_password(body: ForgotPasswordBody, db: Session = Depends(get_db)):
+    username = body.username.strip()
+
+    user = db.scalar(select(User).where(User.username == username))
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if user.dateOfBirth != body.dateOfBirth:
+        raise HTTPException(status_code=401, detail="Date of birth does not match")
+
+    if len(body.newPassword) < 6:
+        raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
+
+    user.hashedPassword = hash_password(body.newPassword)
+    db.commit()
+
+    return {"ok": True, "message": "Password updated successfully"}
 
 @router.post("/logout")
 def logout(response: Response):
