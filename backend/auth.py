@@ -10,11 +10,13 @@ from db import get_db
 from tables import User
 from schemas import LoginBody, SignupBody, ForgotPasswordBody
 import secrets
+import re
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 pwd_ctx = CryptContext(schemes=["pbkdf2_sha256"])
 COOKIE_NAME = "access_token"
+PASSWORD_REGEX = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$")
 
 def generate_user_id(db: Session):
     for _ in range(50):
@@ -23,6 +25,13 @@ def generate_user_id(db: Session):
         if existing is None:
             return new_id
     raise HTTPException(status_code=500, detail="Could not generate unique user ID")
+
+def validate_password(password: str):
+    if not PASSWORD_REGEX.match(password):
+        raise HTTPException(
+            status_code=400,
+            detail="Password must be at least 6 characters and include a lowercase letter, an uppercase letter, and a number",
+        )
 
 def hash_password(password: str):
     return pwd_ctx.hash(password + settings.PASSWORD_PEPPER)
@@ -79,9 +88,7 @@ def get_current_user(
 @router.post("/signup")
 def signup(body: SignupBody, response: Response, db: Session = Depends(get_db)):
     username = body.username.strip()
-
-    if len(body.password) < 6:
-        raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
+    validate_password(body.password)
 
     existing = db.scalar(select(User).where(User.username == username))
     if existing:
@@ -138,8 +145,7 @@ def forgot_password(body: ForgotPasswordBody, db: Session = Depends(get_db)):
     if user.dateOfBirth != body.dateOfBirth:
         raise HTTPException(status_code=401, detail="Date of birth does not match")
 
-    if len(body.newPassword) < 6:
-        raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
+    validate_password(body.newPassword)
 
     user.hashedPassword = hash_password(body.newPassword)
     db.commit()

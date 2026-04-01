@@ -2,8 +2,43 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-const API_BASE = "/api";
+const API_BASE = '/api';
 type Mode = 'login' | 'signup' | 'forgot';
+
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+
+function getPasswordChecks(value: string) {
+    return {
+        minLength: value.length >= 6,
+        lowercase: /[a-z]/.test(value),
+        uppercase: /[A-Z]/.test(value),
+        number: /\d/.test(value),
+    };
+}
+
+function isPasswordValid(value: string) {
+    const checks = getPasswordChecks(value);
+    return checks.minLength && checks.lowercase && checks.uppercase && checks.number;
+}
+
+function PasswordRequirements({ password }: { password: string }) {
+    const checks = getPasswordChecks(password);
+
+    const itemClass = (ok: boolean) =>
+        `text-xs font-medium ${ok ? 'text-green-600' : 'text-gray-500'}`;
+
+    return (
+        <div className="mt-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
+            <p className="text-xs font-semibold text-gray-700">Password must include:</p>
+            <ul className="mt-2 space-y-1">
+                <li className={itemClass(checks.minLength)}>At least 6 characters</li>
+                <li className={itemClass(checks.lowercase)}>A lowercase letter</li>
+                <li className={itemClass(checks.uppercase)}>A uppercase letter</li>
+                <li className={itemClass(checks.number)}>A number</li>
+            </ul>
+        </div>
+    );
+}
 
 export default function LoginModal({
     open,
@@ -24,6 +59,8 @@ export default function LoginModal({
     const [loading, setLoading] = useState(false);
     const [err, setErr] = useState<string | null>(null);
     const [successMsg, setSuccessMsg] = useState<string | null>(null);
+    const shouldValidatePassword = mode === 'signup' || mode === 'forgot';
+    const passwordValid = isPasswordValid(password);
 
     useEffect(() => {
         if (!open) return;
@@ -61,23 +98,21 @@ export default function LoginModal({
         setSuccessMsg(null);
         setLoading(false);
         setMode(nextMode);
+        setPassword('');
 
         if (nextMode === 'login') {
-            setPassword('');
             setFirstName('');
             setLastName('');
             setDateOfBirth('');
         }
 
         if (nextMode === 'signup') {
-            setPassword('');
             setFirstName('');
             setLastName('');
             setDateOfBirth('');
         }
 
         if (nextMode === 'forgot') {
-            setPassword('');
             setDateOfBirth('');
             setFirstName('');
             setLastName('');
@@ -88,6 +123,12 @@ export default function LoginModal({
         e.preventDefault();
         setErr(null);
         setSuccessMsg(null);
+        if (shouldValidatePassword && !passwordValid) {
+            setErr(
+                'Password must be at least 6 characters and include a lowercase letter, an uppercase letter, and a number.'
+            );
+            return;
+        }
         setLoading(true);
 
         try {
@@ -194,9 +235,8 @@ export default function LoginModal({
                                 className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                placeholder="username"
                                 autoComplete="username"
-                                required />
+                                required />  
                             <label className="mt-4 block text-sm font-bold text-gray-800">Date of Birth</label>
                             <input
                                 className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
@@ -212,7 +252,11 @@ export default function LoginModal({
                                 type="password"
                                 placeholder="••••••••"
                                 autoComplete="new-password"
+                                minLength={6}
+                                pattern={PASSWORD_REGEX.source}
+                                title="Password must be at least 6 characters and include a lowercase letter, an uppercase letter, and a number."
                                 required />
+                            <PasswordRequirements password={password} />
                         </>
                     )}
                     {mode !== 'forgot' && (
@@ -222,13 +266,10 @@ export default function LoginModal({
                                 className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                placeholder="username"
                                 autoComplete="username"
                                 required />
 
-                            <label className="mt-4 block text-sm font-bold text-gray-800">
-                                Password
-                            </label>
+                            <label className="mt-4 block text-sm font-bold text-gray-800">Password</label>
                             <input
                                 className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
                                 value={password}
@@ -236,8 +277,16 @@ export default function LoginModal({
                                 type="password"
                                 placeholder="••••••••"
                                 autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+                                minLength={mode === 'signup' ? 6 : undefined}
+                                pattern={mode === 'signup' ? PASSWORD_REGEX.source : undefined}
+                                title={
+                                    mode === 'signup'
+                                        ? 'Password must be at least 6 characters and include a lowercase letter, an uppercase letter, and a number.'
+                                        : undefined
+                                }
                                 required />
 
+                            {mode === 'signup' && <PasswordRequirements password={password} />}
                             {mode === 'login' && (
                                 <button
                                     type="button"
@@ -267,21 +316,19 @@ export default function LoginModal({
                         {loading
                             ? 'Please wait…'
                             : mode === 'login'
-                                ? 'Sign in'
-                                : mode === 'signup'
-                                    ? 'Create account'
-                                    : 'Update password'}
+                              ? 'Sign in'
+                              : mode === 'signup'
+                                ? 'Create account'
+                                : 'Update password'}
                     </button>
 
                     {mode === 'login' && (
-                        <>
-                            <button
-                                type="button"
-                                className="mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
-                                onClick={() => switchMode('signup')}>
-                                Create Account
-                            </button>
-                        </>
+                        <button
+                            type="button"
+                            className="mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
+                            onClick={() => switchMode('signup')}>
+                            Create Account
+                        </button>
                     )}
 
                     {mode === 'signup' && (
