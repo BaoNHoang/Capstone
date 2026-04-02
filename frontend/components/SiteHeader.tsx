@@ -19,7 +19,7 @@ export default function SiteHeader({
             <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
                 <Link
                     href="/"
-                    className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
+                    className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
                     MedPredict
                 </Link>
                 <nav className="hidden items-center gap-25 md:flex">

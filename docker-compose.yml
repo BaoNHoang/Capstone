@@ -33,7 +33,7 @@ services:
     image: medpredict-frontend
     container_name: medpredict-frontend
     build:
-      context: ./frontend/
+      context: ./frontend
       dockerfile: Dockerfile
     depends_on:
       - backend

@@ -7,10 +7,10 @@ const apiBase = process.env.INTERNAL_API_BASE || "http://backend:8000";
 const nextConfig: NextConfig = {
   images: { unoptimized: true },
   trailingSlash: true,
+  output: isGithubPages ? "export" : "standalone",
 
   ...(isGithubPages
     ? {
-        output: "export" as const,
         basePath: `/${repo}`,
         assetPrefix: `/${repo}/`,
       }

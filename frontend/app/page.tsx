@@ -296,8 +296,8 @@ export default function LandingPage() {
                                         professional for medical concerns.
                                     </div>
                                 </div>
-                                <div className="mt-6 grid gap-4">
-                                    <div className="p-6">
+                                <div>
+                                    <div className="p-4">
                                         <div className="mt-2 text-lg font-extrabold text-gray-900">
                                             Pick how you want your results calculated
                                         </div>
@@ -305,8 +305,8 @@ export default function LandingPage() {
                                             Choose from multiple prediction options all in one dropdown
                                         </p>
                                     </div>
-                                    <div className="p-6">
-                                        <div className="mt-2 text-lg font-extrabold text-gray-900">
+                                    <div className="p-4">
+                                        <div className="text-lg font-extrabold text-gray-900">
                                             A clear risk stage with a confidence score
                                         </div>
                                         <p className="mt-1 text-sm font-semibold text-gray-600">
@@ -363,7 +363,7 @@ export default function LandingPage() {
 
             <section id="partners" className="mb-20">
                 <Reveal>
-                    <div className="mx-auto max-w-7xl px-6 py-4">
+                    <div className="mx-auto max-w-7xl px-6">
                         <div className="max-w-7xl">
                             <h2 className="mt-1 text-m font-extrabold tracking-tight text-gray-900 md:text-5xl">
                                 Built alongside teams

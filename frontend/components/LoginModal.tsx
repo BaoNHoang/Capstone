@@ -210,14 +210,12 @@ export default function LoginModal({
                                 className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
                                 value={firstName}
                                 onChange={(e) => setFirstName(e.target.value)}
-                                placeholder="First name"
                                 required />
                             <label className="mt-4 block text-sm font-bold text-gray-800">Last Name</label>
                             <input
                                 className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
                                 value={lastName}
                                 onChange={(e) => setLastName(e.target.value)}
-                                placeholder="Last name"
                                 required />
                             <label className="mt-4 block text-sm font-bold text-gray-800">Date of Birth</label>
                             <input
@@ -250,7 +248,6 @@ export default function LoginModal({
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 type="password"
-                                placeholder="••••••••"
                                 autoComplete="new-password"
                                 minLength={6}
                                 pattern={PASSWORD_REGEX.source}
@@ -275,7 +272,6 @@ export default function LoginModal({
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 type="password"
-                                placeholder="••••••••"
                                 autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
                                 minLength={mode === 'signup' ? 6 : undefined}
                                 pattern={mode === 'signup' ? PASSWORD_REGEX.source : undefined}

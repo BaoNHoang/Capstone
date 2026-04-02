@@ -139,7 +139,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 health_model = XGBClassifier(
-    n_estimators=750,
+    n_estimators=770,
     max_depth=6,
     learning_rate=0.03,
     subsample=0.9,
@@ -194,8 +194,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 risk_model = XGBRegressor(
-    n_estimators=850,
-    max_depth=8,
+    n_estimators=860,
+    max_depth=7,
     learning_rate=0.03,
     subsample=0.9,
     colsample_bytree=0.9,
