@@ -211,8 +211,8 @@ export default function AboutPage() {
                                 <div className="max-w-sm">
                                     <h2 className="mt-3 text-4xl font-extrabold text-gray-900">Team</h2>
                                     <p className="mt-4 text-l leading-relaxed text-gray-600">
-                                        MedPredict is founder-led and employee owned, with the product experience and engineering decisions driven by one clear goal:
-                                        <span className="font-bold"> Making health numbers easier to understand.</span>
+                                        MedPredict is a founder-led, employee-owned venture created at Christopher Newport University (CNU). From product design to engineering execution, every decision is guided by one clear goal:
+                                        <span className="font-bold"> making health numbers easier to understand.</span> By transforming complex health data into more intuitive insights, MedPredict aims to create a simpler, more approachable experience for users who want clearer visibility into their health information.
                                     </p>
                                 </div>
                             </div>
@@ -226,11 +226,15 @@ export default function AboutPage() {
                                         <div className="flex gap-3">
                                             <a
                                                 href="https://www.linkedin.com/in/bao-nguyen-hoang/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                                 className="rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
                                                 LinkedIn
                                             </a>
                                             <a
                                                 href="https://github.com/BaoNHoang"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                                 className="rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
                                                 GitHub
                                             </a>
@@ -239,10 +243,48 @@ export default function AboutPage() {
                                     <div className="mt-8 border-t border-gray-100 pt-6" />
                                     <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
                                         <div>
-                                            <div className="text-2xl font-extrabold text-gray-900">John Doe</div>
-                                            <div className="mt-1 text-sm font-bold text-gray-500">Co-Founder & Lead Engineer</div>
+                                            <div className="text-2xl font-extrabold text-gray-900">Daniel Belsky</div>
+                                            <div className="mt-1 text-sm font-bold text-gray-500">Capstone Professor</div>
                                         </div>
-                                        <div className="flex gap-3" />
+                                        <div className="flex gap-3">
+                                            <a
+                                                href="https://www.linkedin.com/in/daniel-belsky-b3645648/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
+                                                LinkedIn
+                                            </a>
+                                            <a
+                                                href="https://cnu.edu/faculty/danielbelsky.html"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
+                                                CNU
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div className="mt-8 border-t border-gray-100 pt-6" />
+                                    <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                                        <div>
+                                            <div className="text-2xl font-extrabold text-gray-900">Kimberly Davis</div>
+                                            <div className="mt-1 text-sm font-bold text-gray-500">Subject Matter Expert</div>
+                                        </div>
+                                        <div className="flex gap-3">
+                                            <a
+                                                href="https://www.linkedin.com/in/kimberlyryandavis/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
+                                                LinkedIn
+                                            </a>
+                                            <a
+                                                href="https://cnu.edu/faculty/kimberlydavis.html"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
+                                                CNU
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

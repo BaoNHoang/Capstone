@@ -57,14 +57,22 @@ export default function SiteFooter() {
                     <div>
                         <h3 className="font-bold text-white mb-4">Follow Us</h3>
                         <div className="flex gap-4">
-                            <a href="#" className="hover:text-blue-400">
+                            <a href="#"
+                                target="_blank"
+                                rel="noopener noreferrer" 
+                                className="hover:text-blue-400">
                                 Instagram
                             </a>
-                            <a href="https://www.linkedin.com/in/bao-nguyen-hoang/" className="hover:text-blue-400">
+                            <a href="https://www.linkedin.com/in/bao-nguyen-hoang/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-blue-400">
                                 LinkedIn
                             </a>
                             <a
                                 href="https://github.com/BaoNHoang/MedPredict://github.com/BaoNHoang/"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="hover:text-blue-400">
                                 GitHub
                             </a>

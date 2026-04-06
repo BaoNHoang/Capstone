@@ -144,6 +144,13 @@ def corrupt_numeric(value, std_frac=0.05, min_noise=1.0):
     noise = random.gauss(0, max(abs(value) * std_frac, min_noise))
     return round(value + noise, 2)
 
+def maybe_corrupt_numeric(value, prob=0.2, std_frac=0.05, min_noise=1.0):
+    if value is None:
+        return None
+    if random.random() < prob:
+        return corrupt_numeric(value, std_frac=std_frac, min_noise=min_noise)
+    return value
+
 def maybe_missing(prob):
     return random.random() < prob
 
@@ -172,11 +179,11 @@ def inject_noise_and_missing(row):
         "ldl_mg_dL": 0.15,
     }
 
-    noisy["age_years"] = corrupt_numeric(noisy["age_years"], std_frac=0.03, min_noise=1)
-    noisy["height_cm"] = corrupt_numeric(noisy["height_cm"], std_frac=0.02, min_noise=1)
-    noisy["weight_kg"] = corrupt_numeric(noisy["weight_kg"], std_frac=0.05, min_noise=1)
-    noisy["blood_pressure_mmHg"] = corrupt_numeric(noisy["blood_pressure_mmHg"], std_frac=0.08, min_noise=2)
-    noisy["ldl_mg_dL"] = corrupt_numeric(noisy["ldl_mg_dL"], std_frac=0.10, min_noise=3)
+    noisy["age_years"] = maybe_corrupt_numeric(noisy["age_years"], prob=0.15, std_frac=0.03, min_noise=1)
+    noisy["height_cm"] = maybe_corrupt_numeric(noisy["height_cm"], prob=0.20, std_frac=0.02, min_noise=1)
+    noisy["weight_kg"] = maybe_corrupt_numeric(noisy["weight_kg"], prob=0.20, std_frac=0.05, min_noise=1)
+    noisy["blood_pressure_mmHg"] = maybe_corrupt_numeric(noisy["blood_pressure_mmHg"], prob=0.25, std_frac=0.08, min_noise=2)
+    noisy["ldl_mg_dL"] = maybe_corrupt_numeric(noisy["ldl_mg_dL"], prob=0.25, std_frac=0.10, min_noise=3)
 
     if random.random() < 0.01 and noisy["height_cm"] is not None:
         noisy["height_cm"] = random.choice([95, 260, -10])
