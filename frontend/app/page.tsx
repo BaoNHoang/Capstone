@@ -248,16 +248,16 @@ export default function LandingPage() {
                         Analyzes common data to estimate risk for diseases
                     </motion.p>
                     <div className="absolute bottom-2 left-0 right-0 z-10 flex justify-center">
-                        <motion.p className="text-white/80 hover:text-white text-sm font-bold"
+                        <motion.p className="text-white/60 hover:text-white text-sm font-bold leading-tight text-center"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.25, duration: 0.8 }}>
                             Scroll to explore
-                            <motion.span className="block text-center"
+                            <motion.span className="block -mt-2"
                                 initial={{ opacity: 0, y: -18 }}
                                 animate={{ y: [0, 5, 0], opacity: 1 }}
                                 transition={{ duration: 2, repeat: Infinity }}>
-                                ⌄
+                                <div className="text-3xl font-extrabold">⌄</div>
                             </motion.span>
                         </motion.p>
                     </div>
@@ -265,10 +265,10 @@ export default function LandingPage() {
             </section>
 
             <section id="explore" className="bg-white">
-                <div className="mx-auto max-w-8xl px-6 py-3">
+                <div className="mx-auto max-w-8xl px-6 py-2">
                     <div className="flex flex-col md:flex-row md:items-end md:justify-between">
                         <div />
-                        <div className="text-sm font-bold text-gray-500">→</div>
+                        <div className="text-2xl font-extrabold text-gray-500">→</div>
                     </div>
                     <div>
                         <HorizontalCarousel4Up />

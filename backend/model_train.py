@@ -145,7 +145,6 @@ health_model = XGBClassifier(
     subsample=0.9,
     colsample_bytree=0.9,
     random_state=1,
-    eval_metric="logloss",
 )
 
 health_model.fit(X_train, y_train)
@@ -172,8 +171,6 @@ plaque_model = XGBRegressor(
     subsample=0.9,
     colsample_bytree=0.9,
     random_state=1,
-    objective="reg:squarederror",
-    eval_metric="mae",
 )
 
 plaque_model.fit(X_train, y_train)
@@ -200,8 +197,6 @@ risk_model = XGBRegressor(
     subsample=0.9,
     colsample_bytree=0.9,
     random_state=1,
-    objective="reg:squarederror",
-    eval_metric="mae",
 )
 
 risk_model.fit(X_train, y_train)
