@@ -112,7 +112,7 @@ export default function DashboardPage() {
                                     Home
                                 </button>
                                 <button
-                                        className="rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
+                                    className="rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
                                     onClick={() => router.push('/predictor')}>
                                     Predictor
                                 </button>
@@ -184,11 +184,19 @@ export default function DashboardPage() {
                                         Enter basic health inputs and receive a risk score + potential
                                         stage.
                                     </div>
-                                    <button
-                                        className="mt-3 rounded-xl bg-slate-800 px-4 py-2 text-xs font-extrabold text-white hover:bg-slate-700"
-                                        onClick={() => router.push('/predictor')}>
-                                        Open tool
-                                    </button>
+                                    <div className="flex flex-wrap gap-1">
+                                        <button
+                                            className="mt-3 rounded-xl bg-slate-800 px-4 py-2 text-xs font-extrabold text-white hover:bg-slate-700"
+                                            onClick={() => router.push('/predictor')}>
+                                            Open tool
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="mt-3 rounded-xl border border-gray-300 bg-white px-4 py-2 text-xs font-extrabold text-gray-900 hover:bg-gray-50"
+                                            onClick={() => router.push('/predictor/info')}>
+                                            Info
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
                                     <div className="text-sm font-extrabold text-gray-900">

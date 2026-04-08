@@ -169,20 +169,17 @@ export default function HistoryPage() {
                             <div className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent">
                                 MedPredict
                             </div>
-
                             <div className="flex flex-wrap gap-2">
                                 <button
                                     className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/25"
                                     onClick={() => router.push('/')}>
                                     Home
                                 </button>
-
                                 <button
                                     className="rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
                                     onClick={() => router.push('/predictor')}>
                                     Predictor
                                 </button>
-
                                 {id ? (
                                     <button
                                         className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-red-800"
@@ -198,7 +195,6 @@ export default function HistoryPage() {
                                 )}
                             </div>
                         </div>
-
                         <div>
                             {id ? (
                                 <div className="text-lg font-extrabold text-white">
@@ -211,7 +207,6 @@ export default function HistoryPage() {
                                     Please login to access your history
                                 </div>
                             )}
-
                             <div className="mt-3 text-sm font-semibold text-white/75">
                                 Previous predictions saved for this account.
                             </div>
