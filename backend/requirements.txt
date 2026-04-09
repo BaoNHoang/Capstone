@@ -11,3 +11,4 @@ scikit-learn
 python-dotenv
 psycopg2-binary
 xgboost
+mcp[cli]
