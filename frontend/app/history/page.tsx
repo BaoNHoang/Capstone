@@ -72,7 +72,7 @@ function getSeverityStyle(severity?: string) {
         return 'bg-green-100 text-green-800 ring-green-200';
     }
 
-    return 'bg-slate-100 text-slate-700 ring-slate-200';
+    return 'bg-blue-100 text-blue-700 ring-blue-200';
 }
 
 function formatBoolean(value: boolean) {
