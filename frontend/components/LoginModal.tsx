@@ -337,7 +337,7 @@ export default function LoginModal({
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             <button
-                className="absolute inset-0 bg-black/50"
+                className="cursor-pointer absolute inset-0 bg-black/50"
                 onClick={onClose}
                 aria-label="Close login modal" />
             <div className="relative z-10 w-full max-w-sm rounded-2xl bg-white p-8 shadow-xl">
@@ -386,7 +386,7 @@ export default function LoginModal({
                                     type="button"
                                     onClick={sendLoginCode}
                                     disabled={sendingLoginCode || !loginIdentifier.trim() || !loginPassword.trim()}
-                                    className="whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
+                                    className="cursor-pointer whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
                                     {sendingLoginCode
                                         ? 'Sending...'
                                         : loginCodeSent
@@ -396,7 +396,7 @@ export default function LoginModal({
                             </div>
                             <button
                                 type="button"
-                                className="mt-2 block text-left text-xs font-medium text-blue-600 hover:text-blue-700"
+                                className="cursor-pointer mt-2 block text-left text-xs font-medium text-blue-600 hover:text-blue-700"
                                 onClick={() => switchMode('forgot')}>
                                 Forgot Password?
                             </button>
@@ -489,7 +489,7 @@ export default function LoginModal({
                                     type="button"
                                     onClick={sendForgotPasswordCode}
                                     disabled={sendingResetCode || !forgotIdentifier.trim() || !dateOfBirth}
-                                    className="whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
+                                    className="cursor-pointer whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
                                     {sendingResetCode
                                         ? 'Sending...'
                                         : resetCodeSent
@@ -526,7 +526,7 @@ export default function LoginModal({
 
                     <button
                         disabled={loading}
-                        className="mt-6 w-full rounded-xl bg-blue-600 py-3 font-bold text-white hover:bg-blue-700 disabled:opacity-60">
+                        className="cursor-pointer mt-6 w-full rounded-xl bg-blue-600 py-3 font-bold text-white hover:bg-blue-700 disabled:opacity-60">
                         {loading
                             ? 'Please wait...'
                             : mode === 'login'
@@ -539,7 +539,7 @@ export default function LoginModal({
                     {mode === 'login' && (
                         <button
                             type="button"
-                            className="mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
+                            className="cursor-pointer mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
                             onClick={() => switchMode('signup')}>
                             Create Account
                         </button>
@@ -548,7 +548,7 @@ export default function LoginModal({
                     {mode === 'signup' && (
                         <button
                             type="button"
-                            className="mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
+                            className="cursor-pointer mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
                             onClick={() => switchMode('login')}>
                             Sign in
                         </button>
@@ -556,7 +556,7 @@ export default function LoginModal({
                     {mode === 'forgot' && (
                         <button
                             type="button"
-                            className="mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
+                            className="cursor-pointer mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
                             onClick={() => switchMode('login')}>
                             Back to Sign in
                         </button>

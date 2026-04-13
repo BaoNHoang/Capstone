@@ -43,7 +43,7 @@ export default function SiteHeader({
                     {authed ? (
                         <>
                             <button
-                                className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/15"
+                                className="cursor-pointer rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/15"
                                 onClick={onLogoutClick}
                                 type="button">
                                 Log out
@@ -51,7 +51,7 @@ export default function SiteHeader({
                         </>
                     ) : (
                         <button
-                            className="rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/15"
+                            className="cursor-pointer rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white hover:bg-white/15"
                             onClick={onLoginClick}
                             type="button">
                             Log in

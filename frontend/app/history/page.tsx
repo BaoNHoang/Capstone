@@ -171,24 +171,24 @@ export default function HistoryPage() {
                             </div>
                             <div className="flex flex-wrap gap-2">
                                 <button
-                                    className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/25"
+                                    className="cursor-pointer rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/25"
                                     onClick={() => router.push('/')}>
                                     Home
                                 </button>
                                 <button
-                                    className="rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
+                                    className="cursor-pointer rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
                                     onClick={() => router.push('/predictor')}>
                                     Predictor
                                 </button>
                                 {id ? (
                                     <button
-                                        className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-red-800"
+                                        className="cursor-pointer rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-red-800"
                                         onClick={() => setLogoutOpen(true)}>
                                         Logout
                                     </button>
                                 ) : (
                                     <button
-                                        className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/15"
+                                        className="cursor-pointer rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/15"
                                         onClick={() => setLoginOpen(true)}>
                                         Login
                                     </button>
@@ -234,7 +234,7 @@ export default function HistoryPage() {
                     <div className="space-y-3">
                         <div className="flex flex-wrap items-center justify-between gap-3">
                             <button
-                                className="rounded-2xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-extrabold text-slate-900 shadow-sm transition hover:bg-slate-100"
+                                className="cursor-pointer rounded-2xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-extrabold text-slate-900 shadow-sm transition hover:bg-slate-100"
                                 onClick={() => router.push('/dashboard')}>
                                 Back to Dashboard
                             </button>
@@ -332,7 +332,7 @@ export default function HistoryPage() {
                                             <div className="mt-4">
                                                 <button
                                                     type="button"
-                                                    className="w-full rounded-xl bg-slate-800 py-2 text-sm font-extrabold text-white transition hover:bg-slate-700"
+                                                    className="cursor-pointer w-full rounded-xl bg-slate-800 py-2 text-sm font-extrabold text-white transition hover:bg-slate-700"
                                                     onClick={() => setOpenDetailsId(item.id)}>
                                                     View Details
                                                 </button>
@@ -365,7 +365,7 @@ export default function HistoryPage() {
 
                             <button
                                 type="button"
-                                className="rounded-xl bg-slate-800 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-700"
+                                className="cursor-pointerrounded-xl bg-slate-800 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-700"
                                 onClick={() => setOpenDetailsId(null)}>
                                 Close
                             </button>

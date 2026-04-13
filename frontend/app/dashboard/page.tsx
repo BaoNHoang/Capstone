@@ -107,24 +107,24 @@ export default function DashboardPage() {
                             </div>
                             <div className="flex flex-wrap gap-2">
                                 <button
-                                    className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/25"
+                                    className="cursor-pointer rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/25"
                                     onClick={() => router.push('/')}>
                                     Home
                                 </button>
                                 <button
-                                    className="rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
+                                    className="cursor-pointer rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
                                     onClick={() => router.push('/predictor')}>
                                     Predictor
                                 </button>
                                 {id ? (
                                     <button
-                                        className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-red-800"
+                                        className="cursor-pointer rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-red-800"
                                         onClick={() => setLogoutOpen(true)}>
                                         Logout
                                     </button>
                                 ) : (
                                     <button
-                                        className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/15"
+                                        className="cursor-pointer rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/15"
                                         onClick={() => setLoginOpen(true)}>
                                         Login
                                     </button>
@@ -186,13 +186,13 @@ export default function DashboardPage() {
                                     </div>
                                     <div className="flex flex-wrap gap-1">
                                         <button
-                                            className="mt-3 rounded-xl bg-slate-800 px-4 py-2 text-xs font-extrabold text-white hover:bg-slate-700"
+                                            className="cursor-pointer mt-3 rounded-xl bg-slate-800 px-4 py-2 text-xs font-extrabold text-white hover:bg-slate-700"
                                             onClick={() => router.push('/predictor')}>
                                             Open tool
                                         </button>
                                         <button
                                             type="button"
-                                            className="mt-3 rounded-xl border border-gray-300 bg-white px-4 py-2 text-xs font-extrabold text-gray-900 hover:bg-gray-50"
+                                            className="cursor-pointer mt-3 rounded-xl border border-gray-300 bg-white px-4 py-2 text-xs font-extrabold text-gray-900 hover:bg-gray-50"
                                             onClick={() => router.push('/info')}>
                                             Info
                                         </button>
@@ -206,7 +206,7 @@ export default function DashboardPage() {
                                         View prediction history.
                                     </div>
                                     <button
-                                        className="mt-3 rounded-xl border border-gray-300 bg-white px-4 py-2 text-xs font-extrabold text-gray-900 hover:bg-gray-50"
+                                        className="cursor-pointer mt-3 rounded-xl border border-gray-300 bg-white px-4 py-2 text-xs font-extrabold text-gray-900 hover:bg-gray-50"
                                         onClick={() => router.push('/history')}>
                                         View history
                                     </button>

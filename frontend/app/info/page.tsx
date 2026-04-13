@@ -318,24 +318,24 @@ export default function PredictorInfoPage() {
                             </div>
                             <div className="flex flex-wrap gap-2">
                                 <button
-                                    className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/25"
+                                    className="cursor-pointer rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/25"
                                     onClick={() => router.push('/')}>
                                     Home
                                 </button>
                                 <button
-                                    className="rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
+                                    className="cursor-pointer rounded-2xl bg-white/90 px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-100"
                                     onClick={() => router.push('/predictor')}>
                                     Predictor
                                 </button>
                                 {id ? (
                                     <button
-                                        className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-red-800"
+                                        className="cursor-pointer rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-red-800"
                                         onClick={() => setLogoutOpen(true)}>
                                         Logout
                                     </button>
                                 ) : (
                                     <button
-                                        className="rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/15"
+                                        className="cursor-pointer rounded-2xl bg-white/10 px-4 py-2 text-sm font-extrabold text-white ring-1 ring-white/15 hover:bg-white/15"
                                         onClick={() => setLoginOpen(true)}>
                                         Login
                                     </button>

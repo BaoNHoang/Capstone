@@ -281,7 +281,7 @@ export default function ProductPage() {
                                 </div>
                                 <div className="mt-8">
                                     <button
-                                        className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-extrabold text-gray-900 hover:bg-gray-50"
+                                        className="cursor-pointer w-full rounded-2xl border border-gray-200 bg-white px-5 py-3 text-sm font-extrabold text-gray-900 hover:bg-gray-50"
                                         onClick={() => (!!id ? router.push('/dashboard') : setLoginOpen(true))}>
                                         {!!id ? 'Continue to dashboard' : 'Get started'}
                                     </button>
@@ -309,7 +309,7 @@ export default function ProductPage() {
                                 </div>
                                 <div className="mt-8">
                                     <button
-                                        className="w-full rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95"
+                                        className="cursor-pointer w-full rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95"
                                         onClick={() => (!!id ? addToAccount() : setLoginOpen(true))}>
                                         {!!id ? 'Add to account' : 'Upgrade to Pro'}
                                     </button>
@@ -332,7 +332,7 @@ export default function ProductPage() {
                                 </div>
                                 <div className="mt-8">
                                     <button
-                                        className="w-full rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95"
+                                        className="cursor-pointer w-full rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:opacity-95"
                                         onClick={() => (!!id ? addToAccount() : setLoginOpen(true))}>
                                         {!!id ? 'Add to account' : 'Upgrade to Teams'}
                                     </button>
@@ -391,7 +391,7 @@ export default function ProductPage() {
                                 </div>
                                 <button
                                     onClick={() => (!!id ? router.push('/dashboard') : setLoginOpen(true))}
-                                    className="rounded-2xl bg-gray-900 px-6 py-3 text-sm font-extrabold text-white hover:bg-gray-800">
+                                    className="cursor-pointer rounded-2xl bg-gray-900 px-6 py-3 text-sm font-extrabold text-white hover:bg-gray-800">
                                     {!!id ? 'Continue to dashboard' : 'Try it now'}
                                 </button>
                             </div>
