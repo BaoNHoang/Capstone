@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import LoginModal from '@/components/LoginModal';
 import LogoutConfirmModal from '@/components/LogoutConfirmModal';
 import Welcome from '@/components/Welcome';
+import InfoModal from '@/components/InfoModal';
+
 
 const API_BASE = '/api';
 
@@ -149,12 +151,14 @@ function Input({
     onChange,
     placeholder,
     type = 'text',
+    required = true,
 }: {
     label: string;
     value: string;
     onChange: (value: string) => void;
     placeholder?: string;
     type?: string;
+    required?: boolean;
 }) {
     return (
         <div className="flex flex-col">
@@ -166,8 +170,9 @@ function Input({
                 value={value}
                 placeholder={placeholder || 'Enter value'}
                 onChange={(e) => onChange(e.target.value)}
-                className="rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-blue-400"
-            />
+                required={required}
+                min={type === 'number' ? 0 : undefined}
+                className="rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-blue-400"/>
         </div>
     );
 }
@@ -178,12 +183,14 @@ function SelectInput({
     onChange,
     options,
     placeholder = 'Select an option',
+    required = true,
 }: {
     label: string;
     value: string;
     onChange: (value: string) => void;
     options: { label: string; value: string }[];
     placeholder?: string;
+    required?: boolean;
 }) {
     return (
         <div className="flex flex-col">
@@ -193,9 +200,11 @@ function SelectInput({
             <select
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-blue-400"
-            >
-                <option value="">{placeholder}</option>
+                required={required}
+                className="rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-blue-400">
+                <option value="" disabled>
+                    {placeholder}
+                </option>
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>
                         {option.label}
@@ -237,6 +246,7 @@ export default function PredictorPage() {
     const [error, setError] = useState<string | null>(null);
     const [result, setResult] = useState<PredictionResult | null>(null);
     const [welcomeOpen, setWelcomeOpen] = useState(false);
+    const [infoOpen, setInfoOpen] = useState(false);
     const [welcomeFirstName, setWelcomeFirstName] = useState('');
     const [form, setForm] = useState<PredictorForm>({
         age_years: '',
@@ -428,7 +438,7 @@ export default function PredictorPage() {
                                     </div>
                                     <button
                                         type="button"
-                                        onClick={() => router.push('/predictor/info')}
+                                        onClick={() => setInfoOpen(true)}
                                         className="rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-50">
                                         Info
                                     </button>
@@ -655,6 +665,10 @@ export default function PredictorPage() {
                 open={welcomeOpen}
                 firstName={welcomeFirstName}
                 onClose={() => setWelcomeOpen(false)} />
+            <InfoModal
+                open={infoOpen}
+                onClose={() => setInfoOpen(false)}
+                onConfirm={() => setInfoOpen(false)} />
         </main>
     );
 }

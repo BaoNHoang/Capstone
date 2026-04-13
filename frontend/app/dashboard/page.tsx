@@ -193,7 +193,7 @@ export default function DashboardPage() {
                                         <button
                                             type="button"
                                             className="mt-3 rounded-xl border border-gray-300 bg-white px-4 py-2 text-xs font-extrabold text-gray-900 hover:bg-gray-50"
-                                            onClick={() => router.push('/predictor/info')}>
+                                            onClick={() => router.push('/info')}>
                                             Info
                                         </button>
                                     </div>

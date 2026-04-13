@@ -345,7 +345,7 @@ export default function PredictorInfoPage() {
                         <div>
                             <div className="text-lg font-extrabold text-white">
                                 <h1 className="text-4xl font-extrabold text-white md:text-5xl">
-                                    Info
+                                    Information
                                 </h1>
                             </div>
                             <div className="mt-3 text-sm font-semibold text-white/75">
