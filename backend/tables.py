@@ -9,7 +9,10 @@ class Base(DeclarativeBase):
 
 class User(Base):
     __tablename__ = "users"
-    __table_args__ = (UniqueConstraint("username", name="uq_users_username"),)
+    __table_args__ = (
+        UniqueConstraint("username", name="uq_users_username"),
+        UniqueConstraint("email", name="uq_users_email"),
+    )
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=False)
     username: Mapped[str] = mapped_column(String(50), nullable=False)
@@ -17,6 +20,7 @@ class User(Base):
     firstName: Mapped[str] = mapped_column(String(50), nullable=False)
     lastName: Mapped[str] = mapped_column(String(50), nullable=False)
     dateOfBirth: Mapped[date] = mapped_column(Date, nullable=False)
+    email: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
 
 class PredictionHistory(Base):
     __tablename__ = "prediction_history"

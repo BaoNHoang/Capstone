@@ -1,9 +1,6 @@
 from datetime import date
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr
 
-class LoginBody(BaseModel):
-    username: str
-    password: str
 
 class SignupBody(BaseModel):
     username: str
@@ -11,6 +8,7 @@ class SignupBody(BaseModel):
     firstName: str
     lastName: str
     dateOfBirth: date
+    email: EmailStr
 
 class PredictBody(BaseModel):
     age_years: float
@@ -33,7 +31,26 @@ class PredictBody(BaseModel):
     blood_pressure_mmHg: float
     ldl_mg_dL: float
 
-class ForgotPasswordBody(BaseModel):
-    username: str
+class SendLoginCodeBody(BaseModel):
+    identifier: str
+    password: str
+
+
+class LoginBody(BaseModel):
+    identifier: str
+    password: str
+    verificationCode: str
+    loginToken: str
+
+
+class SendForgotPasswordCodeBody(BaseModel):
+    identifier: str
     dateOfBirth: date
-    newPassword: str = Field(min_length=6)
+
+
+class ForgotPasswordBody(BaseModel):
+    identifier: str
+    dateOfBirth: date
+    verificationCode: str
+    resetToken: str
+    newPassword: str
