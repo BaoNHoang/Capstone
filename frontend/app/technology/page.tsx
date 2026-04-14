@@ -236,6 +236,7 @@ export default function TechnologyPage() {
                                     Optimized for fast web delivery. Can run as static-friendly UI + API backend hosted separately.
                                 </p>
                                 <div className="mt-4 flex flex-wrap gap-2">
+                                    <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-extrabold text-gray-700">Docker</span>
                                     <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-extrabold text-gray-700">AWS</span>
                                 </div>
                             </div>

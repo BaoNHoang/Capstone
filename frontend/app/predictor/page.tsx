@@ -172,7 +172,8 @@ function Input({
                 onChange={(e) => onChange(e.target.value)}
                 required={required}
                 min={type === 'number' ? 0 : undefined}
-                className="rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-blue-400"/>
+                step={type === 'number' ? 'any' : undefined}
+                className="rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-blue-400" />
         </div>
     );
 }
@@ -439,7 +440,7 @@ export default function PredictorPage() {
                                     <button
                                         type="button"
                                         onClick={() => setInfoOpen(true)}
-                                        className="rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-900 hover:bg-slate-50">
+                                        className="cursor-pointer whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
                                         Info
                                     </button>
                                 </div>
@@ -577,10 +578,6 @@ export default function PredictorPage() {
                             <div className="text-2xl font-extrabold text-gray-900">
                                 Prediction Result
                             </div>
-                            <div className="mt-2 text-sm font-semibold text-gray-600">
-                                Your backend should return the model result here.
-                            </div>
-
                             {!result ? (
                                 <div className="mt-6 rounded-2xl bg-slate-50 p-5 text-sm font-semibold text-gray-500">
                                     No prediction yet.

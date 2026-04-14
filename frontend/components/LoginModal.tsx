@@ -29,7 +29,6 @@ function PasswordRequirements({ password }: { password: string }) {
 
     return (
         <div className="mt-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
-            <p className="text-xs font-semibold text-gray-700">Password must include:</p>
             <ul className="mt-2 space-y-1">
                 <li className={itemClass(checks.minLength)}>At least 6 characters</li>
                 <li className={itemClass(checks.lowercase)}>A lowercase letter</li>
@@ -334,234 +333,230 @@ export default function LoginModal({
         }
     }
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <button
-                className="cursor-pointer absolute inset-0 bg-black/50"
-                onClick={onClose}
-                aria-label="Close login modal" />
-            <div className="relative z-10 w-full max-w-sm rounded-2xl bg-white p-8 shadow-xl">
+return (
+    <div
+        className="fixed inset-0 z-50 overflow-y-auto bg-black/50"
+        onClick={onClose}>
+        <div className="flex min-h-full items-start justify-center p-4 sm:items-center sm:p-6">
+            <div
+                className="relative z-10 w-full max-w-sm rounded-2xl bg-white p-4 shadow-xl max-h-[90vh] overflow-y-auto sm:p-6 md:max-w-md md:p-8"
+                onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-start justify-between gap-4">
                     <div>
-                        <h2 className="text-2xl font-extrabold text-gray-900">{title}</h2>
+                        <h2 className="text-xl font-extrabold text-gray-900 sm:text-2xl">
+                            {title}
+                        </h2>
                         <p className="mt-2 text-sm text-gray-600">{subtitle}</p>
                     </div>
                 </div>
-                <form onSubmit={onSubmit} className="mt-6">
-                    {mode === 'login' && (
-                        <>
-                            <label className="block text-sm font-bold text-gray-800">Username or Email</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={loginIdentifier}
-                                onChange={(e) => {
-                                    setLoginIdentifier(e.target.value);
-                                    setLoginCode('');
-                                    setLoginToken('');
-                                    setLoginCodeSent(false);
-                                }}
-                                autoComplete="username"
-                                required />
-                            <label className="mt-4 block text-sm font-bold text-gray-800">Password</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={loginPassword}
-                                onChange={(e) => {
-                                    setLoginPassword(e.target.value);
-                                    setLoginCode('');
-                                    setLoginToken('');
-                                    setLoginCodeSent(false);
-                                }}
-                                type="password"
-                                autoComplete="current-password"
-                                required />
-                            <div className="mt-4 flex gap-2">
+                <form onSubmit={onSubmit} className="mt-5 sm:mt-6">
+                        {mode === 'login' && (
+                            <>
+                                <label className="block text-sm font-bold text-gray-800">Username or Email</label>
                                 <input
-                                    className="w-full rounded-lg border border-gray-200 p-2 text-black"
-                                    value={loginCode}
-                                    onChange={(e) => setLoginCode(e.target.value)}
-                                    placeholder="Enter sign-in code"
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={loginIdentifier}
+                                    onChange={(e) => {
+                                        setLoginIdentifier(e.target.value);
+                                        setLoginCode('');
+                                        setLoginToken('');
+                                        setLoginCodeSent(false);
+                                    }}
+                                    autoComplete="username"
                                     required />
+                                <label className="mt-4 block text-sm font-bold text-gray-800">Password</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={loginPassword}
+                                    onChange={(e) => {
+                                        setLoginPassword(e.target.value);
+                                        setLoginCode('');
+                                        setLoginToken('');
+                                        setLoginCodeSent(false);
+                                    }}
+                                    type="password"
+                                    autoComplete="current-password"
+                                    required />
+                                <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                                    <input
+                                        className="w-full rounded-lg border border-gray-200 p-2 text-black"
+                                        value={loginCode}
+                                        onChange={(e) => setLoginCode(e.target.value)}
+                                        placeholder="Enter sign-in code"
+                                        required/>
+                                    <button
+                                        type="button"
+                                        onClick={sendLoginCode}
+                                        disabled={sendingLoginCode || !loginIdentifier.trim() || !loginPassword.trim()}
+                                        className="w-full sm:w-auto cursor-pointer whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
+                                        {sendingLoginCode ? 'Sending...' : loginCodeSent ? 'Resend Code' : 'Send Code'}
+                                    </button>
+                                </div>
                                 <button
                                     type="button"
-                                    onClick={sendLoginCode}
-                                    disabled={sendingLoginCode || !loginIdentifier.trim() || !loginPassword.trim()}
-                                    className="cursor-pointer whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
-                                    {sendingLoginCode
-                                        ? 'Sending...'
-                                        : loginCodeSent
-                                            ? 'Resend Code'
-                                            : 'Send Code'}
+                                    className="cursor-pointer mt-2 block text-left text-xs font-medium text-blue-600 hover:text-blue-700"
+                                    onClick={() => switchMode('forgot')}>
+                                    Forgot Password?
                                 </button>
+                            </>
+                        )}
+                        {mode === 'signup' && (
+                            <>
+                                <label className="block text-sm font-bold text-gray-800">First Name</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    required />
+                                <label className="mt-4 block text-sm font-bold text-gray-800">Last Name</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    required />
+                                <label className="mt-4 block text-sm font-bold text-gray-800">Date of Birth</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={dateOfBirth}
+                                    onChange={(e) => setDateOfBirth(e.target.value)}
+                                    type="date"
+                                    required />
+                                <label className="mt-4 block text-sm font-bold text-gray-800">Email</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    type="email"
+                                    autoComplete="email"
+                                    required />
+                                <label className="mt-4 block text-sm font-bold text-gray-800">Username</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    autoComplete="username"
+                                    required />
+                                <label className="mt-4 block text-sm font-bold text-gray-800">Password</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    type="password"
+                                    autoComplete="new-password"
+                                    minLength={6}
+                                    pattern={PASSWORD_REGEX.source}
+                                    title="Password must be at least 6 characters and include a lowercase letter, an uppercase letter, and a number."
+                                    required />
+                                <PasswordRequirements password={password} />
+                            </>
+                        )}
+                        {mode === 'forgot' && (
+                            <>
+                                <label className="block text-sm font-bold text-gray-800">Username or Email</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={forgotIdentifier}
+                                    onChange={(e) => {
+                                        setForgotIdentifier(e.target.value);
+                                        setResetCode('');
+                                        setResetToken('');
+                                        setResetCodeSent(false);
+                                    }}
+                                    autoComplete="username"
+                                    required />
+                                <label className="mt-4 block text-sm font-bold text-gray-800">Date of Birth</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={dateOfBirth}
+                                    onChange={(e) => {
+                                        setDateOfBirth(e.target.value);
+                                        setResetCode('');
+                                        setResetToken('');
+                                        setResetCodeSent(false);
+                                    }}
+                                    type="date"
+                                    required />
+                                <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                                    <input
+                                        className="w-full rounded-lg border border-gray-200 p-2 text-black"
+                                        value={resetCode}
+                                        onChange={(e) => setResetCode(e.target.value)}
+                                        placeholder="Enter reset code"
+                                        required/>
+                                    <button
+                                        type="button"
+                                        onClick={sendForgotPasswordCode}
+                                        disabled={sendingResetCode || !forgotIdentifier.trim() || !dateOfBirth}
+                                        className="w-full sm:w-auto cursor-pointer whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
+                                        {sendingResetCode ? 'Sending...' : resetCodeSent ? 'Resend Code' : 'Send Code'}
+                                    </button>
+                                </div>
+                                <label className="mt-4 block text-sm font-bold text-gray-800">New Password</label>
+                                <input
+                                    className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    type="password"
+                                    autoComplete="new-password"
+                                    minLength={6}
+                                    pattern={PASSWORD_REGEX.source}
+                                    title="Password must be at least 6 characters and include a lowercase letter, an uppercase letter, and a number."
+                                    required />
+                                <PasswordRequirements password={password} />
+                            </>
+                        )}
+
+                        {err && (
+                            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm font-semibold text-red-800">
+                                {err}
                             </div>
+                        )}
+
+                        {successMsg && (
+                            <div className="mt-4 rounded-xl border border-green-200 bg-green-50 p-3 text-sm font-semibold text-green-800">
+                                {successMsg}
+                            </div>
+                        )}
+
+                        <button
+                            disabled={loading}
+                            className="cursor-pointer mt-6 w-full rounded-xl bg-blue-600 py-3 font-bold text-white hover:bg-blue-700 disabled:opacity-60">
+                            {loading
+                                ? 'Please wait...'
+                                : mode === 'login'
+                                    ? 'Sign in'
+                                    : mode === 'signup'
+                                        ? 'Create account'
+                                        : 'Update password'}
+                        </button>
+
+                        {mode === 'login' && (
                             <button
                                 type="button"
-                                className="cursor-pointer mt-2 block text-left text-xs font-medium text-blue-600 hover:text-blue-700"
-                                onClick={() => switchMode('forgot')}>
-                                Forgot Password?
+                                className="cursor-pointer mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
+                                onClick={() => switchMode('signup')}>
+                                Create Account
                             </button>
-                        </>
-                    )}
-                    {mode === 'signup' && (
-                        <>
-                            <label className="block text-sm font-bold text-gray-800">First Name</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                                required />
-                            <label className="mt-4 block text-sm font-bold text-gray-800">Last Name</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
-                                required />
-                            <label className="mt-4 block text-sm font-bold text-gray-800">Date of Birth</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={dateOfBirth}
-                                onChange={(e) => setDateOfBirth(e.target.value)}
-                                type="date"
-                                required />
-                            <label className="mt-4 block text-sm font-bold text-gray-800">Email</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                type="email"
-                                autoComplete="email"
-                                required />
-                            <label className="mt-4 block text-sm font-bold text-gray-800">Username</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                autoComplete="username"
-                                required />
-                            <label className="mt-4 block text-sm font-bold text-gray-800">Password</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                type="password"
-                                autoComplete="new-password"
-                                minLength={6}
-                                pattern={PASSWORD_REGEX.source}
-                                title="Password must be at least 6 characters and include a lowercase letter, an uppercase letter, and a number."
-                                required />
-                            <PasswordRequirements password={password} />
-                        </>
-                    )}
-                    {mode === 'forgot' && (
-                        <>
-                            <label className="block text-sm font-bold text-gray-800">Username or Email</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={forgotIdentifier}
-                                onChange={(e) => {
-                                    setForgotIdentifier(e.target.value);
-                                    setResetCode('');
-                                    setResetToken('');
-                                    setResetCodeSent(false);
-                                }}
-                                autoComplete="username"
-                                required />
-                            <label className="mt-4 block text-sm font-bold text-gray-800">Date of Birth</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={dateOfBirth}
-                                onChange={(e) => {
-                                    setDateOfBirth(e.target.value);
-                                    setResetCode('');
-                                    setResetToken('');
-                                    setResetCodeSent(false);
-                                }}
-                                type="date"
-                                required />
-                            <div className="mt-4 flex gap-2">
-                                <input
-                                    className="w-full rounded-lg border border-gray-200 p-2 text-black"
-                                    value={resetCode}
-                                    onChange={(e) => setResetCode(e.target.value)}
-                                    placeholder="Enter reset code"
-                                    required />
-                                <button
-                                    type="button"
-                                    onClick={sendForgotPasswordCode}
-                                    disabled={sendingResetCode || !forgotIdentifier.trim() || !dateOfBirth}
-                                    className="cursor-pointer whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
-                                    {sendingResetCode
-                                        ? 'Sending...'
-                                        : resetCodeSent
-                                            ? 'Resend Code'
-                                            : 'Send Code'}
-                                </button>
-                            </div>
-                            <label className="mt-4 block text-sm font-bold text-gray-800">New Password</label>
-                            <input
-                                className="mt-2 w-full rounded-lg border border-gray-200 p-2 text-black"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                type="password"
-                                autoComplete="new-password"
-                                minLength={6}
-                                pattern={PASSWORD_REGEX.source}
-                                title="Password must be at least 6 characters and include a lowercase letter, an uppercase letter, and a number."
-                                required />
-                            <PasswordRequirements password={password} />
-                        </>
-                    )}
+                        )}
 
-                    {err && (
-                        <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm font-semibold text-red-800">
-                            {err}
-                        </div>
-                    )}
-
-                    {successMsg && (
-                        <div className="mt-4 rounded-xl border border-green-200 bg-green-50 p-3 text-sm font-semibold text-green-800">
-                            {successMsg}
-                        </div>
-                    )}
-
-                    <button
-                        disabled={loading}
-                        className="cursor-pointer mt-6 w-full rounded-xl bg-blue-600 py-3 font-bold text-white hover:bg-blue-700 disabled:opacity-60">
-                        {loading
-                            ? 'Please wait...'
-                            : mode === 'login'
-                                ? 'Sign in'
-                                : mode === 'signup'
-                                    ? 'Create account'
-                                    : 'Update password'}
-                    </button>
-
-                    {mode === 'login' && (
-                        <button
-                            type="button"
-                            className="cursor-pointer mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
-                            onClick={() => switchMode('signup')}>
-                            Create Account
-                        </button>
-                    )}
-
-                    {mode === 'signup' && (
-                        <button
-                            type="button"
-                            className="cursor-pointer mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
-                            onClick={() => switchMode('login')}>
-                            Sign in
-                        </button>
-                    )}
-                    {mode === 'forgot' && (
-                        <button
-                            type="button"
-                            className="cursor-pointer mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
-                            onClick={() => switchMode('login')}>
-                            Back to Sign in
-                        </button>
-                    )}
-                </form>
+                        {mode === 'signup' && (
+                            <button
+                                type="button"
+                                className="cursor-pointer mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
+                                onClick={() => switchMode('login')}>
+                                Sign in
+                            </button>
+                        )}
+                        {mode === 'forgot' && (
+                            <button
+                                type="button"
+                                className="cursor-pointer mt-3 w-full rounded-xl border border-gray-200 bg-white py-3 font-bold text-gray-900 hover:bg-gray-50"
+                                onClick={() => switchMode('login')}>
+                                Back to Sign in
+                            </button>
+                        )}
+                    </form>
+                </div>
             </div>
         </div>
     );

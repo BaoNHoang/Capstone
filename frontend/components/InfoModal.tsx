@@ -301,7 +301,7 @@ export default function InfoModal({
                             <div className="mt-6 grid gap-6 md:grid-cols-2">
                                 <div className="rounded-2xl bg-slate-50 p-5">
                                     <h3 className="text-lg font-extrabold text-slate-900">
-                                        lbs to Kg
+                                        lbs to kg
                                     </h3>
                                     <p className="mt-2 text-sm text-gray-600">
                                         Formula: pounds × 0.45359237
@@ -328,7 +328,7 @@ export default function InfoModal({
 
                                 <div className="rounded-2xl bg-slate-50 p-5">
                                     <h3 className="text-lg font-extrabold text-slate-900">
-                                        In to Cm
+                                        in to cm
                                     </h3>
                                     <p className="mt-2 text-sm text-gray-600">
                                         Formula: total inches × 2.54
