@@ -29,7 +29,7 @@ function PasswordRequirements({ password }: { password: string }) {
 
     return (
         <div className="mt-3 rounded-lg border border-gray-200 bg-gray-50 p-3">
-            <ul className="mt-2 space-y-1">
+            <ul>
                 <li className={itemClass(checks.minLength)}>At least 6 characters</li>
                 <li className={itemClass(checks.lowercase)}>A lowercase letter</li>
                 <li className={itemClass(checks.uppercase)}>An uppercase letter</li>
