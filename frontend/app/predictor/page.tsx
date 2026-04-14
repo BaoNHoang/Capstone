@@ -440,8 +440,8 @@ export default function PredictorPage() {
                                     <button
                                         type="button"
                                         onClick={() => setInfoOpen(true)}
-                                        className="cursor-pointer whitespace-nowrap rounded-lg border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
-                                        Info
+                                        className="cursor-pointer whitespace-nowrap rounded-xl border border-blue-600 px-4 py-2 font-semibold text-blue-600 hover:bg-blue-50 disabled:opacity-60">
+                                        What do these fields mean?
                                     </button>
                                 </div>
                                 <div className="mt-2 text-sm font-semibold text-gray-600">

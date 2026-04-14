@@ -349,7 +349,7 @@ export default function PredictorInfoPage() {
                                 </h1>
                             </div>
                             <div className="mt-3 text-sm font-semibold text-white/75">
-                                Previous predictions saved for this account.
+                                Understand what antherosclerosis is
                             </div>
                         </div>
                     </motion.div>
@@ -372,81 +372,198 @@ export default function PredictorInfoPage() {
                         ))}
                     </div>
                 ) : (
-                    <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-                        <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-                            <h2 className="text-2xl font-extrabold text-slate-900">Metric Conversion Helper</h2>
-                            <p className="mt-2 text-sm font-semibold text-gray-600">
-                                Use these before entering values into the predictor.
-                            </p>
+                    <div className="space-y-3">
+                        <button
+                            className="cursor-pointer rounded-2xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-extrabold text-slate-900 shadow-sm transition hover:bg-slate-100"
+                            onClick={() => router.push('/dashboard')}>
+                            Back to Dashboard
+                        </button>
 
-                            <div className="mt-6 grid gap-6 md:grid-cols-2">
-                                <div className="rounded-2xl bg-slate-50 p-5">
-                                    <h3 className="text-lg font-extrabold text-slate-900">Pounds to Kilograms</h3>
-                                    <p className="mt-2 text-sm text-gray-600">Formula: pounds × 0.45359237</p>
-                                    <input
-                                        type="number"
-                                        min="0"
-                                        value={pounds}
-                                        onChange={(e) => setPounds(e.target.value)}
-                                        placeholder="Enter pounds"
-                                        className="mt-4 w-full rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 outline-none focus:ring-2 focus:ring-blue-400" />
-                                    <div className="mt-4 rounded-2xl border border-gray-200 bg-white p-4">
-                                        <div className="text-sm font-bold text-gray-500">Kilograms</div>
-                                        <div className="mt-1 text-2xl font-extrabold text-slate-900">
-                                            {kgValue ? `${kgValue} kg` : '--'}
-                                        </div>
-                                    </div>
-                                    <p className="mt-3 text-xs font-semibold text-gray-500">Example: 180 lb = 81.6 kg</p>
+                        <div className="mt-6">
+                            <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+                                <div>
+                                    <h2 className="text-2xl font-extrabold text-slate-900">
+                                        Understanding Atherosclerosis
+                                    </h2>
+                                    <p className="mt-2 max-w-3xl text-sm leading-7 text-gray-700">
+                                        Atherosclerosis is a chronic artery disease in which plaque builds up inside the
+                                        inner lining of arteries. Over time, this plaque can make the artery narrower,
+                                        stiffer, and less able to deliver oxygen-rich blood to the heart, brain, kidneys,
+                                        digestive organs, and limbs. It is a common underlying cause of heart attacks, strokes, 
+                                        peripheral artery disease, and other cardiovascular problems. 
+                                    </p>
                                 </div>
 
-                                <div className="rounded-2xl bg-slate-50 p-5">
-                                    <h3 className="text-lg font-extrabold text-slate-900">Inches to Centimeters</h3>
-                                    <p className="mt-2 text-sm text-gray-600">Formula: total inches × 2.54</p>
-                                    <div className="mt-4 grid grid-cols-2 gap-3">
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            value={feet}
-                                            onChange={(e) => setFeet(e.target.value)}
-                                            placeholder="Feet"
-                                            className="w-full rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 outline-none focus:ring-2 focus:ring-blue-400" />
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            value={inches}
-                                            onChange={(e) => setInches(e.target.value)}
-                                            placeholder="Inches"
-                                            className="w-full rounded-2xl border border-gray-200 bg-white p-3 font-medium text-gray-900 outline-none focus:ring-2 focus:ring-blue-400" />
-                                    </div>
-                                    <div className="mt-4 rounded-2xl border border-gray-200 bg-white p-4">
-                                        <div className="text-sm font-bold text-gray-500">Centimeters</div>
-                                        <div className="mt-1 text-2xl font-extrabold text-slate-900">
-                                            {cmValue ? `${cmValue} cm` : '--'}
-                                        </div>
-                                    </div>
-                                    <p className="mt-3 text-xs font-semibold text-gray-500">Example: 5'9" = 175.3 cm</p>
+                                <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 xl:max-w-sm">
+                                    <div className="text-sm font-extrabold text-rose-900">Why this matters</div>
+                                    <p className="mt-2 text-sm leading-6 text-rose-900/90">
+                                        Atherosclerosis often develops silently for years before symptoms appear. Cleveland
+                                        Clinic notes that complications from plaque buildup, including heart attack and
+                                        stroke, are among the leading causes of death worldwide.
+                                    </p>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-                            <h2 className="text-2xl font-extrabold text-slate-900">Quick Notes</h2>
-                            <div className="mt-4 space-y-4 text-sm text-gray-700">
-                                <div className="rounded-2xl bg-slate-50 p-4">
-                                    <div className="font-bold text-slate-900">Height</div>
-                                    <p className="mt-1">Enter height in centimeters, not feet and inches.</p>
+                            <div className="mt-2 space-y-4 text-sm leading-7 text-gray-700">
+                                <div>
+                                    <div className="text-xl font-bold text-slate-900">
+                                        What plaque is made of
+                                    </div>
+                                    <p className="mt-2">
+                                        Plaque is not just “fat.” Cleveland Clinic and Johns Hopkins describe it as a
+                                        buildup that can include fat, cholesterol, calcium, cellular waste products,
+                                        fibrin, and other substances. As this material collects inside the artery wall, the
+                                        vessel gradually becomes thickened and less flexible.
+                                    </p>
                                 </div>
-                                <div className="rounded-2xl bg-slate-50 p-4">
-                                    <div className="font-bold text-slate-900">Weight</div>
-                                    <p className="mt-1">Enter weight in kilograms, not pounds.</p>
+
+                                <div>
+                                    <div className="text-xl font-bold text-slate-900">
+                                        How the disease develops over time
+                                    </div>
+                                    <p className="mt-2">
+                                        The disease usually begins with injury or stress to the artery’s inner lining,
+                                        often linked to high LDL cholesterol, high blood pressure, smoking, diabetes, and
+                                        other long-term cardiovascular risk factors. Cleveland Clinic explains that early
+                                        disease can begin as fatty streaks, where cholesterol-rich inflammatory cells build
+                                        up in the vessel wall. Over time, these areas can grow into larger plaques that
+                                        reduce blood flow and make the artery more rigid.
+                                    </p>
                                 </div>
-                                <div className="rounded-2xl bg-slate-50 p-4">
-                                    <div className="font-bold text-slate-900">Blood Pressure</div>
-                                    <p className="mt-1">Your current form uses one numeric blood pressure field.</p>
+
+                                <div>
+                                    <div className="text-xl font-bold text-slate-900">
+                                        Why plaque becomes dangerous
+                                    </div>
+                                    <p className="mt-2">
+                                        Atherosclerosis is dangerous not only because it narrows arteries, but because a
+                                        plaque can rupture or erode. When that happens, a blood clot can form very quickly.
+                                        Johns Hopkins notes that this can block circulation and cause a heart attack,
+                                        stroke, aneurysm-related problems, or other blood-flow emergencies. In other words,
+                                        a person may feel fine for years and then suddenly develop a life-threatening event
+                                        when plaque becomes unstable.
+                                    </p>
                                 </div>
-                                <div className="rounded-2xl bg-slate-50 p-4">
-                                    <div className="font-bold text-slate-900">LDL</div>
-                                    <p className="mt-1">This is usually entered as a lab value in mg/dL.</p>
+
+                                <div>
+                                    <div className="text-xl font-bold text-slate-900">
+                                        Symptoms are often late and location-dependent
+                                    </div>
+                                    <p className="mt-2">
+                                        One of the most important clinical features of atherosclerosis is that it may cause
+                                        no symptoms until an artery is significantly narrowed or suddenly blocked. Symptoms
+                                        depend on which arteries are affected.
+                                    </p>
+
+                                    <div className="mt-3 grid gap-3 md:grid-cols-2">
+                                        <div>
+                                            <div className="font-bold text-slate-900">Heart / coronary arteries</div>
+                                            <p className="mt-1">
+                                                Reduced blood flow to the heart can cause chest pain, pressure, shortness
+                                                of breath, fatigue, discomfort in the arms, neck, shoulders, back, or
+                                                stomach, and in some people the first sign may be a heart attack.
+                                            </p>
+                                        </div>
+
+                                        <div>
+                                            <div className="font-bold text-slate-900">Brain / carotid arteries</div>
+                                            <p className="mt-1">
+                                                Disease in the carotid arteries can reduce oxygen flow to the brain and may
+                                                cause a transient ischemic attack or stroke. Johns Hopkins lists warning
+                                                signs such as sudden weakness, numbness, slurred speech, confusion,
+                                                clumsiness, loss of coordination, and temporary vision loss.
+                                            </p>
+                                        </div>
+
+                                        <div>
+                                            <div className="font-bold text-slate-900">Legs / peripheral arteries</div>
+                                            <p className="mt-1">
+                                                Reduced blood flow to the legs may lead to pain with walking, slower
+                                                healing, weakness, or other symptoms of peripheral artery disease.
+                                            </p>
+                                        </div>
+
+                                        <div>
+                                            <div className="font-bold text-slate-900">Other organs</div>
+                                            <p className="mt-1">
+                                                Atherosclerosis can also affect the kidneys, intestines, and aorta, leading
+                                                to reduced organ blood supply, chronic vascular damage, or aneurysm-related
+                                                complications.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className="text-xl font-bold text-slate-900">
+                                        Major medical risk factors
+                                    </div>
+                                    <p className="mt-2">
+                                        Cleveland Clinic and Johns Hopkins both identify several major risk factors:
+                                        elevated LDL cholesterol, high triglycerides, high blood pressure, smoking, diabetes,
+                                        obesity, low physical activity, unhealthy diet, and family history. Some risk factors
+                                        are not changeable, but many are modifiable and are central to prevention.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <div className="text-xl font-bold text-slate-900">
+                                        How doctors evaluate it
+                                    </div>
+                                    <p className="mt-2">
+                                        Evaluation usually starts with medical history, family history, symptom review,
+                                        lifestyle review, and physical exam. Depending on the situation, Cleveland Clinic
+                                        and Johns Hopkins describe testing such as cholesterol blood work, CT imaging,
+                                        angiography, ultrasound, ankle-brachial index comparison, stress testing, cardiac
+                                        catheterization, and other studies to find narrowing, calcification, or reduced
+                                        blood flow.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <div className="text-xl font-bold text-slate-900">
+                                        Treatment and long-term management
+                                    </div>
+                                    <p className="mt-2">
+                                        Treatment aims to slow plaque progression, reduce clot risk, improve blood flow,
+                                        lower the chance of heart attack or stroke, and manage symptoms. Official guidance
+                                        from these sources includes:
+                                    </p>
+
+                                    <div className="mt-5 grid gap-3 md:grid-cols-3">
+                                        <div>
+                                            <div className="font-bold text-slate-900">Lifestyle changes</div>
+                                            <p className="mt-1">
+                                                Stop smoking, improve diet, increase physical activity, maintain a healthier
+                                                weight, and control blood pressure, blood sugar, and cholesterol.
+                                            </p>
+                                        </div>
+
+                                        <div>
+                                            <div className="font-bold text-slate-900">Medications</div>
+                                            <p className="mt-1">
+                                                These may include cholesterol-lowering drugs, blood pressure treatment,
+                                                antiplatelet medicines, blood sugar control, and other therapy based on
+                                                overall cardiovascular risk.
+                                            </p>
+                                        </div>
+
+                                        <div>
+                                            <div className="font-bold text-slate-900">Procedures / surgery</div>
+                                            <p className="mt-1">
+                                                Severe blockages may require angioplasty, stenting, endarterectomy, bypass
+                                                surgery, or other vascular procedures to restore or improve circulation.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5">
+                                    <div className="text-xl font-bold text-sky-900">Educational note</div>
+                                    <p className="mt-2 text-sky-900/90">
+                                        This explanation is for education only. It should support understanding of the
+                                        disease process, not replace professional medical evaluation, diagnosis, or treatment.
+                                    </p>
                                 </div>
                             </div>
                         </div>
