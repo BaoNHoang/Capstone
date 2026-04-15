@@ -61,65 +61,81 @@ function HorizontalCarousel4Up() {
     const scrollerRef = useRef<HTMLDivElement | null>(null);
     const [mouseMode, setMouseMode] = useState(false);
     const mouseModeTimeout = useRef<number | null>(null);
+
     const pingMouseMode = () => {
         setMouseMode(true);
         if (mouseModeTimeout.current) window.clearTimeout(mouseModeTimeout.current);
         mouseModeTimeout.current = window.setTimeout(() => setMouseMode(false), 2500);
     };
+
     useEffect(() => {
         const el = scrollerRef.current;
         if (!el) return;
+
         const onWheel = (e: WheelEvent) => {
-            pingMouseMode();
-            const mostlyHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
-            if (mostlyHorizontal) return;
             const canScrollX = el.scrollWidth > el.clientWidth;
             if (!canScrollX) return;
+
+            const isVerticalScrollIntent = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
+            if (!isVerticalScrollIntent) return;
+
             e.preventDefault();
-            el.scrollLeft += e.deltaY;
+            pingMouseMode();
+            el.scrollBy({
+                left: e.deltaY,
+                behavior: 'auto',
+            });
         };
+
         const onMouseMove = () => pingMouseMode();
+
         el.addEventListener('wheel', onWheel, { passive: false });
         el.addEventListener('mousemove', onMouseMove);
+
         return () => {
-            el.removeEventListener('wheel', onWheel as any);
+            el.removeEventListener('wheel', onWheel);
             el.removeEventListener('mousemove', onMouseMove);
         };
     }, []);
 
     return (
         <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-white to-white/0 z-2" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-2 bg-gradient-to-l from-white to-white/0 z-2" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-white to-white/0" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-white to-white/0" />
             <div
                 ref={scrollerRef}
-                className={['overflow-x-auto scroll-smooth', mouseMode ? 'mouse-scrollbar' : 'no-scrollbar'].join(' ')}
+                aria-label="Explore carousel"
+                className={[
+                    'overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory',
+                    mouseMode ? 'mouse-scrollbar' : 'no-scrollbar',
+                ].join(' ')}
                 style={{
                     WebkitOverflowScrolling: 'touch',
+                    overscrollBehaviorX: 'contain',
                     scrollbarWidth: mouseMode ? 'auto' : 'none',
-                    overscrollBehavior: 'contain',
                 }}
-                aria-label="Explore carousel">
-                <Reveal>
-                    <div className="flex gap-3 py-3" style={{ width: 'max-content' }}>
-                        {CAROUSEL_TILES.map((t, i) => (
-                            <Link
-                                key={`${t.title}-${i}`}
-                                href={t.href}
-                                className="group relative shrink-0 overflow-hidden rounded-3xl border-1 border-gray-900 bg-white shadow-sm"
-                                style={{ width: 'min(1000px, calc((100vw - 10px) / 4))' }}>
-                                <div
-                                    className="h-[200px] w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                                    style={{ backgroundImage: `url(${t.img})` }} />
-                                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/35 to-black/85" />
-                                <div className="absolute bottom-0 left-0 right-0 p-6">
-                                    <div className="text-xl font-extrabold text-white">{t.title}</div>
-                                    <div className="mt-1 text-sm font-semibold text-white/85">{t.subtitle}</div>
+            >
+                <div className="flex w-max gap-4 py-3 pr-4">
+                    {CAROUSEL_TILES.map((t, i) => (
+                        <Link
+                            key={`${t.title}-${i}`}
+                            href={t.href}
+                            className="group relative block shrink-0 snap-start overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm w-[82vw] sm:w-[60vw] md:w-[42vw] lg:w-[30vw] xl:w-[23vw]" >
+                            <div
+                                className="h-[180px] sm:h-[210px] md:h-[230px] w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                                style={{ backgroundImage: `url(${t.img})` }} />
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/35 to-black/85" />
+                            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                                <div className="text-lg sm:text-xl font-extrabold text-white">
+                                    {t.title}
                                 </div>
-                            </Link>
-                        ))}
-                    </div>
-                </Reveal>
+                                <div className="mt-1 text-xs sm:text-sm font-semibold text-white/85">
+                                    {t.subtitle}
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
             </div>
         </div>
     );
@@ -216,8 +232,9 @@ export default function LandingPage() {
                     authed={!!id}
                     onLoginClick={() => setLoginOpen(true)}
                     onLogoutClick={() => setLogoutOpen(true)} />
-                <div className="relative z-10 mx-auto flex min-h-[calc(100vh-92px)] max-w-6xl flex-col justify-center px-6 pb-20">
-                    <motion.div className="max-w-4xl"
+                <div className="relative z-10 mx-auto flex min-h-[calc(100vh-92px)] max-w-6xl flex-col justify-center px-4 sm:px-6 lg:px-8 pb-24 pt-10">
+                    <motion.div
+                        className="max-w-4xl"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.25, duration: 0.8 }}>
@@ -229,11 +246,11 @@ export default function LandingPage() {
                                 exit={{ opacity: 0, y: 10 }}
                                 transition={{ duration: 0.7, ease: 'easeInOut' }}>
                                 {headlineStep === 0 ? (
-                                    <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">
+                                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                                         Turning Data Into Better Health Decisions
                                     </h1>
                                 ) : (
-                                    <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-6xl">
+                                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                                         Make predictions based on your health numbers
                                     </h1>
                                 )}
@@ -241,23 +258,25 @@ export default function LandingPage() {
                         </AnimatePresence>
                     </motion.div>
                     <motion.p
-                        className="mt-5 max-w-2xl text-lg font-semibold text-white/85 md:text-xl"
+                        className="mt-4 max-w-2xl text-base sm:text-lg md:text-xl font-semibold text-white/85"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.25, duration: 0.8 }}>
                         Analyzes common data to estimate risk for diseases
                     </motion.p>
-                    <div className="absolute bottom-2 left-0 right-0 z-10 flex justify-center">
-                        <motion.p className="text-white/60 hover:text-white text-sm font-bold leading-tight text-center"
+                    <div className="absolute bottom-4 left-0 right-0 z-10 flex justify-center px-4">
+                        <motion.p
+                            className="text-white/70 hover:text-white text-xs sm:text-sm font-bold leading-tight text-center"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.25, duration: 0.8 }}>
                             Scroll to explore
-                            <motion.span className="block -mt-2"
+                            <motion.span
+                                className="block -mt-1"
                                 initial={{ opacity: 0, y: -18 }}
                                 animate={{ y: [0, 5, 0], opacity: 1 }}
                                 transition={{ duration: 2, repeat: Infinity }}>
-                                <div className="text-3xl font-extrabold">⌄</div>
+                                <span className="text-2xl sm:text-3xl font-extrabold">⌄</span>
                             </motion.span>
                         </motion.p>
                     </div>
@@ -265,40 +284,43 @@ export default function LandingPage() {
             </section>
 
             <section id="explore" className="bg-white">
-                <div className="mx-auto max-w-8xl px-6 py-2">
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between">
-                        <div />
-                        <div className="text-2xl font-extrabold text-gray-500">→</div>
+                <div className="mx-auto max-w-8xl px-4 sm:px-6 py-4 sm:py-6">
+                    <div className="mb-2 flex items-center justify-between">
+                        <div className="text-lg sm:text-xl font-extrabold text-gray-900">
+                            Explore
+                        </div>
+                        <div className="text-xl sm:text-2xl font-extrabold text-gray-500">→</div>
                     </div>
-                    <div>
-                        <HorizontalCarousel4Up />
-                    </div>
+                    <HorizontalCarousel4Up />
                 </div>
             </section>
 
             <Reveal>
                 <section id="platform" className="bg-white">
-                    <div className="mx-auto max-w-7xl px-6 py-16">
-                        <div className="grid gap-10 md:grid-cols-2 md:items-start">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+                        <div className="grid gap-8 lg:gap-10 md:grid-cols-2 md:items-start">
                             <div>
-                                <h2 className="text-6xl font-extrabold text-gray-900">
+                                <h2 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
                                     <p>One platform</p>
                                     <p>Clear results</p>
                                 </h2>
-                                <div className="mt-4 text-lg text-gray-600 font-semibold">
-                                    <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600"> MedPredict </span> turns your everyday health numbers into a risk summary so you can
+                                <div className="mt-4 text-base sm:text-lg text-gray-600 font-semibold">
+                                    <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                                        {' '}MedPredict{' '}
+                                    </span>
+                                    turns your everyday health numbers into a risk summary so you can
                                     understand what they may mean and take smarter next steps. As we grow, the same experience
                                     will support more conditions without changing how you use the app.
-                                    <div className="mt-2 text-sm text-gray-600">
+                                    <div className="mt-3 text-xs sm:text-sm text-gray-600">
                                         <span className="font-bold text-gray-600">Note: </span>
                                         This is a fictional product created for demonstration purposes only. It does not
                                         provide real medical predictions or advice. Always consult a healthcare
                                         professional for medical concerns.
                                     </div>
                                 </div>
-                                <div>
+                                <div className="mt-4 space-y-2">
                                     <div className="p-4">
-                                        <div className="mt-2 text-lg font-extrabold text-gray-900">
+                                        <div className="text-base sm:text-lg font-extrabold text-gray-900">
                                             Pick how you want your results calculated
                                         </div>
                                         <p className="mt-1 text-sm font-semibold text-gray-600">
@@ -315,11 +337,11 @@ export default function LandingPage() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
+                            <div className="rounded-3xl border border-gray-200 bg-white p-5 sm:p-8 shadow-sm">
                                 <div className="text-sm font-extrabold text-gray-900">What you get</div>
                                 <div className="mt-5 grid gap-4">
                                     <div className="flex items-start gap-3">
-                                        <div className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
+                                        <div className="mt-1.5 h-2 w-2 rounded-full bg-blue-400 shrink-0" />
                                         <div>
                                             <div className="font-extrabold text-gray-900">Guided data entry</div>
                                             <div className="text-sm font-semibold text-gray-600">
@@ -328,7 +350,7 @@ export default function LandingPage() {
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <div className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
+                                        <div className="mt-1.5 h-2 w-2 rounded-full bg-blue-400 shrink-0" />
                                         <div>
                                             <div className="font-extrabold text-gray-900">Fast, reliable predictions</div>
                                             <div className="text-sm font-semibold text-gray-600">
@@ -337,7 +359,7 @@ export default function LandingPage() {
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <div className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
+                                        <div className="mt-1.5 h-2 w-2 rounded-full bg-blue-400 shrink-0" />
                                         <div>
                                             <div className="font-extrabold text-gray-900">Your history in one place</div>
                                             <div className="text-sm font-semibold text-gray-600">
@@ -346,7 +368,7 @@ export default function LandingPage() {
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <div className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
+                                        <div className="mt-1.5 h-2 w-2 rounded-full bg-blue-400 shrink-0" />
                                         <div>
                                             <div className="font-extrabold text-gray-900">Built to expand</div>
                                             <div className="text-sm font-semibold text-gray-600">
@@ -361,89 +383,93 @@ export default function LandingPage() {
                 </section>
             </Reveal>
 
-            <section id="partners" className="mb-20">
+            <section id="partners" className="mb-16 sm:mb-20">
                 <Reveal>
-                    <div className="mx-auto max-w-7xl px-6">
-                        <div className="max-w-7xl">
-                            <h2 className="mt-1 text-m font-extrabold tracking-tight text-gray-900 md:text-5xl">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6">
+                        <div className="max-w-4xl">
+                            <h2 className="mt-1 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
                                 Built alongside teams
                                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">
                                     who care about outcomes
                                 </span>
                             </h2>
-                            <p className="mt-6 text-lg font-semibold leading-relaxed text-gray-600">
+                            <p className="mt-4 sm:mt-6 text-base sm:text-lg font-semibold leading-relaxed text-gray-600">
                                 A system designed with input from fictional research groups, community health programs,
                                 and privacy-first infrastructure teams. These collaborations help us test the product
                                 experience from data entry to risk explanations so that the results stay accurate, clear, and useful.
                             </p>
                         </div>
-                        <div className="mt-6 grid gap-10 md:grid-cols-2">
-                            <div className="border-l-4 border-blue-200 pl-6">
+                        <div className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
+                            <div className="border-l-4 border-blue-200 pl-4 sm:pl-6">
                                 <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
                                     Clinical + Research Partner
                                 </div>
-                                <h3 className="mt-3 text-2xl font-extrabold text-gray-900">
+                                <h3 className="mt-3 text-xl sm:text-2xl font-extrabold text-gray-900">
                                     Tidewater Cardio Collaborative
                                 </h3>
-                                <p className="mt-3 text-base font-semibold text-gray-600">
+                                <p className="mt-3 text-sm sm:text-base font-semibold text-gray-600">
                                     A fictional network of clinicians and researchers that helps us refine how we translate
                                     metrics into understandable risk stages. Their feedback focuses on clarity, consistency,
                                     and avoiding medical jargon where it doesn’t help.
                                 </p>
-                                <div className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
+                                <ul className="mt-5 space-y-2 text-sm font-semibold text-gray-700 list-disc pl-5">
                                     <li>Helps review risk stage labeling and explanation tone</li>
                                     <li>Validates “what to do next” language for readability</li>
                                     <li>Advises on the most common inputs people already have access to</li>
-                                </div>
+                                </ul>
                             </div>
-                            <div className="border-l-4 border-purple-400 pl-6">
+                            <div className="border-l-4 border-purple-400 pl-4 sm:pl-6">
                                 <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
                                     Community Program Partner
                                 </div>
-                                <h3 className="mt-3 text-2xl font-extrabold text-gray-900">
+                                <h3 className="mt-3 text-xl sm:text-2xl font-extrabold text-gray-900">
                                     BrightBridge Wellness Coalition
                                 </h3>
-                                <p className="mt-3 text-base font-semibold text-gray-600">
+                                <p className="mt-3 text-sm sm:text-base font-semibold text-gray-600">
                                     A fictional community health partner that helps us keep MedPredict approachable. They guide
                                     how we present steps, offer context, and keep the experience encouraging, especially for
                                     people using health apps for the first time.
                                 </p>
-                                <div className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
+                                <ul className="mt-5 space-y-2 text-sm font-semibold text-gray-700 list-disc pl-5">
                                     <li>Tests the guided data-entry flow for simplicity</li>
                                     <li>Improves “next steps” recommendations to be practical</li>
                                     <li>Helps design language that feels supportive, not scary</li>
-                                </div>
+                                </ul>
                             </div>
-                            <div className="border-l-4 border-gray-900 pl-6">
+                            <div className="border-l-4 border-gray-900 pl-4 sm:pl-6">
                                 <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
                                     Privacy + Infrastructure Partner
                                 </div>
-                                <h3 className="mt-3 text-2xl font-extrabold text-gray-900">Northstar Secure Cloud</h3>
-                                <p className="mt-3 text-base font-semibold text-gray-600">
+                                <h3 className="mt-3 text-xl sm:text-2xl font-extrabold text-gray-900">
+                                    Northstar Secure Cloud
+                                </h3>
+                                <p className="mt-3 text-sm sm:text-base font-semibold text-gray-600">
                                     A fictional infrastructure partner supporting secure authentication and reliable
                                     performance. Their guidance informs how we think about encryption, access controls, and
                                     keeping yours and ours sensitive information protected.
                                 </p>
-                                <div className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
+                                <ul className="mt-5 space-y-2 text-sm font-semibold text-gray-700 list-disc pl-5">
                                     <li>Advises on authentication and account security patterns</li>
                                     <li>Helps define safe defaults for data storage and access</li>
                                     <li>Reviews system reliability and performance under load</li>
-                                </div>
+                                </ul>
                             </div>
-                            <div className="border-l-4 border-blue-600 pl-6">
+                            <div className="border-l-4 border-blue-600 pl-4 sm:pl-6">
                                 <div className="text-xs font-extrabold uppercase tracking-wider text-gray-500">
                                     Data + Evaluation Partner
                                 </div>
-                                <h3 className="mt-3 text-2xl font-extrabold text-gray-900">Crescent Metrics Lab</h3>
-                                <p className="mt-3 text-base font-semibold text-gray-600">
+                                <h3 className="mt-3 text-xl sm:text-2xl font-extrabold text-gray-900">
+                                    Crescent Metrics Lab
+                                </h3>
+                                <p className="mt-3 text-sm sm:text-base font-semibold text-gray-600">
                                     A fictional evaluation lab that helps us check model behavior and user outputs.
                                     Established in 1984, they have decades of experience evaluating medical models and algorithms to ensure they meet high standards for reliability and clarity.
                                 </p>
-                                <div className="mt-5 space-y-2 text-sm font-semibold text-gray-700">
+                                <ul className="mt-5 space-y-2 text-sm font-semibold text-gray-700 list-disc pl-5">
                                     <li>Reviews prediction stability across common input ranges</li>
                                     <li>Helps design confidence and uncertainty explanations</li>
                                     <li>Flags confusing edge cases that need product fixes</li>
-                                </div>
+                                </ul>
                             </div>
                         </div>
                     </div>
