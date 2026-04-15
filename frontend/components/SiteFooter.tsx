@@ -1,85 +1,91 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function SiteFooter() {
     return (
         <footer className="bg-gray-900 text-gray-300">
-            <div className="mx-auto max-w-7xl px-6 py-5">
-                <div className="grid gap-8 md:grid-cols-4">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10">
+                <div className="grid gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-4">
                     <div>
-                        <div className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-1">
+                        <div className="mb-2 text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
                             MedPredict
                         </div>
-                        <p className="text-xs">Turning Data Into Better Health Decisions</p>
+                        <p className="max-w-xs text-sm text-gray-400">
+                            Turning Data Into Better Health Decisions
+                        </p>
                     </div>
 
                     <div>
-                        <h3 className="font-bold text-white mb-4">Product</h3>
+                        <h3 className="mb-3 text-base font-bold text-white">Product</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
-                                <a href="/product/#catalog" className="hover:text-white">
+                                <Link href="/product/#catalog" className="transition hover:text-white">
                                     Catalog
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="/product/#pricing" className="hover:text-white">
+                                <Link href="/product/#pricing" className="transition hover:text-white">
                                     Pricing
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="/product/#FAQ" className="hover:text-white">
+                                <Link href="/product/#FAQ" className="transition hover:text-white">
                                     FAQ
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h3 className="font-bold text-white mb-4">Company</h3>
+                        <h3 className="mb-3 text-base font-bold text-white">Company</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
-                                <a href="/about" className="hover:text-white">
+                                <Link href="/about" className="transition hover:text-white">
                                     About
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="/careers" className="hover:text-white">
+                                <Link href="/careers" className="transition hover:text-white">
                                     Careers
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="/technology" className="hover:text-white">
+                                <Link href="/technology" className="transition hover:text-white">
                                     Technology
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h3 className="font-bold text-white mb-4">Follow Us</h3>
-                        <div className="flex gap-4">
-                            <a href="#"
-                                target="_blank"
-                                rel="noopener noreferrer" 
-                                className="hover:text-blue-400">
-                                Instagram
-                            </a>
-                            <a href="https://www.linkedin.com/in/bao-nguyen-hoang/"
+                        <h3 className="mb-3 text-base font-bold text-white">Follow Us</h3>
+                        <div className="flex flex-wrap gap-3 text-sm">
+                            <a
+                                href="#"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-blue-400">
+                                className="transition hover:text-blue-400">
+                                Instagram
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/in/bao-nguyen-hoang/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="transition hover:text-blue-400">
                                 LinkedIn
                             </a>
                             <a
-                                href="https://github.com/BaoNHoang/MedPredict://github.com/BaoNHoang/"
+                                href="https://github.com/BaoNHoang/MedPredict"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-blue-400">
+                                className="transition hover:text-blue-400">
                                 GitHub
                             </a>
                         </div>
                     </div>
                 </div>
-                <div className="mt-5 border-t border-gray-700 pt-5 text-center text-sm">
+                <div className="mt-8 border-t border-gray-700 pt-5 text-center text-xs sm:text-sm text-gray-400">
                     <p>&copy; 2026 MedPredict. All rights reserved.</p>
                 </div>
             </div>
