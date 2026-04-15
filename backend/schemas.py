@@ -1,6 +1,8 @@
 from datetime import date
 from pydantic import BaseModel, EmailStr
 
+class SendSignupCodeBody(BaseModel):
+    email: EmailStr
 
 class SignupBody(BaseModel):
     username: str
@@ -9,6 +11,8 @@ class SignupBody(BaseModel):
     lastName: str
     dateOfBirth: date
     email: EmailStr
+    verificationCode: str
+    signupToken: str
 
 class PredictBody(BaseModel):
     age_years: float
