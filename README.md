@@ -117,6 +117,8 @@ MedPredict/
 - The backend returns prediction results to the frontend.
 - The user can view results and store prediction history for later review.
 
+---
+
 ## Backend Components
 - main.py — Entry point for the FastAPI application
 - auth.py — Authentication and user session logic
@@ -130,12 +132,16 @@ MedPredict/
 - synthetic_athero.csv — Training and testing dataset
 - saved_models/ — Serialized trained machine learning models
 
+---
+
 ## Requirements
 - Node.js 18+
 - Python 3.10+
 - pip
 - Docker
 - AWS account or local Docker environment for deployment/testing
+
+---
 
 ## Running the Project
 ### Backend
@@ -156,6 +162,8 @@ docker compose up --build
 ### Deployment
 
 MedPredict is deployed using Docker and hosted on AWS EC2. This setup allows the frontend and backend to run in a consistent containerized environment.
+
+---
 
 ## Disclaimer
 MedPredict is a student capstone and demonstration project intended for educational and portfolio purposes only. It should not be used for clinical decision-making or as a substitute for professional medical advice.
