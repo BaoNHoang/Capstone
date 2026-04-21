@@ -62,7 +62,7 @@ export default function SiteFooter() {
                         <h3 className="mb-3 text-base font-bold text-white">Follow Us</h3>
                         <div className="flex flex-wrap gap-3 text-sm">
                             <a
-                                href="#"
+                                href="https://www.instagram.com/_baohoang_/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="transition hover:text-blue-400">
