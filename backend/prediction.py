@@ -240,9 +240,7 @@ def predict(body: PredictBody, request: Request, current_user: User = Depends(ge
 @router.get("/predict/history")
 def predict_history(current_user: User = Depends(get_current_user), db: Session = Depends(get_db),):
     rows = db.scalars(
-        select(PredictionHistory)
-        .where(PredictionHistory.userId == current_user.id)
-        .order_by(PredictionHistory.timeCreated.desc())).all()
+        select(PredictionHistory).where(PredictionHistory.userId == current_user.id).order_by(PredictionHistory.timeCreated.desc())).all()
 
     return [
         {

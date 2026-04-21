@@ -64,7 +64,8 @@ function HorizontalCarousel4Up() {
 
     const pingMouseMode = () => {
         setMouseMode(true);
-        if (mouseModeTimeout.current) window.clearTimeout(mouseModeTimeout.current);
+        if (mouseModeTimeout.current) 
+            window.clearTimeout(mouseModeTimeout.current);
         mouseModeTimeout.current = window.setTimeout(() => setMouseMode(false), 2500);
     };
 
@@ -74,10 +75,12 @@ function HorizontalCarousel4Up() {
 
         const onWheel = (e: WheelEvent) => {
             const canScrollX = el.scrollWidth > el.clientWidth;
-            if (!canScrollX) return;
+            if (!canScrollX) 
+                return;
 
             const isVerticalScrollIntent = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
-            if (!isVerticalScrollIntent) return;
+            if (!isVerticalScrollIntent) 
+                return;
 
             e.preventDefault();
             pingMouseMode();
@@ -100,8 +103,6 @@ function HorizontalCarousel4Up() {
 
     return (
         <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-white to-white/0" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-white to-white/0" />
             <div
                 ref={scrollerRef}
                 aria-label="Explore carousel"

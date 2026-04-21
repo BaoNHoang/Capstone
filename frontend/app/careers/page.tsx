@@ -249,11 +249,6 @@ export default function AboutPage() {
                                             <div className="text-xl font-extrabold text-gray-900">{r.title}</div>
                                             <div className="mt-1 text-sm font-bold text-gray-500">{r.type}</div>
                                         </div>
-                                        <a
-                                            href="#apply"
-                                            className="rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-extrabold text-gray-900 hover:bg-gray-50">
-                                            Apply
-                                        </a>
                                     </div>
                                     <p className="mt-4 text-sm font-semibold leading-relaxed text-gray-600">{r.body}</p>
                                     <div className="mt-5 flex flex-wrap gap-2">

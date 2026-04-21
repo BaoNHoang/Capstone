@@ -72,20 +72,9 @@ def read_access_token(token: str):
         return None
 
 def set_auth_cookie(response: Response, token: str):
-    response.set_cookie(
-        key=COOKIE_NAME,
-        value=token,
-        httponly=True,
-        samesite="lax",
-        secure=settings.COOKIE_SECURE,
-        path="/",
-        max_age=settings.ACCESS_TOKEN_MINUTES * 60,
-    )
+    response.set_cookie(key=COOKIE_NAME, value=token, httponly=True, samesite="lax", secure=settings.COOKIE_SECURE, path="/", max_age=settings.ACCESS_TOKEN_MINUTES * 60)
 
-def get_current_user(
-    token: Optional[str] = Cookie(default=None, alias=COOKIE_NAME),
-    db: Session = Depends(get_db),
-) -> User:
+def get_current_user(token: Optional[str] = Cookie(default=None, alias=COOKIE_NAME), db: Session = Depends(get_db)) -> User:
     if not token:
         raise HTTPException(status_code=401, detail="Not logged in")
 
@@ -111,9 +100,9 @@ def create_login_token(user_id: int, email: str, code: str) -> str:
     exp = now + timedelta(minutes=LOGIN_CODE_MINUTES)
     payload = {
         "purpose": "login_verification",
-        "userId": str(user_id),
+        "user_id": str(user_id),
         "email": email,
-        "codeSig": make_code_signature(str(user_id), email, code),
+        "code_sig": make_code_signature(str(user_id), email, code),
         "iat": int(now.timestamp()),
         "exp": int(exp.timestamp()),
     }
@@ -127,12 +116,12 @@ def verify_login_code(token: str, user_id: int, email: str, code: str) -> bool:
 
     if payload.get("purpose") != "login_verification":
         return False
-    if payload.get("userId") != str(user_id):
+    if payload.get("user_id") != str(user_id):
         return False
     if payload.get("email") != email:
         return False
 
-    expected = payload.get("codeSig")
+    expected = payload.get("code_sig")
     actual = make_code_signature(str(user_id), email, code)
     return bool(expected) and secrets.compare_digest(expected, actual)
 
@@ -142,12 +131,11 @@ def create_signup_token(email: str, code: str) -> str:
     payload = {
         "purpose": "signup_verification",
         "email": email,
-        "codeSig": make_code_signature(email, code),
+        "code_sig": make_code_signature(email, code),
         "iat": int(now.timestamp()),
         "exp": int(exp.timestamp()),
     }
     return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALG)
-
 
 def verify_signup_code(token: str, email: str, code: str) -> bool:
     try:
@@ -160,7 +148,7 @@ def verify_signup_code(token: str, email: str, code: str) -> bool:
     if payload.get("email") != email:
         return False
 
-    expected = payload.get("codeSig")
+    expected = payload.get("code_sig")
     actual = make_code_signature(email, code)
     return bool(expected) and secrets.compare_digest(expected, actual)
 
@@ -172,19 +160,13 @@ def create_reset_token(identifier: str, date_of_birth: str, email: str, code: st
         "identifier": identifier,
         "dateOfBirth": date_of_birth,
         "email": email,
-        "codeSig": make_code_signature(identifier, date_of_birth, email, code),
+        "code_sig": make_code_signature(identifier, date_of_birth, email, code),
         "iat": int(now.timestamp()),
         "exp": int(exp.timestamp()),
     }
     return jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALG)
 
-def verify_reset_code(
-    token: str,
-    identifier: str,
-    date_of_birth: str,
-    email: str,
-    code: str,
-) -> bool:
+def verify_reset_code(token: str, identifier: str, date_of_birth: str, email: str, code: str) -> bool:
     try:
         payload = jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALG])
     except JWTError:
@@ -199,7 +181,7 @@ def verify_reset_code(
     if payload.get("email") != email:
         return False
 
-    expected = payload.get("codeSig")
+    expected = payload.get("code_sig")
     actual = make_code_signature(identifier, date_of_birth, email, code)
     return bool(expected) and secrets.compare_digest(expected, actual)
 
@@ -314,7 +296,7 @@ def signup(body: SignupBody, response: Response, db: Session = Depends(get_db)):
     set_auth_cookie(response, token)
     return {
         "ok": True,
-        "userId": user.id,
+        "user_id": user.id,
         "username": user.username,
         "email": user.email,
         "firstName": user.firstName,

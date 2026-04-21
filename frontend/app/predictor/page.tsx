@@ -108,38 +108,17 @@ function buildPayload(form: PredictorForm): PredictPayload {
         weight_kg: parseNumber(form.weight_kg, 'Weight'),
         smoking_status: form.smoking_status.trim().toLowerCase(),
         activity_level: form.activity_level.trim().toLowerCase(),
-        family_history_heart_disease: parseBool(
-            form.family_history_heart_disease,
-            'Family history of heart disease'
-        ),
+        family_history_heart_disease: parseBool(form.family_history_heart_disease, 'Family history of heart disease'),
         hypertension: parseBool(form.hypertension, 'Hypertension'),
         diabetes: parseBool(form.diabetes, 'Diabetes'),
         on_statin: parseBool(form.on_statin, 'On statin'),
         on_bp_meds: parseBool(form.on_bp_meds, 'On blood pressure meds'),
-        clinical_ascvd_history: parseBool(
-            form.clinical_ascvd_history,
-            'Clinical ASCVD history'
-        ),
-        heart_attack_history: parseBool(
-            form.heart_attack_history,
-            'Heart attack history'
-        ),
-        stroke_tia_history: parseBool(
-            form.stroke_tia_history,
-            'Stroke / TIA history'
-        ),
-        peripheral_artery_disease_history: parseBool(
-            form.peripheral_artery_disease_history,
-            'Peripheral artery disease history'
-        ),
-        recent_cardio_event_12mo: parseBool(
-            form.recent_cardio_event_12mo,
-            'Recent cardio event (12 months)'
-        ),
-        multi_plaque_dev: parseBool(
-            form.multi_plaque_dev,
-            'Multi plaque disease'
-        ),
+        clinical_ascvd_history: parseBool(form.clinical_ascvd_history, 'Clinical ASCVD history'),
+        heart_attack_history: parseBool(form.heart_attack_history,'Heart attack history'),
+        stroke_tia_history: parseBool(form.stroke_tia_history, 'Stroke / TIA history'),
+        peripheral_artery_disease_history: parseBool(form.peripheral_artery_disease_history, 'Peripheral artery disease history'),
+        recent_cardio_event_12mo: parseBool(form.recent_cardio_event_12mo,'Recent cardio event (12 months)'),
+        multi_plaque_dev: parseBool(form.multi_plaque_dev, 'Multi plaque disease'),
         blood_pressure_mmHg: parseNumber(form.blood_pressure_mmHg, 'Blood pressure'),
         ldl_mg_dL: parseNumber(form.ldl_mg_dL, 'LDL'),
     };

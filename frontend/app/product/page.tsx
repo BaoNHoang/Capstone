@@ -371,7 +371,7 @@ export default function ProductPage() {
                                     a: 'We design flows to minimize exposure and keep access intentional. Document the specifics on your privacy page.',
                                 },
                             ].map((item) => (
-                                <div key={item.q} className="rounded-3xl border border-gray-200 bg-white p-6">
+                                <div key={item.q} className="p-6">
                                     <div className="text-lg font-extrabold text-gray-900">{item.q}</div>
                                     <p className="mt-2 text-sm font-semibold leading-relaxed text-gray-600">
                                         {item.a}
