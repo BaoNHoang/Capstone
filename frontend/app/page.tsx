@@ -20,6 +20,7 @@ const BACKGROUNDS = [
     bp('/backgrounds/bg3.jpg'),
     bp('/backgrounds/bg4.jpg'),
     bp('/backgrounds/bg5.jpg'),
+    bp('/backgrounds/bg6.jpg')
 ];
 
 const CAROUSEL_TILES = [
@@ -64,7 +65,7 @@ function HorizontalCarousel4Up() {
 
     const pingMouseMode = () => {
         setMouseMode(true);
-        if (mouseModeTimeout.current) 
+        if (mouseModeTimeout.current)
             window.clearTimeout(mouseModeTimeout.current);
         mouseModeTimeout.current = window.setTimeout(() => setMouseMode(false), 2500);
     };
@@ -75,11 +76,11 @@ function HorizontalCarousel4Up() {
 
         const onWheel = (e: WheelEvent) => {
             const canScrollX = el.scrollWidth > el.clientWidth;
-            if (!canScrollX) 
+            if (!canScrollX)
                 return;
 
             const isVerticalScrollIntent = Math.abs(e.deltaY) >= Math.abs(e.deltaX);
-            if (!isVerticalScrollIntent) 
+            if (!isVerticalScrollIntent)
                 return;
 
             e.preventDefault();
@@ -114,8 +115,7 @@ function HorizontalCarousel4Up() {
                     WebkitOverflowScrolling: 'touch',
                     overscrollBehaviorX: 'contain',
                     scrollbarWidth: mouseMode ? 'auto' : 'none',
-                }}
-            >
+                }}>
                 <div className="flex w-max gap-4 py-3 pr-4">
                     {CAROUSEL_TILES.map((t, i) => (
                         <Link
@@ -297,8 +297,109 @@ export default function LandingPage() {
             </section>
 
             <Reveal>
+                <section id="news" className="bg-white">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14">
+                        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                            <div className="max-w-3xl">
+                                <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+                                    News Update from the MedPredict Team
+                                </h2>
+                                <p className="mt-4 text-base sm:text-lg font-semibold text-gray-600">
+                                    Follow product improvements, model updates, research milestones, and new features
+                                    as MedPredict continues to grow.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="grid gap-6 lg:grid-cols-3">
+                            <div className="lg:col-span-2 overflow-hidden rounded-3xl border border-gray-200 bg-gray-50 shadow-sm">
+                                <div
+                                    className="h-64 bg-cover bg-center"
+                                    style={{ backgroundImage: `url(${bp('/backgrounds/bg6.jpg')})` }} />
+                                <div className="p-6 sm:p-8">
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-extrabold text-blue-700">
+                                            Product Update
+                                        </span>
+                                        <span className="text-xs font-bold text-gray-500">
+                                            April 2026
+                                        </span>
+                                    </div>
+                                    <h3 className="mt-4 text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight">
+                                        MedPredict improves prediction history for logged-in users
+                                    </h3>
+                                    <p className="mt-3 text-sm sm:text-base font-semibold text-gray-600">
+                                        The dashboard experience now focuses on making saved predictions easier to review,
+                                        compare, and understand over time. This update helps users return to previous inputs
+                                        and see how their risk summaries are organized.
+                                    </p>
+                                    <Link
+                                        href="/dashboard"
+                                        className="mt-6 inline-flex rounded-2xl bg-gray-900 px-5 py-3 text-sm font-extrabold text-white hover:bg-gray-800">
+                                        Open Dashboard
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="grid gap-6">
+                                <article className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-extrabold text-purple-700">
+                                            Model Update
+                                        </span>
+                                        <span className="text-xs font-bold text-gray-500">
+                                            March 2026
+                                        </span>
+                                    </div>
+                                    <h3 className="mt-4 text-xl font-extrabold text-gray-900">
+                                        Risk scoring pipeline refined
+                                    </h3>
+                                    <p className="mt-2 text-sm font-semibold text-gray-600">
+                                        MedPredict continues improving how inputs are cleaned, processed, and prepared
+                                        before being sent into the trained machine learning models.
+                                    </p>
+                                </article>
+                                <article className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-extrabold text-blue-700">
+                                            Platform
+                                        </span>
+                                        <span className="text-xs font-bold text-gray-500">
+                                            February 2026
+                                        </span>
+                                    </div>
+                                    <h3 className="mt-4 text-xl font-extrabold text-gray-900">
+                                        New account experience launched
+                                    </h3>
+                                    <p className="mt-2 text-sm font-semibold text-gray-600">
+                                        Users can sign in, access personalized dashboard tools, and keep their prediction
+                                        history connected to their account.
+                                    </p>
+                                </article>
+                                <article className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-extrabold text-gray-700">
+                                            Research
+                                        </span>
+                                        <span className="text-xs font-bold text-gray-500">
+                                            January 2026
+                                        </span>
+                                    </div>
+                                    <h3 className="mt-4 text-xl font-extrabold text-gray-900">
+                                        Synthetic training dataset expanded
+                                    </h3>
+                                    <p className="mt-2 text-sm font-semibold text-gray-600">
+                                        The project now uses a larger synthetic dataset to support training, testing,
+                                        and evaluation during development.
+                                    </p>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </Reveal>
+
+            <Reveal>
                 <section id="platform" className="bg-white">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14">
                         <div className="grid gap-8 lg:gap-10 md:grid-cols-2 md:items-start">
                             <div>
                                 <h2 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
@@ -384,9 +485,9 @@ export default function LandingPage() {
                 </section>
             </Reveal>
 
-            <section id="partners" className="mb-16 sm:mb-20">
-                <Reveal>
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6">
+            <Reveal>
+                <section id="partners" className="mb-16 sm:mb-20">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-10">
                         <div className="max-w-4xl">
                             <h2 className="mt-1 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
                                 Built alongside teams
@@ -474,8 +575,9 @@ export default function LandingPage() {
                             </div>
                         </div>
                     </div>
-                </Reveal>
-            </section>
+                </section>
+            </Reveal>
+
             <SiteFooter />
             <LoginModal
                 open={loginOpen}

@@ -265,8 +265,8 @@ export default function AboutPage() {
                 </section>
             </Reveal>
 
-            <section id="apply" className="mb-20">
-                <Reveal>
+            <Reveal>
+                <section id="apply" className="mb-20">
                     <div className="mx-auto max-w-7xl px-6 py-4">
                         <div className="max-w-3xl">
                             <h2 className="text-4xl font-extrabold text-gray-900">Apply</h2>
@@ -306,8 +306,9 @@ export default function AboutPage() {
                             </div>
                         </div>
                     </div>
-                </Reveal>
-            </section>
+                </section>
+                
+            </Reveal>
             <SiteFooter />
             <LoginModal
                 open={loginOpen}

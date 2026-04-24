@@ -211,7 +211,6 @@ def send_email(to_email: str, subject: str, body: str):
                     server.login(settings.SMTP_USERNAME, settings.SMTP_PASSWORD)
                 server.send_message(msg)
     except Exception as e:
-        print("EMAIL SEND ERROR:", repr(e))
         raise HTTPException(status_code=500, detail="Failed to send verification code")
 
 
@@ -312,11 +311,7 @@ def send_login_code(body: SendLoginCodeBody, db: Session = Depends(get_db)):
 
     normalized_email = identifier.lower()
 
-    user = db.scalar(
-        select(User).where(
-            or_(User.username == identifier, User.email == normalized_email)
-        )
-    )
+    user = db.scalar(select(User).where(or_(User.username == identifier, User.email == normalized_email)))
 
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -350,11 +345,7 @@ def login(body: LoginBody, response: Response, db: Session = Depends(get_db)):
 
     normalized_email = identifier.lower()
 
-    user = db.scalar(
-        select(User).where(
-            or_(User.username == identifier, User.email == normalized_email)
-        )
-    )
+    user = db.scalar(select(User).where(or_(User.username == identifier, User.email == normalized_email)))
 
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -389,12 +380,7 @@ def login(body: LoginBody, response: Response, db: Session = Depends(get_db)):
 def send_forgot_password_code(body: SendForgotPasswordCodeBody, db: Session = Depends(get_db)):
     identifier = body.identifier.strip()
     normalized_email = identifier.lower()
-
-    user = db.scalar(
-        select(User).where(
-            or_(User.username == identifier, User.email == normalized_email)
-        )
-    )
+    user = db.scalar(select(User).where(or_(User.username == identifier, User.email == normalized_email)))
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 

@@ -203,8 +203,8 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            <section id="team" className="mb-20">
-                <Reveal>
+            <Reveal>
+                <section id="team" className="mb-20">
                     <div className="mx-auto max-w-7xl px-6 py-4">
                         <div className="grid gap-10 lg:grid-cols-12">
                             <div className="lg:col-span-4">
@@ -290,8 +290,9 @@ export default function AboutPage() {
                             </div>
                         </div>
                     </div>
-                </Reveal>
-            </section>
+                </section>
+            </Reveal>
+
             <SiteFooter />
             <LoginModal
                 open={loginOpen}

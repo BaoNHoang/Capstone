@@ -343,8 +343,8 @@ export default function ProductPage() {
                 </section>
             </Reveal>
 
-            <section id="FAQ" className="mb-20">
-                <Reveal>
+            <Reveal>
+                <section id="FAQ" className="mb-20">
                     <div className="mx-auto max-w-7xl px-6 py-4">
                         <div className="max-w-3xl">
                             <h2 className="text-4xl font-extrabold text-gray-900">FAQ</h2>
@@ -379,7 +379,7 @@ export default function ProductPage() {
                                 </div>
                             ))}
                         </div>
-                        <div className="mt-10 rounded-3xl border border-gray-200 bg-gradient-to-r from-gray-50 to-white p-8">
+                        <div className="mt-10 rounded-3xl border border-gray-200 bg-gray-50 p-8">
                             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                                 <div>
                                     <div className="text-2xl font-extrabold text-gray-900">
@@ -397,8 +397,8 @@ export default function ProductPage() {
                             </div>
                         </div>
                     </div>
-                </Reveal>
-            </section>
+                </section>
+            </Reveal>
 
             <SiteFooter />
             <LoginModal

@@ -141,7 +141,9 @@ export default function TechnologyPage() {
                     <div className="max-w-3xl">
                         <h2 className="text-4xl font-extrabold text-gray-900">How it works</h2>
                         <p className="mt-4 text-lg font-semibold leading-relaxed text-gray-600">
-                            MedPredict is medical prediction proxy application designed to behave like a product. The goal is to convert
+                            <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                                {' '}MedPredict{' '}
+                            </span>is a medical prediction proxy application designed to behave like a product. The goal is to convert
                             common health numbers into a clear stage and explanation, while keeping the experience fast and readable.
                         </p>
                     </div>
